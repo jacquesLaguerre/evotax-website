@@ -1537,7 +1537,7 @@ body.has-loading-screen.loading-done:after {
 -------------------------------------------*/
 
 #ts-hero {
-    color: #fff;
+    color: #211f1f;
     display: flex;
     position: relative;
     overflow: hidden;
