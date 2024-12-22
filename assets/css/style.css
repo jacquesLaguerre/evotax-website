@@ -327,7 +327,7 @@ B. Helpers
   -- Background
 -------------------------------------------*/
 
-[data-bg-image] {
+/* [data-bg-image] {
     background-size: cover;
     background-position: 50%;
 }
@@ -449,6 +449,16 @@ B. Helpers
 
 .ts-video-bg .fluid-width-video-wrapper {
     height: 100%;
+} */
+
+.ts-background .ts-background-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f2f5f4;
+    z-index: -1;
 }
 
 /*-------------------------------------------
