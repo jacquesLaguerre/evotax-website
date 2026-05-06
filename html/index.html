@@ -580,8 +580,8 @@
 
                                     <!-- 9. Who's Assisting -->
                                     <div class="tuf-field-group">
-                                        <label class="tuf-label">Who's Assisting You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
-                                        <select class="form-control tuf-input" id="tuf_assistant" name="assistant">
+                                        <label class="tuf-label">Who's Assisting You? <span class="tuf-required">*</span></label>
+                                        <select class="form-control tuf-input" id="tuf_assistant" name="assistant" required>
                                             <option value="">Select an assistant</option>
                                             <option>Yassin</option>
                                             <option>Muhidin</option>
@@ -594,6 +594,7 @@
                                             <option>Trey</option>
                                             <option>Abdisamad</option>
                                         </select>
+                                        <div class="tuf-error" id="assistant-error"></div>
                                     </div>
 
                                     <!-- 10. Referred By -->
@@ -2024,6 +2025,10 @@ $('#taxUploadForm').on('submit', async function(e) {
     /* Dependents */
     var $dep = $('#tuf_dependents');
     valid = ($dep.val() ? clearError($dep,'dependents-error') : setError($dep,'dependents-error','Please select number of dependents.')) && valid;
+
+    /* Assistant */
+    var $ast = $('#tuf_assistant');
+    valid = ($ast.val() ? clearError($ast,'assistant-error') : setError($ast,'assistant-error','Please select who is assisting you.')) && valid;
 
     /* Files */
     if (uploadedFiles.length === 0) {
