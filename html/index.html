@@ -5,13 +5,229 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="author" content="ThemeStarz">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,500,600">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="assets/font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/magnific-popup.css">
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 	<title>EVOTAX</title>
+
+
+    <link href="assets/img/icon.png" rel="icon" type="image/png">
+
+<style>
+/* ── Tax Upload Form ──────────────────────────────────────── */
+#tax-form { background-color: #f8fafc; }
+#tax-form .ts-title h2 { color: #0f172a; }
+#tax-form .ts-title h2::after {
+    content: ''; display: block; width: 3rem; height: 3px;
+    background: #f59e0b; border-radius: 2px; margin: .6rem auto 0;
+}
+#tax-form .ts-title p { color: #64748b; font-size: 1.0625rem; }
+
+/* Honeypot */
+.tuf-honeypot {
+    position: absolute; left: -9999px; top: -9999px;
+    width: 1px; height: 1px; overflow: hidden; opacity: 0;
+}
+
+/* Field group */
+.tuf-field-group { margin-bottom: 1.75rem; }
+
+/* Labels */
+.tuf-label {
+    display: block; font-weight: 700; font-size: .875rem;
+    color: #0a1628; margin-bottom: .5rem; letter-spacing: .01em;
+}
+.tuf-required { color: #ef4444; margin-left: .2rem; }
+
+/* Inputs */
+.tuf-input {
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: .625rem !important;
+    padding: .75rem 1rem !important;
+    font-size: .9375rem; font-family: 'Inter', sans-serif;
+    background: #fff; color: #0f172a;
+    transition: border-color .2s ease, box-shadow .2s ease;
+    box-shadow: none !important;
+}
+.tuf-input:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245,158,11,.18) !important;
+    outline: none;
+}
+.tuf-input::placeholder { color: #94a3b8; }
+
+/* Radio group */
+.tuf-radio-group {
+    display: flex; flex-wrap: wrap; gap: .625rem;
+}
+.tuf-radio-label {
+    display: flex; align-items: center; gap: .5rem;
+    background: #fff; border: 1.5px solid #e2e8f0;
+    border-radius: .5rem; padding: .5rem 1rem;
+    cursor: pointer; font-size: .9rem; color: #334155;
+    transition: border-color .2s, background .2s;
+    font-weight: 500;
+}
+.tuf-radio-label input[type="radio"] { accent-color: #f59e0b; margin: 0; }
+.tuf-radio-label:has(input:checked) {
+    border-color: #f59e0b; background: #fffbeb; color: #92400e;
+}
+
+/* Upload zone */
+.tuf-upload-zone {
+    border: 2px dashed #cbd5e1; border-radius: .875rem;
+    background: #f8fafc; padding: 2.5rem 1.5rem;
+    text-align: center; cursor: pointer;
+    transition: border-color .2s, background .2s;
+}
+.tuf-upload-zone:hover, .tuf-upload-zone.drag-over {
+    border-color: #f59e0b; background: #fffbeb;
+}
+.tuf-upload-icon { font-size: 2.5rem; color: #f59e0b; margin-bottom: .75rem; display: block; }
+.tuf-upload-text { margin: 0; color: #475569; font-size: .9375rem; }
+.tuf-upload-text strong { color: #f59e0b; }
+.tuf-upload-subtext { margin: .25rem 0 0; color: #94a3b8; font-size: .8125rem; }
+
+/* File list */
+.tuf-file-list { margin-top: .875rem; }
+.tuf-file-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: .5rem;
+    padding: .625rem .875rem; margin-bottom: .5rem; font-size: .875rem;
+}
+.tuf-file-item-info { display: flex; align-items: center; gap: .625rem; flex: 1; min-width: 0; }
+.tuf-file-item-icon { color: #f59e0b; font-size: 1rem; flex-shrink: 0; }
+.tuf-file-item-name { color: #334155; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tuf-file-item-size { color: #94a3b8; font-size: .8rem; flex-shrink: 0; margin-left: .5rem; }
+.tuf-file-remove {
+    background: none; border: none; color: #ef4444; cursor: pointer;
+    padding: .125rem .375rem; border-radius: .25rem; flex-shrink: 0;
+    transition: background .2s;
+}
+.tuf-file-remove:hover { background: #fee2e2; }
+.tuf-upload-hint { color: #64748b; font-size: .8375rem; line-height: 1.6; }
+
+/* Signature pad */
+.tuf-signature-wrap {
+    border: 1.5px solid #e2e8f0; border-radius: .875rem;
+    background: #fff; overflow: hidden; position: relative;
+}
+.tuf-signature-canvas {
+    display: block; width: 100%; height: 180px; cursor: crosshair;
+    touch-action: none;
+}
+.tuf-signature-hint {
+    position: absolute; bottom: .5rem; left: 50%; transform: translateX(-50%);
+    font-size: .75rem; color: #cbd5e1; pointer-events: none; white-space: nowrap;
+}
+.tuf-clear-btn {
+    background: #f1f5f9; border: 1px solid #e2e8f0; color: #64748b;
+    border-radius: .5rem; font-size: .8125rem; font-weight: 500;
+    padding: .375rem .875rem; transition: background .2s, color .2s;
+}
+.tuf-clear-btn:hover { background: #e2e8f0; color: #334155; }
+
+/* Error messages */
+.tuf-error { color: #ef4444; font-size: .8125rem; margin-top: .35rem; min-height: 1rem; }
+.tuf-input.is-invalid { border-color: #ef4444 !important; }
+.tuf-input.is-valid { border-color: #22c55e !important; }
+
+/* Submit button */
+.tuf-submit-btn {
+    background-color: #f59e0b; border-color: #f59e0b; color: #fff;
+    font-weight: 700; font-size: 1rem; padding: .875rem 3rem;
+    border-radius: 6.25rem; letter-spacing: .02em;
+    box-shadow: 0 4px 20px rgba(245,158,11,.35);
+    transition: background .2s, transform .15s, box-shadow .2s;
+}
+.tuf-submit-btn:hover {
+    background-color: #d97706; border-color: #d97706; color: #fff;
+    transform: translateY(-2px); box-shadow: 0 6px 24px rgba(245,158,11,.45);
+}
+.tuf-submit-btn:active { transform: none; }
+
+/* Navy button — matches logo blue */
+.btn-navy {
+    background-color: #1e3b60; border-color: #1e3b60; color: #fff;
+    box-shadow: 0 2px 16px rgba(30,59,96,.3);
+    transition: background .2s, box-shadow .2s, transform .15s;
+}
+.btn-navy:hover, .btn-navy:focus {
+    background-color: #16304f; border-color: #16304f; color: #fff;
+    box-shadow: 0 4px 20px rgba(30,59,96,.45); transform: translateY(-1px);
+}
+.btn-navy:active { transform: none; }
+
+/* Success modal */
+.tuf-modal-content { border-radius: 1.25rem; border: none; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+.tuf-success-icon { font-size: 4rem; color: #22c55e; }
+.tuf-success-title { font-weight: 700; color: #0a1628; font-size: 1.5rem; }
+.tuf-success-text { color: #64748b; font-size: 1rem; line-height: 1.7; }
+
+/* Responsive */
+@media (max-width: 575px) {
+    .tuf-radio-group { flex-direction: column; }
+    .tuf-radio-label { width: 100%; }
+    .tuf-submit-btn { width: 100%; padding: .875rem 1rem; }
+    .tuf-signature-canvas { height: 140px; }
+}
+
+/* ── Section accent headers ─────────────────────────────── */
+.tuf-section-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .8125rem; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; padding: .35rem 1rem;
+    border-radius: 6.25rem; margin-bottom: 1rem;
+}
+.tuf-section-badge--blue   { background: rgba(96,165,250,.12);  color: #3b82f6; }
+.tuf-section-badge--green  { background: rgba(74,222,128,.12);  color: #16a34a; }
+.tuf-section-badge--amber  { background: rgba(245,158,11,.12);  color: #f59e0b; }
+
+/* Credit form accent */
+#credit-form { background-color: #f0f6ff; }
+#credit-form .ts-title h2::after { background: #3b82f6; }
+#credit-form .tuf-input:focus { border-color: #3b82f6 !important; box-shadow: 0 0 0 3px rgba(59,130,246,.15) !important; }
+#credit-form .tuf-radio-label:has(input:checked) { border-color: #3b82f6; background: #eff6ff; color: #1e40af; }
+#credit-form .tuf-upload-zone:hover, #credit-form .tuf-upload-zone.drag-over { border-color: #3b82f6; background: #eff6ff; }
+#credit-form .tuf-upload-icon { color: #3b82f6; }
+#credit-form .tuf-upload-text strong { color: #3b82f6; }
+#credit-form .tuf-submit-btn { background-color: #3b82f6; border-color: #3b82f6; box-shadow: 0 4px 20px rgba(59,130,246,.3); }
+#credit-form .tuf-submit-btn:hover { background-color: #2563eb; border-color: #2563eb; box-shadow: 0 6px 24px rgba(59,130,246,.4); }
+
+/* Funding form accent */
+#funding-form { background-color: #fdfaf0; }
+#funding-form .ts-title h2::after { background: #16a34a; }
+#funding-form .tuf-input:focus { border-color: #16a34a !important; box-shadow: 0 0 0 3px rgba(22,163,74,.15) !important; }
+#funding-form .tuf-radio-label:has(input:checked) { border-color: #16a34a; background: #f0fdf4; color: #14532d; }
+#funding-form .tuf-upload-zone:hover, #funding-form .tuf-upload-zone.drag-over { border-color: #16a34a; background: #f0fdf4; }
+#funding-form .tuf-upload-icon { color: #16a34a; }
+#funding-form .tuf-upload-text strong { color: #16a34a; }
+#funding-form .tuf-submit-btn { background-color: #16a34a; border-color: #16a34a; box-shadow: 0 4px 20px rgba(22,163,74,.3); }
+#funding-form .tuf-submit-btn:hover { background-color: #15803d; border-color: #15803d; box-shadow: 0 6px 24px rgba(22,163,74,.4); }
+
+/* Checkbox group (credit issues) */
+.tuf-check-group { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tuf-check-label {
+    display: flex; align-items: center; gap: .5rem;
+    background: #fff; border: 1.5px solid #e2e8f0;
+    border-radius: .5rem; padding: .45rem .9rem;
+    cursor: pointer; font-size: .875rem; color: #334155;
+    font-weight: 500; transition: border-color .2s, background .2s;
+}
+.tuf-check-label input[type="checkbox"] { accent-color: #3b82f6; margin: 0; }
+.tuf-check-label:has(input:checked) { border-color: #3b82f6; background: #eff6ff; color: #1e40af; }
+#funding-form .tuf-check-label:has(input:checked) { border-color: #16a34a; background: #f0fdf4; color: #14532d; }
+#funding-form .tuf-check-label input[type="checkbox"] { accent-color: #16a34a; }
+
+@media (max-width: 575px) {
+    .tuf-check-group { flex-direction: column; }
+}
+</style>
 
 </head>
 <body data-spy="scroll" data-target=".navbar">
@@ -20,16 +236,18 @@
         <!--*********************************************************************************************************-->
         <!--************ HERO ***************************************************************************************-->
         <!--*********************************************************************************************************-->
-        <header id="ts-hero" class="ts-full-screen ts-separate-bg-element">
+        <header id="ts-hero" class="ts-full-screen ts-separate-bg-element" 
+        data-bg-image="assets/img/bg-mountain.jpg" 
+        data-bg-image-opacity=".5">
             <!--NAVIGATION ******************************************************************************************-->
-            <nav class="navbar navbar-expand-lg navbar-dark fixed-top ts-separate-bg-element" data-bg-color="#141a3a">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top ts-separate-bg-element" data-bg-color="#ffffff">
                 <div class="container">
                     <a class="navbar-brand" href="#page-top">
-                        <img src="assets/img/logo-w.png" alt="">
+                        <img src="assets/img/logo-hero.png" alt="">
                     </a>
                     <!--end navbar-brand-->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <i class="fas fa-bars navbar-toggler-icon-fa"></i>
                     </button>
                     <!--end navbar-toggler-->
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -37,11 +255,15 @@
                             <a class="nav-item nav-link active ts-scroll" href="#page-top">Home <span class="sr-only">(current)</span></a>
                             <!-- <a class="nav-item nav-link ts-scroll" href="#how-it-works">How It Works</a> -->
                             <a class="nav-item nav-link ts-scroll" href="#about-us">About Us</a>
-                            <!-- <a class="nav-item nav-link ts-scroll" href="#successful-stories">Cases</a> -->
-                            <!-- <a class="nav-item nav-link ts-scroll" href="#pricing">Pricing</a> -->
-                            <!-- <a class="nav-item nav-link ts-scroll" href="#our-team">Team</a> -->
+                            <!-- Credit Repair nav (temporarily disabled)
+                            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#creditModal">Credit Repair</a>
+                            -->
+                            <!-- Funding nav (temporarily disabled)
+                            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#fundingModal">Funding</a>
+                            -->
                             <a class="nav-item nav-link ts-scroll mr-2" href="#form-contact">Contact</a>
-                            <a class="ts-scroll btn btn-primary btn-sm m-1 px-3 ts-width__auto" href="#form-contact">Get a Quote</a>
+                            <a class="nav-item nav-link mr-2" href="https://sa.www4.irs.gov/wmr/" target="_blank" rel="noopener">Track Your Refund</a>
+                            <a class="ts-scroll btn btn-primary btn-sm m-1 px-3 ts-width__auto" href="#tax-form">Get a Quote</a>
                         </div>
                         <!--end navbar-nav-->
                     </div>
@@ -57,16 +279,34 @@
                     <div class="col-md-7">
                         <h1 data-animate="ts-fadeInUp">Elevate your Tax Experience</h1>
                         <div data-animate="ts-fadeInUp" data-delay=".1s">
-                            <p class="w-75 text-white mb-5 ts-opacity__100">Evotax is a dedicated tax preparation service
+                            <p class="w-75 mb-5">Evotax is a dedicated tax preparation service
                                 focused on providing individuals and small businesses with expert tax solutions.</p>
                         </div>
-                        <a href="#how-it-works" class="btn btn-primary btn-lg ts-scroll mr-4" data-animate="ts-fadeInUp" data-delay=".2s">
-                         Get a Free Quote
-                            <i class="fa fa-arrow-right small ml-3 ts-opacity__50"></i>
-                        </a>
-                        <a href="#form-contact" class="btn-link text-white d-inline-block" data-animate="ts-fadeInUp" data-delay=".3s">
-                            <strong>Contact US</strong>
-                        </a>
+                        <div class="d-inline-flex align-items-center mb-4" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:6.25rem;padding:.35rem 1rem .35rem .5rem;" data-animate="ts-fadeInUp" data-delay=".15s">
+                            <span style="background:var(--amber);border-radius:50%;width:1.5rem;height:1.5rem;display:inline-flex;align-items:center;justify-content:center;margin-right:.5rem;flex-shrink:0;">
+                                <i class="fas fa-globe" style="font-size:.65rem;color:#fff;"></i>
+                            </span>
+                            <span style="font-size:.78rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.9);">Serving all 50 states &amp; U.S expats worldwide</span>
+                        </div>
+                        <div data-animate="ts-fadeInUp" data-delay=".2s">
+                            <a href="#" class="btn btn-primary btn-lg mr-4" data-toggle="modal" data-target="#quoteModal">
+                                Get a Free Quote
+                                <i class="fa fa-arrow-right small ml-3 ts-opacity__50"></i>
+                            </a>
+                            <a href="#form-contact" class="btn-link text-white d-inline-block">
+                                <strong>Contact US</strong>
+                            </a>
+                        </div>
+                        <div class="mt-4" style="display:flex;flex-direction:column;gap:.5rem;" data-animate="ts-fadeInUp" data-delay=".35s">
+                            <div class="d-flex align-items-start" style="gap:.6rem;">
+                                <i class="fas fa-check-circle mt-1" style="color:var(--amber);font-size:.85rem;flex-shrink:0;"></i>
+                                <span style="color:rgba(255,255,255,.85);font-size:.875rem;">Fees and pricing details are provided in your free quote.</span>
+                            </div>
+                            <div class="d-flex align-items-start" style="gap:.6rem;">
+                                <i class="fas fa-check-circle mt-1" style="color:var(--amber);font-size:.85rem;flex-shrink:0;"></i>
+                                <span style="color:rgba(255,255,255,.85);font-size:.875rem;">Priority is given to clients who submit all required documents in full.</span>
+                            </div>
+                        </div>
                     </div>
                     <!--end col-md-7-->
                 </div>
@@ -76,10 +316,14 @@
             <!--END HERO CONTENT ************************************************************************************-->
 
             <!--HERO BACKGROUND *************************************************************************************-->
-            <div class="ts-background" data-bg-color="#141a3a" data-bg-parallax="scroll" data-bg-parallax-speed="3">
+            <!-- <div class="ts-background" data-bg-color="#141a3a" data-bg-parallax="scroll" data-bg-parallax-speed="3">
                 <div class="ts-background-image ts-svg ts-z-index__1 ts-background-position-left d-none d-md-block" data-bg-image="assets/svg/shape-mask.svg" data-animate="ts-fadeInLeft"></div>
                 <div class="ts-background-image ts-parallax-element" data-bg-image="assets/img/bg-man-sitting.jpg" data-animate="ts-zoomOutIn"></div>
+            </div> -->
+            <div class="ts-background" data-bg-color="#f2f5f4" data-bg-parallax="scroll" data-bg-parallax-speed="3">
+                <div class="ts-background-image ts-parallax-element" data-bg-image="assets/img/your-white-background.jpg" data-animate="ts-zoomOutIn"></div>
             </div>
+            
             <!--END HERO BACKGROUND *********************************************************************************-->
 
         </header>
@@ -98,93 +342,749 @@
                     </div>
                     <!--end ts-title-->
                     <div class="row">
-                        <div class="col-sm-6 col-md-4 col-xl-4">
+                        <div class="col-sm-6 col-md-4">
                             <div class="ts-item" data-animate="ts-fadeInUp">
                                 <div class="ts-item-content">
                                     <div class="ts-item-header">
                                         <figure class="icon">
                                             <span class="step" data-animate="ts-zoomIn">1</span>
-                                            <div class="ts-circle__md" data-bg-color="#ebf1fe">
-                                                <img src="assets/img/icon-bubble.png" alt="">
+                                            <div class="ts-circle__md" data-bg-color="#fcba03">
+                                                <i class="fas fa-phone fa-lg fa-flip-horizontal"></i>
                                             </div>
                                         </figure>
-                                        <!--end icon-->
                                     </div>
-                                    <!--end ts-item-header-->
                                     <div class="ts-item-body">
                                         <h4>Contact Us</h4>
                                         <p>
-                                          Call or Text Us at 314-901-6070 
-                                          with the required information we'll give you a free Quote
-                                          in less than 30 minutes with a thorough explanation at the comfort of your home.
+                                            Call or Text Us at <a href="tel:3149016070">314-901-6070</a>
+                                            with the required information we'll give you a free quote
+                                            in less than 30 minutes at the comfort of your home.
                                         </p>
                                     </div>
-                                    <!--end ts-item-body-->
                                 </div>
-                                <!--end ts-item-content-->
                             </div>
-                            <!--end ts-item-->
                         </div>
-                        <!--end col-xl-4-->
-                        <div class="col-sm-6 col-md-4 col-xl-4">
-                            <div class="ts-item" data-animate="ts-fadeInUp" data-delay="0.1s">
-                                <div class="ts-item-content">
-                                    <div class="ts-item-header">
-                                        <figure class="icon">
-                                            <span class="step" data-animate="ts-zoomIn">2</span>
-                                            <div class="ts-circle__md" data-bg-color="#ebf1fe">
-                                                <img src="assets/img/icon-knobs.png" alt="">
-                                            </div>
-                                        </figure>
-                                        <!--end icon-->
-                                    </div>
-                                    <!--end ts-item-header-->
-                                    <div class="ts-item-body">
-                                        <h4>Walk-Ins</h4>
-                                        <p>
-                                         Stop by the office. We'll be happy to review your tax needs and provide you with a free quote. This allows you to see our approach and get an estimate before making any decision.
-                                        </p>
-                                    </div>
-                                    <!--end ts-item-body-->
-                                </div>
-                                <!--end ts-item-content-->
-                            </div>
-                            <!--end ts-item-->
-                        </div>
-                        <!--end col-xl-4-->
-                        <div class="col-sm-6 offset-sm-4 col-md-4 offset-md-0 col-xl-4">
+                        <div class="col-sm-6 col-md-4">
                             <div class="ts-item" data-animate="ts-fadeInUp" data-delay="0.2s">
                                 <div class="ts-item-content">
                                     <div class="ts-item-header">
                                         <figure class="icon">
                                             <span class="step" data-animate="ts-zoomIn">3</span>
-                                            <div class="ts-circle__md" data-bg-color="#ebf1fe">
-                                                <img src="assets/img/icon-heart.png" alt="">
+                                            <div class="ts-circle__md" data-bg-color="#fcba03">
+                                                <i class="fas fa-upload fa-lg"></i>
                                             </div>
                                         </figure>
-                                        <!--end icon-->
                                     </div>
-                                    <!--end ts-item-header-->
                                     <div class="ts-item-body">
-                                        <h4>Upload your Files </h4>
+                                        <h4>Upload your Files</h4>
                                         <p>
-                                         Click this button to upload your documents. 
-                                         By following this link, you'll enter a secure system powered by the software we utilize to eFile your taxes.
+                                            Your documents are handled with the utmost care and confidentiality by our dedicated team of tax professionals.
                                         </p>
+                                        <a href="#tax-form" class="btn btn-navy btn-sm mt-2">
+                                            <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Now
+                                        </a>
                                     </div>
-                                    <!--end ts-item-body-->
                                 </div>
-                                <!--end ts-item-content-->
                             </div>
-                            <!--end ts-item-->
                         </div>
-                        <!--end col-xl-4-->
+                        <div class="col-sm-6 col-md-4">
+                            <div class="ts-item" data-animate="ts-fadeInUp" data-delay="0.3s">
+                                <div class="ts-item-content">
+                                    <div class="ts-item-header">
+                                        <figure class="icon">
+                                            <span class="step" data-animate="ts-zoomIn">4</span>
+                                            <div class="ts-circle__md" data-bg-color="#fcba03">
+                                                <i class="fas fa-calendar-check fa-lg"></i>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="ts-item-body">
+                                        <h4>Book an Appointment</h4>
+                                        <p>
+                                            Clients can now book their appointments online at their convenience. Schedule a time that works best for you and we'll take care of the rest.
+                                        </p>
+                                        <button onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" class="btn btn-primary btn-sm mt-2" style="color:#fff!important;">
+                                            <i class="fas fa-calendar-plus mr-2"></i>Book Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!--end row-->
                 </div>
                 <!--end container-->
             </section>
             <!--END HOW IT WORKS ************************************************************************************-->
+
+            <hr>
+
+            <!--TAX UPLOAD FORM ************************************************************************************-->
+            <section id="tax-form" class="ts-block py-5">
+                <div class="container">
+                    <div class="ts-title text-center">
+                        <h2>Submit Your Documents</h2>
+                        <p>Securely upload your files and get started with one of our services — click the button below to get started</p>
+                        <div class="d-flex flex-wrap justify-content-center gap-2 mt-3 mb-4" style="gap:.75rem;">
+                            <button type="button" class="btn btn-navy px-4" data-toggle="modal" data-target="#quoteModal">
+                                <i class="fas fa-file-alt mr-2"></i>Tax Filing
+                            </button>
+                            <!-- Credit Repair button (temporarily disabled)
+                            <button type="button" class="btn btn-credit px-4" data-toggle="modal" data-target="#creditModal">
+                                <i class="fas fa-credit-card mr-2"></i>Credit Repair
+                            </button>
+                            -->
+                            <!-- Funding button (temporarily disabled)
+                            <button type="button" class="btn btn-funding px-4" data-toggle="modal" data-target="#fundingModal">
+                                <i class="fas fa-dollar-sign mr-2"></i>Funding
+                            </button>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAX QUOTE MODAL ========================================================================================-->
+            <div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="quoteModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="max-width:min(1400px,96vw);">
+                    <div class="modal-content tuf-modal-content" style="background:#f8fafc;">
+                        <div class="modal-header border-0 pb-0 px-4 px-md-5 pt-4" style="align-items:flex-start;">
+                            <div>
+                                <span class="tuf-section-badge tuf-section-badge--amber"><i class="fas fa-file-alt mr-1"></i> Tax Form</span>
+                                <h4 class="mt-2 mb-1" id="quoteModalLabel" style="color:#0f172a;font-weight:700;">Submit Your Documents</h4>
+                                <p class="mb-0" style="color:#64748b;font-size:.9375rem;">Securely upload your files and get started with tax filing</p>
+                            </div>
+                            <button type="button" class="close ml-4 mt-1" data-dismiss="modal" aria-label="Close" style="font-size:1.75rem;color:#64748b;opacity:1;"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body px-4 px-md-5 pt-4 pb-5">
+                            <form id="taxUploadForm" novalidate autocomplete="off">
+
+                                    <!-- Honeypot anti-spam -->
+                                    <div class="tuf-honeypot" aria-hidden="true">
+                                        <label for="hp_evotax">Should be Empty</label>
+                                        <input type="text" id="hp_evotax" name="hp_evotax" tabindex="-1" autocomplete="off">
+                                    </div>
+
+                                    <!-- 1. Full Name -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Full Name <span class="tuf-required">*</span></label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control tuf-input" id="tuf_firstName" name="firstName" placeholder="First Name &amp; Middle Initial" required>
+                                                <div class="tuf-error" id="firstName-error"></div>
+                                            </div>
+                                            <div class="col-md-6 mt-3 mt-md-0">
+                                                <input type="text" class="form-control tuf-input" id="tuf_lastName" name="lastName" placeholder="Last Name" required>
+                                                <div class="tuf-error" id="lastName-error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. Phone Number -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Phone Number <span class="tuf-required">*</span></label>
+                                        <div class="row">
+                                            <div class="col-3 col-md-2">
+                                                <input type="text" class="form-control tuf-input text-center" id="tuf_countryCode" name="countryCode" value="+1" maxlength="4" required>
+                                            </div>
+                                            <div class="col-3 col-md-2">
+                                                <input type="text" class="form-control tuf-input text-center" id="tuf_areaCode" name="areaCode" placeholder="Area" maxlength="3" required>
+                                            </div>
+                                            <div class="col-6 col-md-8">
+                                                <input type="text" class="form-control tuf-input" id="tuf_phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+                                            </div>
+                                        </div>
+                                        <div class="tuf-error" id="phone-error"></div>
+                                    </div>
+
+                                    <!-- 3. Phone Carrier -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Phone Carrier <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <input type="text" class="form-control tuf-input" id="tuf_carrier" name="phoneCarrier" placeholder="Verizon, T-Mobile, AT&amp;T, Metro PCS, Cricket etc.">
+                                    </div>
+
+                                    <!-- 4. Email -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">E-mail <span class="tuf-required">*</span></label>
+                                        <input type="email" class="form-control tuf-input" id="tuf_email" name="email" placeholder="example@example.com" required>
+                                        <div class="tuf-error" id="email-error"></div>
+                                    </div>
+
+                                    <!-- 5. Filing Status -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Filing Status <span class="tuf-required">*</span></label>
+                                        <div class="tuf-radio-group" id="tuf_filingStatus">
+                                            <label class="tuf-radio-label"><input type="radio" name="filingStatus" value="Single"> Single</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="filingStatus" value="Head of Household"> Head of Household</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="filingStatus" value="Married Filing Jointly"> Married Filing Jointly</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="filingStatus" value="Married Filing Separately"> Married Filing Separately</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="filingStatus" value="Other"> Other</label>
+                                        </div>
+                                        <div class="tuf-error" id="filingStatus-error"></div>
+                                    </div>
+
+                                    <!-- 6. Current Address -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Current Address <span class="tuf-required">*</span></label>
+                                        <input type="text" class="form-control tuf-input mb-3" id="tuf_street1" name="streetAddress" placeholder="Street Address" required>
+                                        <input type="text" class="form-control tuf-input mb-3" id="tuf_street2" name="streetAddress2" placeholder="Street Address Line 2 (optional)">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control tuf-input" id="tuf_city" name="city" placeholder="City" required>
+                                            </div>
+                                            <div class="col-md-6 mt-3 mt-md-0">
+                                                <input type="text" class="form-control tuf-input" id="tuf_state" name="state" placeholder="State / Province" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control tuf-input" id="tuf_zip" name="zipCode" placeholder="Postal / Zip Code" required>
+                                            </div>
+                                            <div class="col-md-8 mt-3 mt-md-0">
+                                                <select class="form-control tuf-input" id="tuf_country" name="country" required></select>
+                                            </div>
+                                        </div>
+                                        <div class="tuf-error" id="address-error"></div>
+                                    </div>
+
+                                    <!-- 7. Dependents -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">How Many Dependents <span class="tuf-required">*</span></label>
+                                        <select class="form-control tuf-input mb-3" id="tuf_dependents" name="dependents" required>
+                                            <option value="" disabled selected>Select number of dependents</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3+">3+</option>
+                                        </select>
+                                        <input type="text" class="form-control tuf-input" id="tuf_qualifyingChildren" name="qualifyingChildren" placeholder="Any Qualifying Children or dependents for the fiscal year?">
+                                        <div class="tuf-error" id="dependents-error"></div>
+                                    </div>
+
+                                    <!-- 8. File Upload -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Upload Your Files Here <span class="tuf-required">*</span></label>
+                                        <div class="tuf-upload-zone" id="tuf_uploadZone" role="button" tabindex="0" aria-label="Upload files">
+                                            <input type="file" id="tuf_fileInput" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" style="display:none;">
+                                            <i class="fas fa-cloud-upload-alt tuf-upload-icon"></i>
+                                            <p class="tuf-upload-text"><strong>Click to upload</strong> or drag and drop files here</p>
+                                            <p class="tuf-upload-subtext">JPG, PNG, PDF, DOC, DOCX</p>
+                                        </div>
+                                        <div class="tuf-file-list" id="tuf_fileList"></div>
+                                        <p class="tuf-upload-hint mt-2 mb-0">
+                                            <i class="fas fa-info-circle mr-1"></i>
+                                            Upload any relevant documents such as IDs, tax forms, financial statements, or supporting materials. Our team will review everything and follow up with you.
+                                        </p>
+                                        <div class="tuf-error" id="files-error"></div>
+                                    </div>
+
+                                    <!-- 9. Who's Assisting -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Who's Assisting You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <select class="form-control tuf-input" id="tuf_assistant" name="assistant">
+                                            <option value="">Select an assistant</option>
+                                            <option>Yassin</option>
+                                            <option>Muhidin</option>
+                                            <option>Asha</option>
+                                            <option>Khadija</option>
+                                            <option>Javan</option>
+                                            <option>Juma Muya</option>
+                                            <option>Mohamed Muya</option>
+                                            <option>Marcus</option>
+                                            <option>Trey</option>
+                                            <option>Abdisamad</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- 10. Referred By -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Who Referred You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <input type="text" class="form-control tuf-input" id="tuf_referredBy" name="referredBy" placeholder="Enter referral name">
+                                    </div>
+
+                                    <!-- 11. Describe Your Situation -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Describe Your Situation <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <textarea class="form-control tuf-input" id="tuf_message" name="message" rows="4" placeholder="Tell us more about your tax situation, any specific questions, or anything else you'd like us to know..."></textarea>
+                                    </div>
+
+                                    <!-- 12. Signature -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Your Signature <span class="tuf-required">*</span></label>
+                                        <div class="tuf-signature-wrap">
+                                            <canvas id="tuf_signatureCanvas" class="tuf-signature-canvas"></canvas>
+                                            <div class="tuf-signature-hint">Sign above using your mouse or finger</div>
+                                        </div>
+                                        <button type="button" class="btn tuf-clear-btn mt-2" id="tuf_clearSig">
+                                            <i class="fas fa-undo mr-1"></i> Clear Signature
+                                        </button>
+                                        <div class="tuf-error" id="signature-error"></div>
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="tuf-field-group text-center mb-0">
+                                        <button type="submit" class="btn tuf-submit-btn">
+                                            <i class="fas fa-paper-plane mr-2"></i> Submit Tax Files
+                                        </button>
+                                    </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END TAX QUOTE MODAL ====================================================================================-->
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="tuf_successModal" tabindex="-1" role="dialog" aria-labelledby="tufSuccessLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content tuf-modal-content">
+                        <div class="modal-body text-center p-5">
+                            <div class="tuf-success-icon mb-3"><i class="fas fa-check-circle"></i></div>
+                            <h3 class="tuf-success-title" id="tufSuccessLabel">Thank You!</h3>
+                            <p class="tuf-success-text">Your tax files have been submitted successfully.<br>We'll be in touch shortly.</p>
+                            <button type="button" class="btn tuf-submit-btn mt-2" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--END TAX UPLOAD FORM *********************************************************************************-->
+
+            <!--OTHER SERVICES ************************************************************************************-->
+            <!-- Other Services section (temporarily disabled — Funding & Credit Repair)
+            <section id="other-services" class="ts-block py-5" style="background:#f1f5f9;">
+                <div class="container">
+                    <div class="ts-title text-center mb-5">
+                        <p style="color:var(--amber);font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">What We Offer</p>
+                        <h2 style="color:#0f172a;">Other Services</h2>
+                        <p style="color:#64748b;max-width:520px;margin:.5rem auto 0;font-size:1.0625rem;">Beyond tax preparation, we help you build financial strength — from repairing your credit to securing the capital your business needs.</p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-5 mb-4 mb-md-0">
+                            <div style="background:#ffffff;border:1.5px solid rgba(59,130,246,.25);border-radius:1.25rem;padding:2.25rem;height:100%;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(59,130,246,.08);">
+                                <div style="width:3.25rem;height:3.25rem;background:rgba(59,130,246,.1);border-radius:.875rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+                                    <i class="fas fa-shield-alt" style="font-size:1.4rem;color:#3b82f6;"></i>
+                                </div>
+                                <span class="tuf-section-badge tuf-section-badge--blue" style="width:fit-content;margin-bottom:.875rem;">Credit Services</span>
+                                <h4 style="color:#0f172a;font-weight:700;margin-bottom:.625rem;">Credit Repair</h4>
+                                <p style="color:#475569;font-size:.9375rem;line-height:1.75;flex:1;">We work with you to identify and dispute inaccurate items on your credit report, building a personalized strategy to reach your financial goals faster.</p>
+                                <ul style="list-style:none;padding:0;margin:.875rem 0 1.75rem;color:#334155;font-size:.875rem;">
+                                    <li class="mb-2"><i class="fas fa-check-circle mr-2" style="color:#3b82f6;"></i>Dispute inaccurate items</li>
+                                    <li class="mb-2"><i class="fas fa-check-circle mr-2" style="color:#3b82f6;"></i>Personalized credit strategy</li>
+                                    <li class="mb-2"><i class="fas fa-check-circle mr-2" style="color:#3b82f6;"></i>Score improvement guidance</li>
+                                </ul>
+                                <button class="btn tuf-submit-btn" style="background:#3b82f6;border-color:#3b82f6;box-shadow:0 4px 20px rgba(59,130,246,.3);" data-toggle="modal" data-target="#creditModal">
+                                    Apply Now <i class="fas fa-arrow-right small ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-4 mb-md-0">
+                            <div style="background:#ffffff;border:1.5px solid rgba(22,163,74,.25);border-radius:1.25rem;padding:2.25rem;height:100%;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(22,163,74,.08);">
+                                <div style="width:3.25rem;height:3.25rem;background:rgba(22,163,74,.1);border-radius:.875rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
+                                    <i class="fas fa-chart-line" style="font-size:1.4rem;color:#16a34a;"></i>
+                                </div>
+                                <span class="tuf-section-badge tuf-section-badge--green" style="width:fit-content;margin-bottom:.875rem;">Business Growth</span>
+                                <h4 style="color:#0f172a;font-weight:700;margin-bottom:.625rem;">Business Funding</h4>
+                                <p style="color:#475569;font-size:.9375rem;line-height:1.75;flex:1;">Get the capital your business needs to grow. We connect you with funding options tailored to your industry and goals — from working capital to equipment financing.</p>
+                                <ul style="list-style:none;padding:0;margin:.875rem 0 1.75rem;color:#334155;font-size:.875rem;">
+                                    <li class="mb-2"><i class="fas fa-check-circle mr-2" style="color:#16a34a;"></i>$5k – $100k+ available</li>
+                                    <li class="mb-2"><i class="fas fa-check-circle mr-2" style="color:#16a34a;"></i>Multiple funding options</li>
+                                    <li class="mb-2"><i class="fas fa-check-circle mr-2" style="color:#16a34a;"></i>Fast, streamlined process</li>
+                                </ul>
+                                <button class="btn tuf-submit-btn" style="background:#16a34a;border-color:#16a34a;box-shadow:0 4px 20px rgba(22,163,74,.3);" data-toggle="modal" data-target="#fundingModal">
+                                    Apply Now <i class="fas fa-arrow-right small ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            END OTHER SERVICES
+            -->
+
+            <!-- CREDIT REPAIR MODAL ====================================================================================-->
+            <div class="modal fade" id="creditModal" tabindex="-1" role="dialog" aria-labelledby="creditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="max-width:min(1400px,96vw);">
+                    <div class="modal-content tuf-modal-content" style="background:#f0f6ff;">
+                        <div class="modal-header border-0 pb-0 px-4 px-md-5 pt-4" style="align-items:flex-start;">
+                            <div>
+                                <span class="tuf-section-badge tuf-section-badge--blue"><i class="fas fa-shield-alt mr-1"></i> Credit Repair</span>
+                                <h4 class="mt-2 mb-1" id="creditModalLabel" style="color:#0f172a;font-weight:700;">Credit Repair Request</h4>
+                                <p class="mb-0" style="color:#64748b;font-size:.9375rem;">Start your journey to a better credit score</p>
+                            </div>
+                            <button type="button" class="close ml-4 mt-1" data-dismiss="modal" aria-label="Close" style="font-size:1.75rem;color:#64748b;opacity:1;"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body px-4 px-md-5 pt-4 pb-5">
+                            <form id="creditRepairForm" novalidate autocomplete="off">
+                                    <div class="tuf-honeypot" aria-hidden="true">
+                                        <label for="hp_credit">Should be Empty</label>
+                                        <input type="text" id="hp_credit" name="hp_credit" tabindex="-1" autocomplete="off">
+                                    </div>
+
+                                    <!-- Full Name -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Full Name <span class="tuf-required">*</span></label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control tuf-input" id="cr_firstName" placeholder="First Name" required>
+                                                <div class="tuf-error" id="cr_firstName-error"></div>
+                                            </div>
+                                            <div class="col-md-6 mt-3 mt-md-0">
+                                                <input type="text" class="form-control tuf-input" id="cr_lastName" placeholder="Last Name" required>
+                                                <div class="tuf-error" id="cr_lastName-error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">E-mail <span class="tuf-required">*</span></label>
+                                        <input type="email" class="form-control tuf-input" id="cr_email" placeholder="example@example.com" required>
+                                        <div class="tuf-error" id="cr_email-error"></div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Phone Number <span class="tuf-required">*</span></label>
+                                        <div class="row">
+                                            <div class="col-2 col-md-2">
+                                                <input type="text" class="form-control tuf-input text-center" id="cr_countryCode" value="+1" maxlength="4">
+                                            </div>
+                                            <div class="col-3 col-md-2">
+                                                <input type="text" class="form-control tuf-input text-center" id="cr_areaCode" placeholder="Area" maxlength="3" required>
+                                            </div>
+                                            <div class="col-7 col-md-8">
+                                                <input type="text" class="form-control tuf-input" id="cr_phoneNumber" placeholder="Phone Number" required>
+                                            </div>
+                                        </div>
+                                        <div class="tuf-error" id="cr_phone-error"></div>
+                                    </div>
+
+                                    <!-- Current Credit Score -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Current Credit Score <span class="tuf-required">*</span></label>
+                                        <select class="form-control tuf-input" id="cr_score" required>
+                                            <option value="" disabled selected>Select your current score range</option>
+                                            <option>Below 500</option>
+                                            <option>500 – 549</option>
+                                            <option>550 – 599</option>
+                                            <option>600 – 649</option>
+                                            <option>650 – 699</option>
+                                            <option>700 – 749</option>
+                                            <option>750+</option>
+                                            <option>I don't know</option>
+                                        </select>
+                                        <div class="tuf-error" id="cr_score-error"></div>
+                                    </div>
+
+                                    <!-- Issues -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Credit Issues <span class="tuf-required">*</span></label>
+                                        <div class="tuf-check-group" id="cr_issues">
+                                            <label class="tuf-check-label"><input type="checkbox" value="Collections"> Collections</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Charge-offs"> Charge-offs</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Late Payments"> Late Payments</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Bankruptcies"> Bankruptcies</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Medical Debt"> Medical Debt</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Identity Theft"> Identity Theft</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Hard Inquiries"> Hard Inquiries</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Other"> Other</label>
+                                        </div>
+                                        <div class="tuf-error" id="cr_issues-error"></div>
+                                    </div>
+
+                                    <!-- Financial Goal -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Financial Goal <span class="tuf-required">*</span></label>
+                                        <select class="form-control tuf-input" id="cr_goal" required>
+                                            <option value="" disabled selected>What are you working toward?</option>
+                                            <option>Buy a Home</option>
+                                            <option>Buy / Finance a Car</option>
+                                            <option>Business Credit</option>
+                                            <option>Get an Apartment</option>
+                                            <option>General Score Improvement</option>
+                                            <option>Other</option>
+                                        </select>
+                                        <div class="tuf-error" id="cr_goal-error"></div>
+                                    </div>
+
+                                    <!-- Timeline -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">How Soon Do You Need Results? <span class="tuf-required">*</span></label>
+                                        <div class="tuf-radio-group" id="cr_timeline">
+                                            <label class="tuf-radio-label"><input type="radio" name="cr_timeline" value="3 months"> Within 3 months</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="cr_timeline" value="6 months"> Within 6 months</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="cr_timeline" value="12 months"> Within 12 months</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="cr_timeline" value="2+ years"> 2+ years</label>
+                                        </div>
+                                        <div class="tuf-error" id="cr_timeline-error"></div>
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Describe Your Situation <span class="tuf-required">*</span></label>
+                                        <textarea class="form-control tuf-input" id="cr_message" rows="4" placeholder="Tell us more about your credit situation, any specific items you need disputed, or anything else relevant..." required></textarea>
+                                        <div class="tuf-error" id="cr_message-error"></div>
+                                    </div>
+
+                                    <!-- File Upload -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Upload Credit Reports <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <div class="tuf-upload-zone" id="cr_uploadZone" role="button" tabindex="0">
+                                            <input type="file" id="cr_fileInput" multiple accept=".jpg,.jpeg,.png,.pdf" style="display:none;">
+                                            <i class="fas fa-cloud-upload-alt tuf-upload-icon"></i>
+                                            <p class="tuf-upload-text"><strong>Click to upload</strong> or drag and drop</p>
+                                            <p class="tuf-upload-subtext">Credit reports, dispute letters, any supporting docs</p>
+                                        </div>
+                                        <div class="tuf-file-list" id="cr_fileList"></div>
+                                    </div>
+
+                                    <!-- Who's Assisting -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Who's Assisting You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <select class="form-control tuf-input" id="cr_assistant">
+                                            <option value="">Select an assistant</option>
+                                            <option>Yassin</option><option>Muhidin</option><option>Asha</option>
+                                            <option>Khadija</option><option>Javan</option><option>Juma Muya</option>
+                                            <option>Mohamed Muya</option><option>Marcus</option><option>Trey</option>
+                                            <option>Abdisamad</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Referred By -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Who Referred You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <input type="text" class="form-control tuf-input" id="cr_referredBy" placeholder="Enter referral name">
+                                    </div>
+
+                                    <!-- Signature -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Your Signature <span class="tuf-required">*</span></label>
+                                        <div class="tuf-signature-wrap">
+                                            <canvas id="cr_signatureCanvas" class="tuf-signature-canvas"></canvas>
+                                            <div class="tuf-signature-hint">Sign above using your mouse or finger</div>
+                                        </div>
+                                        <button type="button" class="btn tuf-clear-btn mt-2" id="cr_clearSig">
+                                            <i class="fas fa-undo mr-1"></i> Clear Signature
+                                        </button>
+                                        <div class="tuf-error" id="cr_signature-error"></div>
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="tuf-field-group text-center mb-0">
+                                        <button type="submit" class="btn tuf-submit-btn">
+                                            <i class="fas fa-paper-plane mr-2"></i> Submit Credit Repair Request
+                                        </button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END CREDIT REPAIR MODAL ================================================================================-->
+
+            <!-- FUNDING MODAL ==========================================================================================-->
+            <div class="modal fade" id="fundingModal" tabindex="-1" role="dialog" aria-labelledby="fundingModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" style="max-width:min(1400px,96vw);">
+                    <div class="modal-content tuf-modal-content" style="background:#f7fef9;">
+                        <div class="modal-header border-0 pb-0 px-4 px-md-5 pt-4" style="align-items:flex-start;">
+                            <div>
+                                <span class="tuf-section-badge tuf-section-badge--green"><i class="fas fa-dollar-sign mr-1"></i> Business Funding</span>
+                                <h4 class="mt-2 mb-1" id="fundingModalLabel" style="color:#0f172a;font-weight:700;">Funding Request</h4>
+                                <p class="mb-0" style="color:#64748b;font-size:.9375rem;">Get the capital your business needs to grow</p>
+                            </div>
+                            <button type="button" class="close ml-4 mt-1" data-dismiss="modal" aria-label="Close" style="font-size:1.75rem;color:#64748b;opacity:1;"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body px-4 px-md-5 pt-4 pb-5">
+                            <form id="fundingForm" novalidate autocomplete="off">
+                                    <div class="tuf-honeypot" aria-hidden="true">
+                                        <label for="hp_funding">Should be Empty</label>
+                                        <input type="text" id="hp_funding" name="hp_funding" tabindex="-1" autocomplete="off">
+                                    </div>
+
+                                    <!-- Full Name -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Full Name <span class="tuf-required">*</span></label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control tuf-input" id="fn_firstName" placeholder="First Name" required>
+                                                <div class="tuf-error" id="fn_firstName-error"></div>
+                                            </div>
+                                            <div class="col-md-6 mt-3 mt-md-0">
+                                                <input type="text" class="form-control tuf-input" id="fn_lastName" placeholder="Last Name" required>
+                                                <div class="tuf-error" id="fn_lastName-error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">E-mail <span class="tuf-required">*</span></label>
+                                        <input type="email" class="form-control tuf-input" id="fn_email" placeholder="example@example.com" required>
+                                        <div class="tuf-error" id="fn_email-error"></div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Phone Number <span class="tuf-required">*</span></label>
+                                        <div class="row">
+                                            <div class="col-2 col-md-2">
+                                                <input type="text" class="form-control tuf-input text-center" id="fn_countryCode" value="+1" maxlength="4">
+                                            </div>
+                                            <div class="col-3 col-md-2">
+                                                <input type="text" class="form-control tuf-input text-center" id="fn_areaCode" placeholder="Area" maxlength="3" required>
+                                            </div>
+                                            <div class="col-7 col-md-8">
+                                                <input type="text" class="form-control tuf-input" id="fn_phoneNumber" placeholder="Phone Number" required>
+                                            </div>
+                                        </div>
+                                        <div class="tuf-error" id="fn_phone-error"></div>
+                                    </div>
+
+                                    <!-- Business Name -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Business Name <span class="tuf-required">*</span></label>
+                                        <input type="text" class="form-control tuf-input" id="fn_bizName" placeholder="Your business name" required>
+                                        <div class="tuf-error" id="fn_bizName-error"></div>
+                                    </div>
+
+                                    <!-- Business Type -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Type of Business <span class="tuf-required">*</span></label>
+                                        <div class="tuf-radio-group">
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_bizType" value="Sole Proprietor"> Sole Proprietor</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_bizType" value="LLC"> LLC</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_bizType" value="S-Corp"> S-Corp</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_bizType" value="C-Corp"> C-Corp</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_bizType" value="Partnership"> Partnership</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_bizType" value="Startup"> Startup</label>
+                                        </div>
+                                        <div class="tuf-error" id="fn_bizType-error"></div>
+                                    </div>
+
+                                    <!-- Time in Business + Revenue -->
+                                    <div class="tuf-field-group">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label class="tuf-label">Time in Business <span class="tuf-required">*</span></label>
+                                                <select class="form-control tuf-input" id="fn_timeInBiz" required>
+                                                    <option value="" disabled selected>Select</option>
+                                                    <option>Less than 6 months</option>
+                                                    <option>6 – 12 months</option>
+                                                    <option>1 – 2 years</option>
+                                                    <option>2 – 5 years</option>
+                                                    <option>5+ years</option>
+                                                </select>
+                                                <div class="tuf-error" id="fn_timeInBiz-error"></div>
+                                            </div>
+                                            <div class="col-md-6 mt-3 mt-md-0">
+                                                <label class="tuf-label">Annual Revenue <span class="tuf-required">*</span></label>
+                                                <select class="form-control tuf-input" id="fn_revenue" required>
+                                                    <option value="" disabled selected>Select</option>
+                                                    <option>Under $50k</option>
+                                                    <option>$50k – $100k</option>
+                                                    <option>$100k – $250k</option>
+                                                    <option>$250k – $500k</option>
+                                                    <option>$500k – $1M</option>
+                                                    <option>Over $1M</option>
+                                                </select>
+                                                <div class="tuf-error" id="fn_revenue-error"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Amount Needed -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Amount Needed <span class="tuf-required">*</span></label>
+                                        <div class="tuf-radio-group">
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_amount" value="$5k–$10k"> $5k – $10k</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_amount" value="$10k–$25k"> $10k – $25k</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_amount" value="$25k–$50k"> $25k – $50k</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_amount" value="$50k–$100k"> $50k – $100k</label>
+                                            <label class="tuf-radio-label"><input type="radio" name="fn_amount" value="$100k+"> $100k+</label>
+                                        </div>
+                                        <div class="tuf-error" id="fn_amount-error"></div>
+                                    </div>
+
+                                    <!-- Purpose -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Purpose of Funding <span class="tuf-required">*</span></label>
+                                        <div class="tuf-check-group" id="fn_purpose">
+                                            <label class="tuf-check-label"><input type="checkbox" value="Equipment"> Equipment</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Inventory"> Inventory</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Expansion"> Expansion</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Working Capital"> Working Capital</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Real Estate"> Real Estate</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Marketing"> Marketing</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Payroll"> Payroll</label>
+                                            <label class="tuf-check-label"><input type="checkbox" value="Other"> Other</label>
+                                        </div>
+                                        <div class="tuf-error" id="fn_purpose-error"></div>
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Describe Your Funding Needs <span class="tuf-required">*</span></label>
+                                        <textarea class="form-control tuf-input" id="fn_message" rows="4" placeholder="Tell us more about your business and how you plan to use the funding..." required></textarea>
+                                        <div class="tuf-error" id="fn_message-error"></div>
+                                    </div>
+
+                                    <!-- File Upload -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Upload Supporting Documents <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <div class="tuf-upload-zone" id="fn_uploadZone" role="button" tabindex="0">
+                                            <input type="file" id="fn_fileInput" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" style="display:none;">
+                                            <i class="fas fa-cloud-upload-alt tuf-upload-icon"></i>
+                                            <p class="tuf-upload-text"><strong>Click to upload</strong> or drag and drop</p>
+                                            <p class="tuf-upload-subtext">Bank statements, business license, business plan, tax returns</p>
+                                        </div>
+                                        <div class="tuf-file-list" id="fn_fileList"></div>
+                                    </div>
+
+                                    <!-- Who's Assisting -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Who's Assisting You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <select class="form-control tuf-input" id="fn_assistant">
+                                            <option value="">Select an assistant</option>
+                                            <option>Yassin</option><option>Muhidin</option><option>Asha</option>
+                                            <option>Khadija</option><option>Javan</option><option>Juma Muya</option>
+                                            <option>Mohamed Muya</option><option>Marcus</option><option>Trey</option>
+                                            <option>Abdisamad</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Referred By -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Who Referred You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <input type="text" class="form-control tuf-input" id="fn_referredBy" placeholder="Enter referral name">
+                                    </div>
+
+                                    <!-- Signature -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Your Signature <span class="tuf-required">*</span></label>
+                                        <div class="tuf-signature-wrap">
+                                            <canvas id="fn_signatureCanvas" class="tuf-signature-canvas"></canvas>
+                                            <div class="tuf-signature-hint">Sign above using your mouse or finger</div>
+                                        </div>
+                                        <button type="button" class="btn tuf-clear-btn mt-2" id="fn_clearSig">
+                                            <i class="fas fa-undo mr-1"></i> Clear Signature
+                                        </button>
+                                        <div class="tuf-error" id="fn_signature-error"></div>
+                                    </div>
+
+                                    <!-- Submit -->
+                                    <div class="tuf-field-group text-center mb-0">
+                                        <button type="submit" class="btn tuf-submit-btn">
+                                            <i class="fas fa-paper-plane mr-2"></i> Submit Funding Request
+                                        </button>
+                                    </div>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END FUNDING MODAL ======================================================================================-->
 
             <hr>
 
@@ -250,11 +1150,14 @@
                                         </p>
                                     </div>
                                 </div>
-                                <a href="#form-contact" class="btn btn-primary mr-3 my-2">Contact Us</a>
+                                <a href="#form-contact" class="btn btn-navy mr-3 my-2">Contact Us</a>
                                 <a href="#how-it-works" class="btn btn-outline-dark ts-btn-border-muted my-2">Get a Quote</a>
                             </div>
                         </div>
                         <!--end col-md-6-->
+                        <div class="col-sm-6 d-none d-sm-flex align-items-center justify-content-center">
+                            <img src="assets/img/evotax-logo.png" alt="EVOTAX Logo" class="img-fluid about-logo">
+                        </div>
                     </div>
                     <!--end row-->
                 </div>
@@ -768,8 +1671,6 @@
         <!--*********************************************************************************************************-->
         <footer id="ts-footer">
 
-            <div class="map ts-height__400px" id="map"></div>
-
             <section id="contact" class="ts-separate-bg-element" data-bg-image="assets/img/bg-hand-mobile.jpg" data-bg-image-opacity=".1" data-bg-color="#12264f">
                 <div class="container">
                     <div class="ts-box mb-0 p-5 ts-mt__n-10" data-animate="ts-fadeInUp">
@@ -778,16 +1679,12 @@
                                 <h3>Contact Us</h3>
                                 <address>
                                     <figure>
-                                   7359 Lindell Blvd, Saint Louis, MO, 63130
-                                    </figure>
-                                    <br>
-                                    <figure>
                                         <div class="font-weight-bold">Email:</div>
-                                        <a>contact@evotax.us</a>
+                                        <a>yassin@evotax.us</a>
                                     </figure>
                                     <figure>
-                                        <div class="font-weight-bold">Phone:</div>
-                                        +1 314-901-6070
+                                        <div s >Phone:</div>
+                                            <a href="tel:3149016070">+1 314-901-6070</a>
                                     </figure>
                                     <div class="font-weight-bold" 
                                     >
@@ -832,7 +1729,7 @@
                                     </div>
                                     <!--end row -->
                                     <div class="form-group clearfix">
-                                        <button type="submit" class="btn btn-primary float-right" id="form-contact-submit">Send a Message</button>
+                                        <button type="submit" class="btn btn-navy float-right" id="form-contact-submit">Send a Message</button>
                                     </div>
                                     <!--end form-group -->
                                     <div class="form-contact-status"></div>
@@ -872,6 +1769,728 @@
 	<script src="assets/js/jquery.validate.min.js"></script>
 	<script src="assets/js/jquery-validate.bootstrap-tooltip.min.js"></script>
     <script src="assets/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+/* Supabase client — anon key is safe to expose in browser code */
+var _sb = supabase.createClient(
+    'https://asbdodzmqdvxjbdsnnhq.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzYmRvZHptcWR2eGpiZHNubmhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4ODMzMzIsImV4cCI6MjA5MjQ1OTMzMn0.IZ5kqZYUyiytuxHbm8-XddCi3nFKgNlSte5CcBTmJog'
+);
+
+(function($) {
+'use strict';
+
+/* ── Country list ──────────────────────────────────────────── */
+var COUNTRIES = [
+    'United States','Afghanistan','Albania','Algeria','Andorra','Angola','Argentina',
+    'Armenia','Australia','Austria','Azerbaijan','Bahamas','Bahrain','Bangladesh',
+    'Belarus','Belgium','Belize','Benin','Bolivia','Bosnia and Herzegovina','Brazil',
+    'Bulgaria','Burkina Faso','Cambodia','Cameroon','Canada','Chile','China',
+    'Colombia','Congo','Costa Rica','Croatia','Cuba','Cyprus','Czech Republic',
+    'Denmark','Dominican Republic','Ecuador','Egypt','El Salvador','Estonia',
+    'Ethiopia','Finland','France','Gabon','Georgia','Germany','Ghana','Greece',
+    'Guatemala','Haiti','Honduras','Hungary','Iceland','India','Indonesia','Iran',
+    'Iraq','Ireland','Israel','Italy','Jamaica','Japan','Jordan','Kazakhstan',
+    'Kenya','Kuwait','Kyrgyzstan','Laos','Latvia','Lebanon','Libya','Lithuania',
+    'Luxembourg','Madagascar','Malaysia','Mali','Malta','Mexico','Moldova',
+    'Monaco','Mongolia','Montenegro','Morocco','Mozambique','Myanmar','Nepal',
+    'Netherlands','New Zealand','Nicaragua','Niger','Nigeria','North Korea',
+    'Norway','Oman','Pakistan','Palestine','Panama','Paraguay','Peru',
+    'Philippines','Poland','Portugal','Qatar','Romania','Russia','Rwanda',
+    'Saudi Arabia','Senegal','Serbia','Sierra Leone','Singapore','Slovakia',
+    'Slovenia','Somalia','South Africa','South Korea','South Sudan','Spain',
+    'Sri Lanka','Sudan','Sweden','Switzerland','Syria','Taiwan','Tajikistan',
+    'Tanzania','Thailand','Togo','Trinidad and Tobago','Tunisia','Turkey',
+    'Turkmenistan','Uganda','Ukraine','United Arab Emirates','United Kingdom',
+    'Uruguay','Uzbekistan','Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'
+];
+
+var $country = $('#tuf_country');
+$country.append('<option value="" disabled>Select Country</option>');
+$.each(COUNTRIES, function(i, c) {
+    $country.append('<option value="' + c + '"' + (c === 'United States' ? ' selected' : '') + '>' + c + '</option>');
+});
+
+/* ── File upload ───────────────────────────────────────────── */
+var uploadedFiles = [];
+
+function formatBytes(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+}
+
+/* Upload an array of File objects to a Supabase Storage bucket.
+   Returns array of { name, url, size, type } records. */
+async function uploadFiles(bucket, files) {
+    var records = [];
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        var safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        var path = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '/' + safeName;
+        var up = await _sb.storage.from(bucket).upload(path, file, { contentType: file.type, upsert: false });
+        if (up.error) throw new Error('Could not upload ' + file.name + ': ' + up.error.message);
+        var pub = _sb.storage.from(bucket).getPublicUrl(path);
+        records.push({ name: file.name, url: pub.data.publicUrl, size: formatBytes(file.size), type: file.type });
+    }
+    return records;
+}
+
+function getFileIcon(name) {
+    var ext = name.split('.').pop().toLowerCase();
+    if (['jpg','jpeg','png','gif'].indexOf(ext) > -1) return 'fa-file-image';
+    if (ext === 'pdf') return 'fa-file-pdf';
+    if (['doc','docx'].indexOf(ext) > -1) return 'fa-file-word';
+    return 'fa-file-alt';
+}
+
+function renderFileList() {
+    var $list = $('#tuf_fileList');
+    $list.empty();
+    $.each(uploadedFiles, function(i, f) {
+        $list.append(
+            '<div class="tuf-file-item" data-idx="' + i + '">' +
+              '<div class="tuf-file-item-info">' +
+                '<i class="fas ' + getFileIcon(f.name) + ' tuf-file-item-icon"></i>' +
+                '<span class="tuf-file-item-name">' + $('<span>').text(f.name).html() + '</span>' +
+                '<span class="tuf-file-item-size">' + formatBytes(f.size) + '</span>' +
+              '</div>' +
+              '<button type="button" class="tuf-file-remove" title="Remove"><i class="fas fa-times"></i></button>' +
+            '</div>'
+        );
+    });
+}
+
+function addFiles(files) {
+    var allowed = ['jpg','jpeg','png','pdf','doc','docx'];
+    $.each(files, function(i, f) {
+        var ext = f.name.split('.').pop().toLowerCase();
+        if (allowed.indexOf(ext) > -1) {
+            uploadedFiles.push(f);
+        }
+    });
+    renderFileList();
+    if (uploadedFiles.length) {
+        $('#files-error').text('');
+        $('#tuf_uploadZone').removeClass('is-invalid');
+    }
+}
+
+$('#tuf_uploadZone').on('click', function() {
+    document.getElementById('tuf_fileInput').click();
+}).on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') document.getElementById('tuf_fileInput').click();
+});
+
+$('#tuf_fileInput').on('change', function() {
+    addFiles(this.files);
+    this.value = '';
+});
+
+var $zone = $('#tuf_uploadZone')[0];
+$zone.addEventListener('dragenter', function(e) { e.preventDefault(); $(this).addClass('drag-over'); });
+$zone.addEventListener('dragover',  function(e) { e.preventDefault(); $(this).addClass('drag-over'); });
+$zone.addEventListener('dragleave', function(e) { e.preventDefault(); $(this).removeClass('drag-over'); });
+$zone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    $(this).removeClass('drag-over');
+    addFiles(e.dataTransfer.files);
+});
+
+$(document).on('click', '.tuf-file-remove', function() {
+    var idx = parseInt($(this).closest('.tuf-file-item').attr('data-idx'), 10);
+    uploadedFiles.splice(idx, 1);
+    renderFileList();
+});
+
+/* ── Signature pad ─────────────────────────────────────────── */
+var canvas = document.getElementById('tuf_signatureCanvas');
+var ctx    = canvas.getContext('2d');
+var isDrawing = false;
+var hasSig    = false;
+
+function resizeCanvas() {
+    var ratio = window.devicePixelRatio || 1;
+    var w = canvas.offsetWidth;
+    var h = canvas.offsetHeight;
+    canvas.width  = w * ratio;
+    canvas.height = h * ratio;
+    ctx.scale(ratio, ratio);
+    ctx.strokeStyle = '#0a1628';
+    ctx.lineWidth   = 2;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+    hasSig = false;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function getPos(e) {
+    var r = canvas.getBoundingClientRect();
+    if (e.touches) {
+        return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    }
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
+canvas.addEventListener('mousedown',  function(e) { isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); });
+canvas.addEventListener('mousemove',  function(e) { if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+canvas.addEventListener('mouseup',    function()  { isDrawing = false; });
+canvas.addEventListener('mouseleave', function()  { isDrawing = false; });
+canvas.addEventListener('touchstart', function(e) { e.preventDefault(); isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
+canvas.addEventListener('touchmove',  function(e) { e.preventDefault(); if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+canvas.addEventListener('touchend',   function()  { isDrawing = false; });
+
+$('#tuf_clearSig').on('click', function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasSig = false;
+    $('#signature-error').text('');
+});
+
+/* ── Validation helpers ────────────────────────────────────── */
+function setError($input, errId, msg) {
+    $input.addClass('is-invalid').removeClass('is-valid');
+    $('#' + errId).text(msg);
+    return false;
+}
+function clearError($input, errId) {
+    $input.removeClass('is-invalid').addClass('is-valid');
+    $('#' + errId).text('');
+    return true;
+}
+
+/* ── Form submit ───────────────────────────────────────────── */
+$('#taxUploadForm').on('submit', async function(e) {
+    e.preventDefault();
+
+    /* Honeypot check */
+    if ($('#hp_evotax').val().length > 0) return;
+
+    var valid = true;
+
+    /* Full name */
+    var $fn = $('#tuf_firstName'), $ln = $('#tuf_lastName');
+    valid = ($fn.val().trim() ? clearError($fn,'firstName-error') : setError($fn,'firstName-error','First name is required.')) && valid;
+    valid = ($ln.val().trim() ? clearError($ln,'lastName-error')  : setError($ln,'lastName-error','Last name is required.'))  && valid;
+
+    /* Phone */
+    var $ac = $('#tuf_areaCode'), $ph = $('#tuf_phoneNumber');
+    if (!$ac.val().trim() || !$ph.val().trim()) {
+        $('#phone-error').text('Area code and phone number are required.');
+        $ac.addClass('is-invalid'); $ph.addClass('is-invalid');
+        valid = false;
+    } else {
+        $('#phone-error').text('');
+        $ac.removeClass('is-invalid').addClass('is-valid');
+        $ph.removeClass('is-invalid').addClass('is-valid');
+    }
+
+    /* Email */
+    var $em = $('#tuf_email');
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($em.val().trim());
+    valid = (emailOk ? clearError($em,'email-error') : setError($em,'email-error','Please enter a valid email address.')) && valid;
+
+    /* Filing status */
+    var filingVal = $('input[name="filingStatus"]:checked').val();
+    if (!filingVal) {
+        $('#filingStatus-error').text('Please select a filing status.');
+        valid = false;
+    } else {
+        $('#filingStatus-error').text('');
+    }
+
+    /* Address */
+    var addrFields = [
+        { id: '#tuf_street1' }, { id: '#tuf_city' },
+        { id: '#tuf_state'   }, { id: '#tuf_zip'  }
+    ];
+    var addrOk = true;
+    $.each(addrFields, function(i, f) {
+        if (!$(f.id).val().trim()) { $(f.id).addClass('is-invalid'); addrOk = false; }
+        else { $(f.id).removeClass('is-invalid').addClass('is-valid'); }
+    });
+    if (!addrOk) { $('#address-error').text('Please complete all required address fields.'); valid = false; }
+    else { $('#address-error').text(''); }
+
+    /* Country */
+    var $ctry = $('#tuf_country');
+    if (!$ctry.val()) { $ctry.addClass('is-invalid'); valid = false; }
+    else { $ctry.removeClass('is-invalid').addClass('is-valid'); }
+
+    /* Dependents */
+    var $dep = $('#tuf_dependents');
+    valid = ($dep.val() ? clearError($dep,'dependents-error') : setError($dep,'dependents-error','Please select number of dependents.')) && valid;
+
+    /* Files */
+    if (uploadedFiles.length === 0) {
+        $('#files-error').text('Please upload at least one file.');
+        $('#tuf_uploadZone').css('border-color','#ef4444');
+        valid = false;
+    } else {
+        $('#files-error').text('');
+        $('#tuf_uploadZone').css('border-color','');
+    }
+
+    /* Signature */
+    if (!hasSig) {
+        $('#signature-error').text('Please provide your signature.');
+        valid = false;
+    } else {
+        $('#signature-error').text('');
+    }
+
+    if (!valid) {
+        /* Scroll to first error */
+        var $firstErr = $('#taxUploadForm .is-invalid, #taxUploadForm .tuf-error:not(:empty)').first();
+        if ($firstErr.length) {
+            $('html,body').animate({ scrollTop: $firstErr.offset().top - 120 }, 400);
+        }
+        return;
+    }
+
+    /* Collect data */
+    var payload = {
+        firstName:     $('#tuf_firstName').val().trim(),
+        lastName:      $('#tuf_lastName').val().trim(),
+        phone:         $('#tuf_countryCode').val() + ' (' + $('#tuf_areaCode').val() + ') ' + $('#tuf_phoneNumber').val(),
+        phoneCarrier:  $('#tuf_carrier').val().trim(),
+        email:         $('#tuf_email').val().trim(),
+        filingStatus:  filingVal,
+        address: {
+            street1:  $('#tuf_street1').val().trim(),
+            street2:  $('#tuf_street2').val().trim(),
+            city:     $('#tuf_city').val().trim(),
+            state:    $('#tuf_state').val().trim(),
+            zip:      $('#tuf_zip').val().trim(),
+            country:  $('#tuf_country').val()
+        },
+        dependents:        $('#tuf_dependents').val(),
+        qualifyingChildren:$('#tuf_qualifyingChildren').val().trim(),
+        assistant:         $('#tuf_assistant').val(),
+        referredBy:        $('#tuf_referredBy').val().trim(),
+        message:           $('#tuf_message').val().trim(),
+        signature:         canvas.toDataURL('image/png'),
+        files: []
+    };
+    var $taxBtn = $('#taxUploadForm [type="submit"]');
+    $taxBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i> Submitting…');
+
+    try {
+        payload.files = await uploadFiles('tax-documents', uploadedFiles);
+
+        var result = await _sb.from('tax_submissions').insert({
+            first_name:          payload.firstName,
+            last_name:           payload.lastName,
+            phone:               payload.phone,
+            phone_carrier:       payload.phoneCarrier,
+            email:               payload.email,
+            filing_status:       payload.filingStatus,
+            street1:             payload.address.street1,
+            street2:             payload.address.street2,
+            city:                payload.address.city,
+            state:               payload.address.state,
+            zip:                 payload.address.zip,
+            country:             payload.address.country,
+            dependents:          payload.dependents,
+            qualifying_children: payload.qualifyingChildren,
+            assistant:           payload.assistant,
+            referred_by:         payload.referredBy,
+            message:             payload.message,
+            signature:           payload.signature,
+            files:               payload.files
+        });
+        if (result.error) throw new Error(result.error.message);
+
+        $('#taxUploadForm')[0].reset();
+        uploadedFiles = [];
+        renderFileList();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasSig = false;
+        $('#taxUploadForm .tuf-input').removeClass('is-valid is-invalid');
+        $('#tuf_uploadZone').css('border-color','');
+        $('#tuf_successModal .tuf-success-text').html('Your tax files have been submitted successfully.<br>We\'ll be in touch shortly.');
+        $('#tuf_successModal').modal('show');
+    } catch(err) {
+        alert('Submission failed: ' + err.message);
+    }
+    $taxBtn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Tax Files');
+});
+
+/* ════════════════════════════════════════════════════════════
+   CREDIT REPAIR FORM
+   ════════════════════════════════════════════════════════════ */
+var crFiles = [];
+
+function crAddFiles(files) {
+    $.each(files, function(_, f) { crFiles.push(f); });
+    crRenderFileList();
+}
+function crRenderFileList() {
+    var $list = $('#cr_fileList').empty();
+    $.each(crFiles, function(i, f) {
+        var $item = $('<div class="tuf-file-item"></div>');
+        $item.append(
+            '<div class="tuf-file-item-info">' +
+            '<i class="fas fa-file tuf-file-item-icon"></i>' +
+            '<span class="tuf-file-item-name">' + $('<span>').text(f.name).html() + '</span>' +
+            '<span class="tuf-file-item-size">' + formatBytes(f.size) + '</span>' +
+            '</div>'
+        );
+        var $rm = $('<button class="tuf-file-remove" type="button"><i class="fas fa-times"></i></button>');
+        (function(idx){ $rm.on('click', function(){ crFiles.splice(idx,1); crRenderFileList(); }); })(i);
+        $item.append($rm);
+        $list.append($item);
+    });
+}
+
+/* Drag-drop credit */
+var $crZone = $('#cr_uploadZone');
+$crZone.on('click', function(){ document.getElementById('cr_fileInput').click(); });
+$('#cr_fileInput').on('change', function(){ crAddFiles(this.files); this.value=''; });
+$crZone.on('dragenter dragover', function(e){ e.preventDefault(); e.stopPropagation(); $(this).addClass('drag-over'); });
+$crZone.on('dragleave drop', function(e){ e.preventDefault(); e.stopPropagation(); $(this).removeClass('drag-over'); });
+$crZone.on('drop', function(e){ crAddFiles(e.originalEvent.dataTransfer.files); });
+
+/* Credit signature pad — init lazily when modal first opens */
+var crCanvas = null, crCtx = null;
+var crDrawing = false, crHasSig = false, crSigReady = false;
+
+$('#creditModal').on('shown.bs.modal', function() {
+    if (crSigReady) return;
+    crCanvas = document.getElementById('cr_signatureCanvas');
+    crCtx = crCanvas.getContext('2d');
+    var ratio = window.devicePixelRatio || 1;
+    var w = crCanvas.offsetWidth, h = crCanvas.offsetHeight;
+    crCanvas.width  = w * ratio;
+    crCanvas.height = h * ratio;
+    crCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    crCtx.strokeStyle = '#0f172a';
+    crCtx.lineWidth   = 2;
+    crCtx.lineCap     = 'round';
+    crCtx.lineJoin    = 'round';
+    function crGetPos(e) {
+        var r = crCanvas.getBoundingClientRect();
+        if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+        return { x: e.clientX - r.left, y: e.clientY - r.top };
+    }
+    crCanvas.addEventListener('mousedown',  function(e){ crDrawing=true; crHasSig=true; crCtx.beginPath(); var p=crGetPos(e); crCtx.moveTo(p.x,p.y); });
+    crCanvas.addEventListener('mousemove',  function(e){ if(!crDrawing)return; var p=crGetPos(e); crCtx.lineTo(p.x,p.y); crCtx.stroke(); });
+    crCanvas.addEventListener('mouseup',    function(){ crDrawing=false; });
+    crCanvas.addEventListener('mouseleave', function(){ crDrawing=false; });
+    crCanvas.addEventListener('touchstart', function(e){ e.preventDefault(); crDrawing=true; crHasSig=true; crCtx.beginPath(); var p=crGetPos(e); crCtx.moveTo(p.x,p.y); }, {passive:false});
+    crCanvas.addEventListener('touchmove',  function(e){ e.preventDefault(); if(!crDrawing)return; var p=crGetPos(e); crCtx.lineTo(p.x,p.y); crCtx.stroke(); }, {passive:false});
+    crCanvas.addEventListener('touchend',   function(){ crDrawing=false; });
+    crSigReady = true;
+});
+
+$('#cr_clearSig').on('click', function(){
+    crCtx.clearRect(0, 0, crCanvas.width, crCanvas.height);
+    crHasSig = false;
+    $('#cr_signature-error').text('');
+});
+
+/* Credit form submit */
+$('#creditRepairForm').on('submit', async function(e) {
+    e.preventDefault();
+    var valid = true;
+
+    var $crFn = $('#cr_firstName'), $crLn = $('#cr_lastName');
+    valid = ($crFn.val().trim() ? clearError($crFn,'cr_firstName-error') : setError($crFn,'cr_firstName-error','First name is required.')) && valid;
+    valid = ($crLn.val().trim() ? clearError($crLn,'cr_lastName-error')  : setError($crLn,'cr_lastName-error','Last name is required.'))  && valid;
+
+    var $crEm = $('#cr_email');
+    valid = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($crEm.val().trim()) ? clearError($crEm,'cr_email-error') : setError($crEm,'cr_email-error','Please enter a valid email address.')) && valid;
+
+    var $crAc = $('#cr_areaCode'), $crPh = $('#cr_phoneNumber');
+    if (!$crAc.val().trim() || !$crPh.val().trim()) {
+        $('#cr_phone-error').text('Area code and phone number are required.');
+        $crAc.addClass('is-invalid'); $crPh.addClass('is-invalid'); valid = false;
+    } else { $('#cr_phone-error').text(''); $crAc.removeClass('is-invalid').addClass('is-valid'); $crPh.removeClass('is-invalid').addClass('is-valid'); }
+
+    var $crScore = $('#cr_score');
+    valid = ($crScore.val() ? clearError($crScore,'cr_score-error') : setError($crScore,'cr_score-error','Please select your credit score range.')) && valid;
+
+    if (!$('#cr_issues input:checked').length) {
+        $('#cr_issues-error').text('Please select at least one credit issue.'); valid = false;
+    } else { $('#cr_issues-error').text(''); }
+
+    var $crGoal = $('#cr_goal');
+    valid = ($crGoal.val() ? clearError($crGoal,'cr_goal-error') : setError($crGoal,'cr_goal-error','Please select a financial goal.')) && valid;
+
+    if (!$('input[name="cr_timeline"]:checked').val()) {
+        $('#cr_timeline-error').text('Please select a timeline.'); valid = false;
+    } else { $('#cr_timeline-error').text(''); }
+
+    var $crMsg = $('#cr_message');
+    valid = ($crMsg.val().trim() ? clearError($crMsg,'cr_message-error') : setError($crMsg,'cr_message-error','Please describe your situation.')) && valid;
+
+    if (!crHasSig) {
+        $('#cr_signature-error').text('Please provide your signature.'); valid = false;
+    } else { $('#cr_signature-error').text(''); }
+
+    if (!valid) {
+        var $firstErr = $('#creditRepairForm .is-invalid, #creditRepairForm .tuf-error:not(:empty)').first();
+        if ($firstErr.length) $firstErr[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    var crPayload = {
+        firstName:  $('#cr_firstName').val().trim(),
+        lastName:   $('#cr_lastName').val().trim(),
+        email:      $('#cr_email').val().trim(),
+        phone:      $('#cr_countryCode').val() + ' (' + $('#cr_areaCode').val() + ') ' + $('#cr_phoneNumber').val(),
+        creditScore:$('#cr_score').val(),
+        issues:     $('#cr_issues input:checked').map(function(){ return $(this).val(); }).get(),
+        goal:       $('#cr_goal').val(),
+        timeline:   $('input[name="cr_timeline"]:checked').val(),
+        message:    $('#cr_message').val().trim(),
+        assistant:  $('#cr_assistant').val(),
+        referredBy: $('#cr_referredBy').val().trim(),
+        signature:  crCanvas.toDataURL('image/png'),
+        files: []
+    };
+    var $crBtn = $('#creditRepairForm [type="submit"]');
+    $crBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i> Submitting…');
+
+    try {
+        crPayload.files = await uploadFiles('credit-documents', crFiles);
+
+        var crResult = await _sb.from('credit_submissions').insert({
+            first_name:   crPayload.firstName,
+            last_name:    crPayload.lastName,
+            email:        crPayload.email,
+            phone:        crPayload.phone,
+            credit_score: crPayload.creditScore,
+            issues:       crPayload.issues,
+            goal:         crPayload.goal,
+            timeline:     crPayload.timeline,
+            message:      crPayload.message,
+            assistant:    crPayload.assistant,
+            referred_by:  crPayload.referredBy,
+            signature:    crPayload.signature,
+            files:        crPayload.files
+        });
+        if (crResult.error) throw new Error(crResult.error.message);
+
+        $('#creditRepairForm')[0].reset();
+        crFiles = []; crRenderFileList();
+        if (crCtx) crCtx.clearRect(0, 0, crCanvas.width, crCanvas.height);
+        crHasSig = false;
+        $('#creditRepairForm .tuf-input').removeClass('is-valid is-invalid');
+        $('#cr_uploadZone').css('border-color','');
+        $('#tuf_successModal .tuf-success-text').html('Your credit repair request has been submitted successfully.<br>We\'ll review your information and be in touch shortly.');
+        $('#creditModal').one('hidden.bs.modal', function(){ $('#tuf_successModal').modal('show'); });
+        $('#creditModal').modal('hide');
+    } catch(err) {
+        alert('Submission failed: ' + err.message);
+    }
+    $crBtn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Credit Repair Request');
+});
+
+/* ════════════════════════════════════════════════════════════
+   FUNDING FORM
+   ════════════════════════════════════════════════════════════ */
+var fnFiles = [];
+
+function fnAddFiles(files) {
+    $.each(files, function(_, f) { fnFiles.push(f); });
+    fnRenderFileList();
+}
+function fnRenderFileList() {
+    var $list = $('#fn_fileList').empty();
+    $.each(fnFiles, function(i, f) {
+        var $item = $('<div class="tuf-file-item"></div>');
+        $item.append(
+            '<div class="tuf-file-item-info">' +
+            '<i class="fas fa-file tuf-file-item-icon"></i>' +
+            '<span class="tuf-file-item-name">' + $('<span>').text(f.name).html() + '</span>' +
+            '<span class="tuf-file-item-size">' + formatBytes(f.size) + '</span>' +
+            '</div>'
+        );
+        var $rm = $('<button class="tuf-file-remove" type="button"><i class="fas fa-times"></i></button>');
+        (function(idx){ $rm.on('click', function(){ fnFiles.splice(idx,1); fnRenderFileList(); }); })(i);
+        $item.append($rm);
+        $list.append($item);
+    });
+}
+
+/* Drag-drop funding */
+var $fnZone = $('#fn_uploadZone');
+$fnZone.on('click', function(){ document.getElementById('fn_fileInput').click(); });
+$('#fn_fileInput').on('change', function(){ fnAddFiles(this.files); this.value=''; });
+$fnZone.on('dragenter dragover', function(e){ e.preventDefault(); e.stopPropagation(); $(this).addClass('drag-over'); });
+$fnZone.on('dragleave drop', function(e){ e.preventDefault(); e.stopPropagation(); $(this).removeClass('drag-over'); });
+$fnZone.on('drop', function(e){ fnAddFiles(e.originalEvent.dataTransfer.files); });
+
+/* Funding signature pad — init lazily when modal first opens */
+var fnCanvas = null, fnCtx = null;
+var fnDrawing = false, fnHasSig = false, fnSigReady = false;
+
+$('#fundingModal').on('shown.bs.modal', function() {
+    if (fnSigReady) return;
+    fnCanvas = document.getElementById('fn_signatureCanvas');
+    fnCtx = fnCanvas.getContext('2d');
+    var ratio = window.devicePixelRatio || 1;
+    var w = fnCanvas.offsetWidth, h = fnCanvas.offsetHeight;
+    fnCanvas.width  = w * ratio;
+    fnCanvas.height = h * ratio;
+    fnCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    fnCtx.strokeStyle = '#0f172a';
+    fnCtx.lineWidth   = 2;
+    fnCtx.lineCap     = 'round';
+    fnCtx.lineJoin    = 'round';
+    function fnGetPos(e) {
+        var r = fnCanvas.getBoundingClientRect();
+        if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+        return { x: e.clientX - r.left, y: e.clientY - r.top };
+    }
+    fnCanvas.addEventListener('mousedown',  function(e){ fnDrawing=true; fnHasSig=true; fnCtx.beginPath(); var p=fnGetPos(e); fnCtx.moveTo(p.x,p.y); });
+    fnCanvas.addEventListener('mousemove',  function(e){ if(!fnDrawing)return; var p=fnGetPos(e); fnCtx.lineTo(p.x,p.y); fnCtx.stroke(); });
+    fnCanvas.addEventListener('mouseup',    function(){ fnDrawing=false; });
+    fnCanvas.addEventListener('mouseleave', function(){ fnDrawing=false; });
+    fnCanvas.addEventListener('touchstart', function(e){ e.preventDefault(); fnDrawing=true; fnHasSig=true; fnCtx.beginPath(); var p=fnGetPos(e); fnCtx.moveTo(p.x,p.y); }, {passive:false});
+    fnCanvas.addEventListener('touchmove',  function(e){ e.preventDefault(); if(!fnDrawing)return; var p=fnGetPos(e); fnCtx.lineTo(p.x,p.y); fnCtx.stroke(); }, {passive:false});
+    fnCanvas.addEventListener('touchend',   function(){ fnDrawing=false; });
+    fnSigReady = true;
+});
+
+$('#fn_clearSig').on('click', function(){
+    fnCtx.clearRect(0, 0, fnCanvas.width, fnCanvas.height);
+    fnHasSig = false;
+    $('#fn_signature-error').text('');
+});
+
+/* Funding form submit */
+$('#fundingForm').on('submit', async function(e) {
+    e.preventDefault();
+    var valid = true;
+
+    var $fnFn = $('#fn_firstName'), $fnLn = $('#fn_lastName');
+    valid = ($fnFn.val().trim() ? clearError($fnFn,'fn_firstName-error') : setError($fnFn,'fn_firstName-error','First name is required.')) && valid;
+    valid = ($fnLn.val().trim() ? clearError($fnLn,'fn_lastName-error')  : setError($fnLn,'fn_lastName-error','Last name is required.'))  && valid;
+
+    var $fnEm = $('#fn_email');
+    valid = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($fnEm.val().trim()) ? clearError($fnEm,'fn_email-error') : setError($fnEm,'fn_email-error','Please enter a valid email address.')) && valid;
+
+    var $fnAc = $('#fn_areaCode'), $fnPh = $('#fn_phoneNumber');
+    if (!$fnAc.val().trim() || !$fnPh.val().trim()) {
+        $('#fn_phone-error').text('Area code and phone number are required.');
+        $fnAc.addClass('is-invalid'); $fnPh.addClass('is-invalid'); valid = false;
+    } else { $('#fn_phone-error').text(''); $fnAc.removeClass('is-invalid').addClass('is-valid'); $fnPh.removeClass('is-invalid').addClass('is-valid'); }
+
+    var $fnBiz = $('#fn_bizName');
+    valid = ($fnBiz.val().trim() ? clearError($fnBiz,'fn_bizName-error') : setError($fnBiz,'fn_bizName-error','Business name is required.')) && valid;
+
+    if (!$('input[name="fn_bizType"]:checked').val()) {
+        $('#fn_bizType-error').text('Please select a business type.'); valid = false;
+    } else { $('#fn_bizType-error').text(''); }
+
+    var $fnTime = $('#fn_timeInBiz');
+    valid = ($fnTime.val() ? clearError($fnTime,'fn_timeInBiz-error') : setError($fnTime,'fn_timeInBiz-error','Please select time in business.')) && valid;
+
+    var $fnRev = $('#fn_revenue');
+    valid = ($fnRev.val() ? clearError($fnRev,'fn_revenue-error') : setError($fnRev,'fn_revenue-error','Please select annual revenue range.')) && valid;
+
+    if (!$('input[name="fn_amount"]:checked').val()) {
+        $('#fn_amount-error').text('Please select a funding amount.'); valid = false;
+    } else { $('#fn_amount-error').text(''); }
+
+    if (!$('#fn_purpose input:checked').length) {
+        $('#fn_purpose-error').text('Please select at least one purpose.'); valid = false;
+    } else { $('#fn_purpose-error').text(''); }
+
+    var $fnMsg = $('#fn_message');
+    valid = ($fnMsg.val().trim() ? clearError($fnMsg,'fn_message-error') : setError($fnMsg,'fn_message-error','Please describe your funding needs.')) && valid;
+
+    if (!fnHasSig) {
+        $('#fn_signature-error').text('Please provide your signature.'); valid = false;
+    } else { $('#fn_signature-error').text(''); }
+
+    if (!valid) {
+        var $firstErr = $('#fundingForm .is-invalid, #fundingForm .tuf-error:not(:empty)').first();
+        if ($firstErr.length) $firstErr[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    var fnPayload = {
+        firstName:   $('#fn_firstName').val().trim(),
+        lastName:    $('#fn_lastName').val().trim(),
+        email:       $('#fn_email').val().trim(),
+        phone:       $('#fn_countryCode').val() + ' (' + $('#fn_areaCode').val() + ') ' + $('#fn_phoneNumber').val(),
+        bizName:     $('#fn_bizName').val().trim(),
+        bizType:     $('input[name="fn_bizType"]:checked').val(),
+        timeInBiz:   $('#fn_timeInBiz').val(),
+        revenue:     $('#fn_revenue').val(),
+        amountNeeded:$('input[name="fn_amount"]:checked').val(),
+        purpose:     $('#fn_purpose input:checked').map(function(){ return $(this).val(); }).get(),
+        message:     $('#fn_message').val().trim(),
+        assistant:   $('#fn_assistant').val(),
+        referredBy:  $('#fn_referredBy').val().trim(),
+        signature:   fnCanvas.toDataURL('image/png'),
+        files: []
+    };
+    var $fnBtn = $('#fundingForm [type="submit"]');
+    $fnBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i> Submitting…');
+
+    try {
+        fnPayload.files = await uploadFiles('funding-documents', fnFiles);
+
+        var fnResult = await _sb.from('funding_submissions').insert({
+            first_name:   fnPayload.firstName,
+            last_name:    fnPayload.lastName,
+            email:        fnPayload.email,
+            phone:        fnPayload.phone,
+            biz_name:     fnPayload.bizName,
+            biz_type:     fnPayload.bizType,
+            time_in_biz:  fnPayload.timeInBiz,
+            revenue:      fnPayload.revenue,
+            amount_needed:fnPayload.amountNeeded,
+            purpose:      fnPayload.purpose,
+            message:      fnPayload.message,
+            assistant:    fnPayload.assistant,
+            referred_by:  fnPayload.referredBy,
+            signature:    fnPayload.signature,
+            files:        fnPayload.files
+        });
+        if (fnResult.error) throw new Error(fnResult.error.message);
+
+        $('#fundingForm')[0].reset();
+        fnFiles = []; fnRenderFileList();
+        if (fnCtx) fnCtx.clearRect(0, 0, fnCanvas.width, fnCanvas.height);
+        fnHasSig = false;
+        $('#fundingForm .tuf-input').removeClass('is-valid is-invalid');
+        $('#fn_uploadZone').css('border-color','');
+        $('#tuf_successModal .tuf-success-text').html('Your funding request has been submitted successfully.<br>We\'ll review your information and be in touch shortly.');
+        $('#fundingModal').one('hidden.bs.modal', function(){ $('#tuf_successModal').modal('show'); });
+        $('#fundingModal').modal('hide');
+    } catch(err) {
+        alert('Submission failed: ' + err.message);
+    }
+    $fnBtn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Funding Request');
+});
+
+})(jQuery);
+</script>
+
+<!-- Zoho Bookings floating button + modal -->
+<div id="zohoBookingModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:1rem;width:min(860px,96vw);height:min(680px,92vh);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.25);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;border-bottom:1px solid #e2e8f0;">
+            <span style="font-weight:700;font-size:1rem;color:#0f172a;"><i class="fas fa-calendar-check mr-2" style="color:#ed912f;"></i>Book an Appointment</span>
+            <button onclick="document.getElementById('zohoBookingModal').style.display='none';document.getElementById('zohoFrame').src=document.getElementById('zohoFrame').src;" style="background:none;border:none;font-size:1.5rem;color:#64748b;cursor:pointer;line-height:1;">&times;</button>
+        </div>
+        <iframe id="zohoFrame" src="" style="flex:1;border:none;width:100%;" allowfullscreen></iframe>
+    </div>
+</div>
+
+<button id="zohoFloatBtn" onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9998;background:#ed912f;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.35rem;font-size:.9375rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(237,145,47,.45);cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s;">
+    <i class="fas fa-calendar-plus"></i>
+    <span style="color:#fff;">Book Now</span>
+</button>
+<style>
+#zohoFloatBtn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(237,145,47,.5); }
+</style>
 
 </body>
 </html>

@@ -387,8 +387,9 @@ $(".ts-scroll").on("click", function(event) {
         target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
         if (target.length) {
             event.preventDefault();
+            var navOffset = $('nav.navbar').outerHeight() || 80;
             $('html, body').animate({
-                scrollTop: target.offset().top
+                scrollTop: target.offset().top - navOffset
             }, 1000, function() {
                 var $target = $(target);
                 $target.focus();
