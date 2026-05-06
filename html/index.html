@@ -1680,7 +1680,7 @@
                                 <address>
                                     <figure>
                                         <div class="font-weight-bold">Email:</div>
-                                        <a>yassin@evotax.us</a>
+                                        <a>yassin@team.us</a>
                                     </figure>
                                     <figure>
                                         <div s >Phone:</div>
@@ -1923,8 +1923,11 @@ function resizeCanvas() {
     ctx.lineJoin    = 'round';
     hasSig = false;
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+window.addEventListener('resize', function() { if ($('#quoteModal').hasClass('show')) resizeCanvas(); });
+
+$('#quoteModal').on('shown.bs.modal', function() {
+    resizeCanvas();
+});
 
 function getPos(e) {
     var r = canvas.getBoundingClientRect();
