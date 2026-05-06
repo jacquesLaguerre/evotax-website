@@ -2044,10 +2044,11 @@ $('#taxUploadForm').on('submit', async function(e) {
     }
 
     if (!valid) {
-        /* Scroll to first error */
         var $firstErr = $('#taxUploadForm .is-invalid, #taxUploadForm .tuf-error:not(:empty)').first();
         if ($firstErr.length) {
-            $('html,body').animate({ scrollTop: $firstErr.offset().top - 120 }, 400);
+            var $modalBody = $('#quoteModal .modal-body');
+            var scrollTo = $firstErr.offset().top - $modalBody.offset().top + $modalBody.scrollTop() - 20;
+            $modalBody.animate({ scrollTop: scrollTo }, 400);
         }
         return;
     }
