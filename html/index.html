@@ -1906,15 +1906,13 @@ $(document).on('click', '.tuf-file-remove', function() {
 });
 
 /* ── Signature pad ─────────────────────────────────────────── */
-var canvas = document.getElementById('tuf_signatureCanvas');
-var ctx    = canvas.getContext('2d');
-var isDrawing = false;
-var hasSig    = false;
+var canvas, ctx, isDrawing = false, hasSig = false, sigReady = false;
 
 function resizeCanvas() {
     var ratio = window.devicePixelRatio || 1;
     var w = canvas.offsetWidth;
     var h = canvas.offsetHeight;
+    if (!w || !h) return;
     canvas.width  = w * ratio;
     canvas.height = h * ratio;
     ctx.scale(ratio, ratio);
@@ -1922,31 +1920,36 @@ function resizeCanvas() {
     ctx.lineWidth   = 2;
     ctx.lineCap     = 'round';
     ctx.lineJoin    = 'round';
-    hasSig = false;
 }
-window.addEventListener('resize', function() { if ($('#quoteModal').hasClass('show')) resizeCanvas(); });
-
-$('#quoteModal').on('shown.bs.modal', function() {
-    resizeCanvas();
-});
 
 function getPos(e) {
     var r = canvas.getBoundingClientRect();
-    if (e.touches) {
-        return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
-    }
+    if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
     return { x: e.clientX - r.left, y: e.clientY - r.top };
 }
 
-canvas.addEventListener('mousedown',  function(e) { isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); });
-canvas.addEventListener('mousemove',  function(e) { if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
-canvas.addEventListener('mouseup',    function()  { isDrawing = false; });
-canvas.addEventListener('mouseleave', function()  { isDrawing = false; });
-canvas.addEventListener('touchstart', function(e) { e.preventDefault(); isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
-canvas.addEventListener('touchmove',  function(e) { e.preventDefault(); if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
-canvas.addEventListener('touchend',   function()  { isDrawing = false; });
+$('#quoteModal').on('shown.bs.modal', function() {
+    canvas = document.getElementById('tuf_signatureCanvas');
+    ctx    = canvas.getContext('2d');
+    isDrawing = false;
+    hasSig    = false;
+    resizeCanvas();
+    if (!sigReady) {
+        canvas.addEventListener('mousedown',  function(e) { isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); });
+        canvas.addEventListener('mousemove',  function(e) { if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+        canvas.addEventListener('mouseup',    function()  { isDrawing = false; });
+        canvas.addEventListener('mouseleave', function()  { isDrawing = false; });
+        canvas.addEventListener('touchstart', function(e) { e.preventDefault(); isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
+        canvas.addEventListener('touchmove',  function(e) { e.preventDefault(); if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+        canvas.addEventListener('touchend',   function()  { isDrawing = false; });
+        sigReady = true;
+    }
+});
+
+window.addEventListener('resize', function() { if (canvas && $('#quoteModal').hasClass('show')) resizeCanvas(); });
 
 $('#tuf_clearSig').on('click', function() {
+    if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     hasSig = false;
     $('#signature-error').text('');
