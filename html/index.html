@@ -238,6 +238,124 @@
 @media (max-width: 575px) {
     .tuf-check-group { flex-direction: column; }
 }
+
+/* ── Become a Tax Preparer section ─────────────────────── */
+#become-preparer {
+    background: linear-gradient(135deg, #0f1e38 0%, #1e3b60 60%, #15304f 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+#become-preparer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+}
+.btp-card {
+    background: #fff;
+    border-radius: 1.25rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,.22);
+    padding: 3rem 2.5rem;
+    position: relative;
+}
+.btp-header-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(245,158,11,.12); color: #d97706;
+    font-size: .8rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; padding: .35rem 1rem;
+    border-radius: 6.25rem; margin-bottom: 1rem;
+}
+.btp-title {
+    font-size: 2rem; font-weight: 800; color: #0f172a;
+    line-height: 1.25; margin-bottom: .75rem;
+}
+.btp-subtitle {
+    color: #64748b; font-size: .9375rem; line-height: 1.75;
+    margin-bottom: 2rem; border-left: 3px solid #f59e0b;
+    padding-left: .875rem;
+}
+.btp-label {
+    font-size: .8125rem; font-weight: 600; color: #374151;
+    margin-bottom: .375rem; display: block; letter-spacing: .02em;
+}
+.btp-label .btp-req { color: #ef4444; margin-left: 2px; }
+.btp-input {
+    border: 1.5px solid #e2e8f0; border-radius: .625rem;
+    padding: .75rem 1rem; font-size: .9375rem; color: #0f172a;
+    transition: border-color .2s, box-shadow .2s; width: 100%;
+    background: #f8fafc;
+}
+.btp-input:focus {
+    outline: none; border-color: #1e3b60;
+    box-shadow: 0 0 0 3px rgba(30,59,96,.12);
+    background: #fff;
+}
+.btp-input.is-invalid { border-color: #ef4444 !important; }
+.btp-input.is-valid   { border-color: #22c55e !important; }
+.btp-error { color: #ef4444; font-size: .8rem; margin-top: .3rem; min-height: .9rem; }
+.btp-upload-zone {
+    border: 2px dashed #cbd5e1; border-radius: .875rem;
+    background: #f8fafc; padding: 2rem 1.5rem;
+    text-align: center; cursor: pointer;
+    transition: border-color .2s, background .2s;
+}
+.btp-upload-zone:hover, .btp-upload-zone.drag-over {
+    border-color: #1e3b60; background: #eef2f8;
+}
+.btp-upload-icon { font-size: 2rem; color: #1e3b60; margin-bottom: .5rem; display: block; }
+.btp-upload-text { margin: 0; color: #475569; font-size: .9rem; }
+.btp-upload-text strong { color: #1e3b60; }
+.btp-upload-subtext { margin: .2rem 0 0; color: #94a3b8; font-size: .8rem; }
+.btp-file-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: .5rem;
+    padding: .6rem .875rem; margin-top: .5rem; font-size: .875rem;
+}
+.btp-file-item-name { color: #334155; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.btp-file-remove {
+    background: none; border: none; color: #ef4444; cursor: pointer;
+    padding: .1rem .35rem; border-radius: .25rem; transition: background .2s; flex-shrink: 0;
+}
+.btp-file-remove:hover { background: #fee2e2; }
+.btp-submit-btn {
+    background: linear-gradient(135deg, #1e3b60, #2d5a9e);
+    border: none; color: #fff; font-weight: 700; font-size: 1rem;
+    padding: .875rem 2.5rem; border-radius: 6.25rem; width: 100%;
+    letter-spacing: .03em; box-shadow: 0 6px 24px rgba(30,59,96,.35);
+    transition: transform .15s, box-shadow .2s;
+    display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.btp-submit-btn:hover {
+    transform: translateY(-2px); box-shadow: 0 10px 32px rgba(30,59,96,.45); color: #fff;
+}
+.btp-submit-btn:active { transform: none; }
+.btp-success {
+    display: none; text-align: center; padding: 3rem 1rem;
+}
+.btp-success-icon { font-size: 4rem; color: #22c55e; margin-bottom: 1rem; }
+.btp-success-title { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-bottom: .75rem; }
+.btp-success-msg { color: #64748b; font-size: 1rem; line-height: 1.75; }
+.btp-side-info { color: rgba(255,255,255,.85); }
+.btp-side-info h3 { color: #fff; font-weight: 800; font-size: 1.75rem; margin-bottom: 1rem; }
+.btp-side-info p { line-height: 1.8; margin-bottom: 1.5rem; font-size: .9375rem; }
+.btp-perk {
+    display: flex; align-items: flex-start; gap: .875rem;
+    margin-bottom: 1.25rem;
+}
+.btp-perk-icon {
+    width: 2.25rem; height: 2.25rem; border-radius: 50%;
+    background: rgba(245,158,11,.18); color: #f59e0b;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; flex-shrink: 0; margin-top: .1rem;
+}
+.btp-perk-text strong { display: block; color: #fff; font-weight: 600; margin-bottom: .1rem; }
+.btp-perk-text span { font-size: .875rem; color: rgba(255,255,255,.65); }
+@media (max-width: 767px) {
+    .btp-card { padding: 2rem 1.25rem; }
+    .btp-title { font-size: 1.6rem; }
+    .btp-side-info { margin-bottom: 2rem; color: rgba(255,255,255,.9); }
+}
 </style>
 
 </head>
@@ -266,6 +384,8 @@
                             <a class="nav-item nav-link active ts-scroll" href="#page-top">Home <span class="sr-only">(current)</span></a>
                             <!-- <a class="nav-item nav-link ts-scroll" href="#how-it-works">How It Works</a> -->
                             <a class="nav-item nav-link ts-scroll" href="#about-us">About Us</a>
+                            <a class="nav-item nav-link ts-scroll" href="#our-team">Our Team</a>
+                            <a class="nav-item nav-link ts-scroll" href="#become-preparer">Join Us</a>
                             <!-- Credit Repair nav (temporarily disabled)
                             <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#creditModal">Credit Repair</a>
                             -->
@@ -1724,6 +1844,123 @@
             </section> -->
             <!--END BUY NOW *****************************************************************************************-->
 
+            <!--*************************************************************************************************************-->
+            <!--************ BECOME A TAX PREPARER **************************************************************************-->
+            <!--*************************************************************************************************************-->
+            <section id="become-preparer" class="ts-block">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <!-- Left: info panel -->
+                        <div class="col-lg-5 mb-5 mb-lg-0 btp-side-info" data-animate="ts-fadeInLeft">
+                            <span class="btp-header-badge"><i class="fas fa-star"></i> We're Hiring</span>
+                            <h3>Join the Evotax Team</h3>
+                            <p>We're looking for motivated individuals who want to build a career in tax preparation. Apply below and if approved, you'll receive all the necessary training to operate as a certified tax specialist.</p>
+                            <div class="btp-perk">
+                                <div class="btp-perk-icon"><i class="fas fa-graduation-cap"></i></div>
+                                <div class="btp-perk-text">
+                                    <strong>Full Training Provided</strong>
+                                    <span>No prior experience required — we'll train you from the ground up.</span>
+                                </div>
+                            </div>
+                            <div class="btp-perk">
+                                <div class="btp-perk-icon"><i class="fas fa-users"></i></div>
+                                <div class="btp-perk-text">
+                                    <strong>Supportive Team</strong>
+                                    <span>Work alongside experienced professionals in a collaborative environment.</span>
+                                </div>
+                            </div>
+                            <div class="btp-perk">
+                                <div class="btp-perk-icon"><i class="fas fa-chart-line"></i></div>
+                                <div class="btp-perk-text">
+                                    <strong>Growth Opportunity</strong>
+                                    <span>Build your client base and grow your income as a tax specialist.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: application form -->
+                        <div class="col-lg-7" data-animate="ts-fadeInRight">
+                            <div class="btp-card">
+
+                                <!-- Success state -->
+                                <div class="btp-success" id="btp_success">
+                                    <div class="btp-success-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="btp-success-title">Application Received!</div>
+                                    <p class="btp-success-msg">Thank you for applying to join the Evotax team. Your application is going to be reviewed and we'll get back to you shortly.</p>
+                                </div>
+
+                                <!-- Form -->
+                                <div id="btp_formWrap">
+                                    <span class="btp-header-badge"><i class="fas fa-file-alt"></i> Application Form</span>
+                                    <div class="btp-title">Become a Tax Preparer</div>
+                                    <p class="btp-subtitle">If approved, you'll receive all the necessary training to operate as a fully qualified tax specialist with Evotax.</p>
+
+                                    <form id="btpForm" novalidate autocomplete="off">
+
+                                        <!-- Full Name -->
+                                        <div class="form-group">
+                                            <label class="btp-label">Full Name <span class="btp-req">*</span></label>
+                                            <input type="text" class="btp-input form-control" id="btp_fullName" placeholder="Enter your full name" required>
+                                            <div class="btp-error" id="btp_nameErr"></div>
+                                        </div>
+
+                                        <!-- Email & Phone -->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="btp-label">Email Address <span class="btp-req">*</span></label>
+                                                    <input type="email" class="btp-input form-control" id="btp_email" placeholder="you@example.com" required>
+                                                    <div class="btp-error" id="btp_emailErr"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="btp-label">Phone Number <span class="btp-req">*</span></label>
+                                                    <input type="tel" class="btp-input form-control" id="btp_phone" placeholder="+1 (555) 000-0000" required>
+                                                    <div class="btp-error" id="btp_phoneErr"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Social Media -->
+                                        <div class="form-group">
+                                            <label class="btp-label">Social Media Links <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
+                                            <input type="text" class="btp-input form-control" id="btp_social" placeholder="Instagram, LinkedIn, TikTok, Facebook — paste any links here">
+                                        </div>
+
+                                        <!-- Resume Upload -->
+                                        <div class="form-group">
+                                            <label class="btp-label">Upload Your Resume <span class="btp-req">*</span></label>
+                                            <div class="btp-upload-zone" id="btp_uploadZone" role="button" tabindex="0" aria-label="Upload resume">
+                                                <input type="file" id="btp_fileInput" accept=".pdf,.doc,.docx" style="display:none;">
+                                                <i class="fas fa-cloud-upload-alt btp-upload-icon"></i>
+                                                <p class="btp-upload-text"><strong>Click to upload</strong> or drag & drop</p>
+                                                <p class="btp-upload-subtext">PDF, DOC, DOCX — max 10 MB</p>
+                                            </div>
+                                            <div id="btp_fileItem"></div>
+                                            <div class="btp-error" id="btp_resumeErr"></div>
+                                        </div>
+
+                                        <!-- Submit -->
+                                        <button type="submit" class="btp-submit-btn mt-2" id="btp_submitBtn">
+                                            <i class="fas fa-paper-plane"></i> Submit Application
+                                        </button>
+
+                                    </form>
+                                </div>
+                                <!--end btp_formWrap-->
+
+                            </div>
+                            <!--end btp-card-->
+                        </div>
+                        <!--end col-->
+
+                    </div>
+                </div>
+            </section>
+            <!--END BECOME A TAX PREPARER-->
+
         </main>
         <!--end #content-->
 
@@ -2540,6 +2777,102 @@ $('#fundingForm').on('submit', async function(e) {
         alert('Submission failed: ' + err.message);
     }
     $fnBtn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Funding Request');
+});
+
+/* ════════════════════════════════════════════════════════════
+   BECOME A TAX PREPARER FORM
+   ════════════════════════════════════════════════════════════ */
+var btpResumeFile = null;
+
+function btpSetErr(id, msg) { $('#' + id).text(msg); }
+function btpClearErr(id)    { $('#' + id).text(''); }
+
+$('#btp_uploadZone').on('click', function() {
+    document.getElementById('btp_fileInput').click();
+}).on('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') document.getElementById('btp_fileInput').click();
+});
+
+$('#btp_fileInput').on('change', function() {
+    if (this.files && this.files[0]) btpSetResume(this.files[0]);
+    this.value = '';
+});
+
+var $btpZone = document.getElementById('btp_uploadZone');
+$btpZone.addEventListener('dragenter', function(e) { e.preventDefault(); $(this).addClass('drag-over'); });
+$btpZone.addEventListener('dragover',  function(e) { e.preventDefault(); $(this).addClass('drag-over'); });
+$btpZone.addEventListener('dragleave', function(e) { e.preventDefault(); $(this).removeClass('drag-over'); });
+$btpZone.addEventListener('drop', function(e) {
+    e.preventDefault();
+    $(this).removeClass('drag-over');
+    if (e.dataTransfer.files[0]) btpSetResume(e.dataTransfer.files[0]);
+});
+
+function btpSetResume(file) {
+    btpResumeFile = file;
+    btpClearErr('btp_resumeErr');
+    $('#btp_fileItem').html(
+        '<div class="btp-file-item mt-2">' +
+        '<span class="btp-file-item-name"><i class="fas fa-file-alt mr-2" style="color:#1e3b60;"></i>' + $('<span>').text(file.name).html() + '</span>' +
+        '<button type="button" class="btp-file-remove" id="btp_removeFile" title="Remove"><i class="fas fa-times"></i></button>' +
+        '</div>'
+    );
+}
+
+$(document).on('click', '#btp_removeFile', function() {
+    btpResumeFile = null;
+    $('#btp_fileItem').empty();
+});
+
+$('#btpForm').on('submit', async function(e) {
+    e.preventDefault();
+    var valid = true;
+
+    var name = $('#btp_fullName').val().trim();
+    if (!name) { btpSetErr('btp_nameErr', 'Full name is required.'); $('#btp_fullName').addClass('is-invalid'); valid = false; }
+    else        { btpClearErr('btp_nameErr'); $('#btp_fullName').removeClass('is-invalid').addClass('is-valid'); }
+
+    var email = $('#btp_email').val().trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) { btpSetErr('btp_emailErr', 'Please enter a valid email address.'); $('#btp_email').addClass('is-invalid'); valid = false; }
+    else          { btpClearErr('btp_emailErr'); $('#btp_email').removeClass('is-invalid').addClass('is-valid'); }
+
+    var phone = $('#btp_phone').val().trim();
+    if (!phone) { btpSetErr('btp_phoneErr', 'Phone number is required.'); $('#btp_phone').addClass('is-invalid'); valid = false; }
+    else        { btpClearErr('btp_phoneErr'); $('#btp_phone').removeClass('is-invalid').addClass('is-valid'); }
+
+    if (!btpResumeFile) { btpSetErr('btp_resumeErr', 'Please upload your resume.'); valid = false; }
+    else                { btpClearErr('btp_resumeErr'); }
+
+    if (!valid) return;
+
+    var $btn = $('#btp_submitBtn');
+    $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i> Submitting…');
+
+    try {
+        var resumeUrl = null, resumeName = btpResumeFile.name;
+        var safeName = btpResumeFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        var path = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '/' + safeName;
+        var up = await _sb.storage.from('preparer-resumes').upload(path, btpResumeFile, { contentType: btpResumeFile.type, upsert: false });
+        if (up.error) throw new Error('Resume upload failed: ' + up.error.message);
+        resumeUrl = _sb.storage.from('preparer-resumes').getPublicUrl(path).data.publicUrl;
+
+        var result = await _sb.from('preparer_applications').insert({
+            full_name:    name,
+            email:        email,
+            phone:        phone,
+            social_media: $('#btp_social').val().trim() || null,
+            resume_url:   resumeUrl,
+            resume_name:  resumeName
+        });
+        if (result.error) throw new Error(result.error.message);
+
+        $('#btp_formWrap').hide();
+        $('#btp_success').show();
+    } catch(err) {
+        alert('Submission failed: ' + err.message);
+        $btn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Application');
+    }
 });
 
 })(jQuery);
