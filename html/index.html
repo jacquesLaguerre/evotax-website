@@ -2902,12 +2902,19 @@ $('#btpForm').on('submit', async function(e) {
     </div>
 </div>
 
+<!-- Join Us floating button (stacked above Book Now) -->
+<a id="joinUsFloatBtn" href="#become-preparer" style="position:fixed;bottom:5.25rem;right:1.5rem;z-index:9997;background:#1e3b60;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.1rem;font-size:.875rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(30,59,96,.4);cursor:pointer;display:flex;align-items:center;gap:.45rem;text-decoration:none;white-space:nowrap;transition:box-shadow .2s,transform .15s;">
+    <i class="fas fa-briefcase" style="font-size:.9rem;flex-shrink:0;"></i>
+    <span style="color:#fff;">We're Hiring</span>
+</a>
+
 <button id="zohoFloatBtn" onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9998;background:#ed912f;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.35rem;font-size:.9375rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(237,145,47,.45);cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s;">
     <i class="fas fa-calendar-plus"></i>
     <span style="color:#fff;">Book Now</span>
 </button>
 <style>
 #zohoFloatBtn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(237,145,47,.5); }
+#joinUsFloatBtn:hover { box-shadow:0 8px 28px rgba(30,59,96,.55); transform:translateY(-2px); }
 </style>
 
 </body>
