@@ -2867,6 +2867,19 @@ $('#btpForm').on('submit', async function(e) {
         });
         if (result.error) throw new Error(result.error.message);
 
+        await fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-job-application', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                full_name:    name,
+                email:        email,
+                phone:        phone,
+                social_media: $('#btp_social').val().trim() || null,
+                resume_url:   resumeUrl,
+                resume_name:  resumeName
+            })
+        }).catch(function() {});
+
         $('#btp_formWrap').hide();
         $('#btp_success').show();
     } catch(err) {
