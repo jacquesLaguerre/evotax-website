@@ -2013,12 +2013,13 @@
                             <!--end col-md-4-->
                             <div class="col-md-8">
                                 <h3>Contact Form</h3>
-                                <form id="form-contact" action="https://formspree.io/f/mnjraneo" method="post" class="clearfix ts-form ts-inputs__transparent">
+                                <form id="form-contact" class="clearfix ts-form ts-inputs__transparent" novalidate>
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="form-contact-name">Your Name *</label>
-                                                <input type="text" class="form-control" id="form-contact-name" name="name" placeholder="Your Name" required>
+                                                <input type="text" class="form-control" id="form-contact-name" name="name" placeholder="Your Name">
+                                                <span class="fc-error" id="fc-error-name" style="display:none;color:#ef4444;font-size:.8125rem;margin-top:.3rem;">Please enter your name.</span>
                                             </div>
                                             <!--end form-group -->
                                         </div>
@@ -2026,7 +2027,8 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="form-contact-email">Your Email *</label>
-                                                <input type="email" class="form-control" id="form-contact-email" name="email" placeholder="Your Email" required>
+                                                <input type="email" class="form-control" id="form-contact-email" name="email" placeholder="Your Email">
+                                                <span class="fc-error" id="fc-error-email" style="display:none;color:#ef4444;font-size:.8125rem;margin-top:.3rem;">Please enter a valid email address.</span>
                                             </div>
                                             <!--end form-group -->
                                         </div>
@@ -2037,7 +2039,8 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form-contact-message">Your Message *</label>
-                                                <textarea class="form-control" id="form-contact-message" rows="5" name="message" placeholder="Your Message" required></textarea>
+                                                <textarea class="form-control" id="form-contact-message" rows="5" name="message" placeholder="Your Message"></textarea>
+                                                <span class="fc-error" id="fc-error-message" style="display:none;color:#ef4444;font-size:.8125rem;margin-top:.3rem;">Please enter your message.</span>
                                             </div>
                                             <!--end form-group -->
                                         </div>
@@ -2904,6 +2907,47 @@ $('#btpForm').on('submit', async function(e) {
         alert('Submission failed: ' + err.message);
         $btn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Application');
     }
+});
+
+/* ────────────────────────────────────────────────────────────
+   FOOTER CONTACT FORM → Supabase
+   ──────────────────────────────────────────────────────────── */
+$('#form-contact').on('submit', async function(e) {
+    e.preventDefault();
+    var $btn    = $('#form-contact-submit');
+    var $status = $('.form-contact-status');
+    var name    = $('#form-contact-name').val().trim();
+    var email   = $('#form-contact-email').val().trim();
+    var message = $('#form-contact-message').val().trim();
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+
+    // clear previous errors
+    $('.fc-error').hide();
+    $('#form-contact-name, #form-contact-email, #form-contact-message').css('border-color', '');
+
+    var valid = true;
+    if (!name)    { $('#fc-error-name').show();    $('#form-contact-name').css('border-color','#ef4444');    valid = false; }
+    if (!emailOk) { $('#fc-error-email').show();   $('#form-contact-email').css('border-color','#ef4444');   valid = false; }
+    if (!message) { $('#fc-error-message').show();  $('#form-contact-message').css('border-color','#ef4444'); valid = false; }
+    if (!valid) return;
+
+    $btn.prop('disabled', true).text('Sending…');
+    $status.text('');
+
+    try {
+        var res = await _sb.from('contact_messages').insert({ name: name, email: email, message: message });
+        if (res.error) throw new Error(res.error.message);
+        fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-contact-form', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, email: email, message: message })
+        }).catch(function() {});
+        $('#form-contact')[0].reset();
+        $status.html('<span style="color:#22c55e;font-weight:600;">✓ Message sent! We\'ll get back to you shortly.</span>');
+    } catch(err) {
+        $status.html('<span style="color:#ef4444;">Failed to send: ' + err.message + '</span>');
+    }
+    $btn.prop('disabled', false).text('Send a Message');
 });
 
 })(jQuery);
