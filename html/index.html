@@ -534,7 +534,7 @@
                                         <p>
                                             Clients can now book their appointments online at their convenience. Schedule a time that works best for you and we'll take care of the rest.
                                         </p>
-                                        <button onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" class="btn btn-primary btn-sm mt-2" style="color:#fff!important;">
+                                        <button onclick="window.open('https://calendar.app.google/SV43FVKgFsAA5g8V9','_blank')" class="btn btn-primary btn-sm mt-2" style="color:#fff!important;">
                                             <i class="fas fa-calendar-plus mr-2"></i>Book Now
                                         </button>
                                     </div>
@@ -2951,26 +2951,16 @@ $('#form-contact').on('submit', async function(e) {
 });
 
 })(jQuery);
+
 </script>
 
-<!-- Zoho Bookings floating button + modal -->
-<div id="zohoBookingModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);align-items:center;justify-content:center;">
-    <div style="background:#fff;border-radius:1rem;width:min(860px,96vw);height:min(680px,92vh);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.25);">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;border-bottom:1px solid #e2e8f0;">
-            <span style="font-weight:700;font-size:1rem;color:#0f172a;"><i class="fas fa-calendar-check mr-2" style="color:#ed912f;"></i>Book an Appointment</span>
-            <button onclick="document.getElementById('zohoBookingModal').style.display='none';document.getElementById('zohoFrame').src=document.getElementById('zohoFrame').src;" style="background:none;border:none;font-size:1.5rem;color:#64748b;cursor:pointer;line-height:1;">&times;</button>
-        </div>
-        <iframe id="zohoFrame" src="" style="flex:1;border:none;width:100%;" allowfullscreen></iframe>
-    </div>
-</div>
-
-<!-- Join Us floating button (stacked above Book Now) -->
+<!-- Floating buttons -->
 <a id="joinUsFloatBtn" href="#become-preparer" style="position:fixed;bottom:5.25rem;right:1.5rem;z-index:9997;background:#1e3b60;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.1rem;font-size:.875rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(30,59,96,.4);cursor:pointer;display:flex;align-items:center;gap:.45rem;text-decoration:none;white-space:nowrap;transition:box-shadow .2s,transform .15s;">
     <i class="fas fa-briefcase" style="font-size:.9rem;flex-shrink:0;"></i>
     <span style="color:#fff;">We're Hiring</span>
 </a>
 
-<button id="zohoFloatBtn" onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9998;background:#ed912f;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.35rem;font-size:.9375rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(237,145,47,.45);cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s;">
+<button id="zohoFloatBtn" onclick="window.open('https://calendar.app.google/SV43FVKgFsAA5g8V9','_blank')" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9998;background:#ed912f;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.35rem;font-size:.9375rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(237,145,47,.45);cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s;">
     <i class="fas fa-calendar-plus"></i>
     <span style="color:#fff;">Book Now</span>
 </button>
