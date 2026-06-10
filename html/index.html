@@ -2561,6 +2561,19 @@ $('#taxUploadForm').on('submit', async function(e) {
         });
         if (result.error) throw new Error(result.error.message);
 
+        fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-tax-submission', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name:       payload.firstName + ' ' + payload.lastName,
+                email:      payload.email,
+                phone:      payload.phone,
+                tax_year:   payload.taxYear,
+                assistant:  payload.assistant,
+                files:      payload.files
+            })
+        }).catch(function() {});
+
         /* Reset only year + files + signature — keep personal info for next submission */
         $('#tuf_taxYear').val('').removeClass('is-valid is-invalid');
         $('#tuf_taxYearOther').hide().val('');
