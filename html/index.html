@@ -588,6 +588,7 @@
                             <button type="button" class="close ml-4 mt-1" data-dismiss="modal" aria-label="Close" style="font-size:1.75rem;color:#64748b;opacity:1;"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body px-4 px-md-5 pt-4 pb-5">
+
                             <form id="taxUploadForm" novalidate autocomplete="off">
 
                                     <!-- Honeypot anti-spam -->
@@ -692,6 +693,28 @@
                                         <div class="tuf-error" id="dependents-error"></div>
                                     </div>
 
+                                    <!-- 7. Tax Year -->
+                                    <div class="tuf-field-group">
+                                        <label class="tuf-label">Which year are you submitting documents for? <span class="tuf-required">*</span></label>
+                                        <select class="form-control tuf-input" id="tuf_taxYear" name="taxYear">
+                                            <option value="">— Select a year —</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2024">2024</option>
+                                            <option value="2023">2023</option>
+                                            <option value="2022">2022</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                            <option value="other">Other (enter below)</option>
+                                        </select>
+                                        <input type="text" class="form-control tuf-input mt-2" id="tuf_taxYearOther" placeholder="Enter year (e.g. 2014)" style="display:none;">
+                                        <div class="tuf-error" id="taxYear-error"></div>
+                                    </div>
+
                                     <!-- 8. File Upload -->
                                     <div class="tuf-field-group">
                                         <label class="tuf-label">Upload Your Files Here <span class="tuf-required">*</span></label>
@@ -772,8 +795,11 @@
                         <div class="modal-body text-center p-5">
                             <div class="tuf-success-icon mb-3"><i class="fas fa-check-circle"></i></div>
                             <h3 class="tuf-success-title" id="tufSuccessLabel">Thank You!</h3>
-                            <p class="tuf-success-text">Your tax files have been submitted successfully.<br>We'll be in touch shortly.</p>
-                            <button type="button" class="btn tuf-submit-btn mt-2" data-dismiss="modal">Close</button>
+                            <p class="tuf-success-text" id="tuf_successModalText">Your tax files have been submitted successfully.<br>We'll be in touch shortly.</p>
+                            <div class="d-flex justify-content-center gap-2 mt-3" style="gap:.75rem;">
+                                <button type="button" id="tuf_doneBtn" class="btn tuf-submit-btn" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Your information on the form will be erased">Done</button>
+                                <button type="button" id="tuf_anotherYearBtn" class="btn btn-outline-secondary" data-dismiss="modal" style="border-radius:.75rem;padding:.6rem 1.25rem;font-weight:600;">Submit another year</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2307,6 +2333,15 @@ function getPos(e) {
     return { x: e.clientX - r.left, y: e.clientY - r.top };
 }
 
+/* Tax year — show custom input when "Other" is selected */
+$('#tuf_taxYear').on('change', function() {
+    if ($(this).val() === 'other') {
+        $('#tuf_taxYearOther').show().focus();
+    } else {
+        $('#tuf_taxYearOther').hide().val('');
+    }
+});
+
 $('#quoteModal').on('shown.bs.modal', function() {
     canvas = document.getElementById('tuf_signatureCanvas');
     ctx    = canvas.getContext('2d');
@@ -2332,6 +2367,25 @@ $('#tuf_clearSig').on('click', function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     hasSig = false;
     $('#signature-error').text('');
+});
+
+$('[data-toggle="tooltip"]').tooltip();
+
+/* ── "Done" → full reset so the form starts fresh next time ── */
+$('#tuf_doneBtn').on('click', function() {
+    $('#tuf_successModal').one('hidden.bs.modal', function() {
+        $('#taxUploadForm')[0].reset();
+        $('#tuf_taxYearOther').hide().val('');
+        $('#taxUploadForm .tuf-input').removeClass('is-valid is-invalid');
+        $('#taxUploadForm .tuf-error').text('');
+    });
+});
+
+/* ── "Submit another year" reopens the form after the thank-you popup closes ── */
+$('#tuf_anotherYearBtn').on('click', function() {
+    $('#tuf_successModal').one('hidden.bs.modal', function() {
+        $('#quoteModal').modal('show');
+    });
 });
 
 /* ── Validation helpers ────────────────────────────────────── */
@@ -2412,6 +2466,18 @@ $('#taxUploadForm').on('submit', async function(e) {
     var $ast = $('#tuf_assistant');
     valid = ($ast.val() ? clearError($ast,'assistant-error') : setError($ast,'assistant-error','Please select who is assisting you.')) && valid;
 
+    /* Tax Year */
+    var taxYearSel = $('#tuf_taxYear').val();
+    var taxYearVal = taxYearSel === 'other' ? $('#tuf_taxYearOther').val().trim() : taxYearSel;
+    if (!taxYearVal) {
+        $('#taxYear-error').text('Please select or enter the tax year.');
+        $('#tuf_taxYear').addClass('is-invalid');
+        valid = false;
+    } else {
+        $('#taxYear-error').text('');
+        $('#tuf_taxYear').removeClass('is-invalid').addClass('is-valid');
+    }
+
     /* Files */
     if (uploadedFiles.length === 0) {
         $('#files-error').text('Please upload at least one file.');
@@ -2458,6 +2524,7 @@ $('#taxUploadForm').on('submit', async function(e) {
         },
         dependents:        $('#tuf_dependents').val(),
         qualifyingChildren:$('#tuf_qualifyingChildren').val().trim(),
+        taxYear:           taxYearVal,
         assistant:         $('#tuf_assistant').val(),
         referredBy:        $('#tuf_referredBy').val().trim(),
         message:           $('#tuf_message').val().trim(),
@@ -2485,6 +2552,7 @@ $('#taxUploadForm').on('submit', async function(e) {
             country:             payload.address.country,
             dependents:          payload.dependents,
             qualifying_children: payload.qualifyingChildren,
+            tax_year:            payload.taxYear,
             assistant:           payload.assistant,
             referred_by:         payload.referredBy,
             message:             payload.message,
@@ -2493,15 +2561,29 @@ $('#taxUploadForm').on('submit', async function(e) {
         });
         if (result.error) throw new Error(result.error.message);
 
-        $('#taxUploadForm')[0].reset();
+        /* Reset only year + files + signature — keep personal info for next submission */
+        $('#tuf_taxYear').val('').removeClass('is-valid is-invalid');
+        $('#tuf_taxYearOther').hide().val('');
+        $('#taxYear-error').text('');
         uploadedFiles = [];
         renderFileList();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         hasSig = false;
-        $('#taxUploadForm .tuf-input').removeClass('is-valid is-invalid');
         $('#tuf_uploadZone').css('border-color','');
-        $('#tuf_successModal .tuf-success-text').html('Your tax files have been submitted successfully.<br>We\'ll be in touch shortly.');
-        $('#tuf_successModal').modal('show');
+        $('#files-error').text('');
+        $('#signature-error').text('');
+        /* Update popup text with the submitted year, then close quote modal first to avoid stacking */
+        var $msgEl = $('#tuf_successModalText').empty();
+        if (payload.taxYear) {
+            $msgEl.append('Your documents for ').append($('<strong>').text(payload.taxYear)).append(' have been received successfully.');
+        } else {
+            $msgEl.text('Your documents have been received successfully.');
+        }
+        $msgEl.append($('<br>')).append("We'll be in touch shortly.");
+        $('#quoteModal').one('hidden.bs.modal', function() {
+            $('#tuf_successModal').modal('show');
+        });
+        $('#quoteModal').modal('hide');
     } catch(err) {
         alert('Submission failed: ' + err.message);
     }
