@@ -18,17 +18,6 @@
 
     <link href="assets/img/icon.png" rel="icon" type="image/png">
 
-    <!-- Open Graph / iMessage / Social Preview -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://evotax.us/">
-    <meta property="og:title" content="EVOTAX — Professional Tax Preparation">
-    <meta property="og:description" content="Secure, personalized tax filing for individuals and businesses. Serving all 50 states and U.S. expats worldwide.">
-    <meta property="og:image" content="https://evotax.us/assets/img/evotax-logo.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://evotax.us/assets/img/evotax-logo.png">
-
 <style>
 /* ── Tax Upload Form ──────────────────────────────────────── */
 #tax-form { background-color: #f8fafc; }
@@ -238,124 +227,6 @@
 @media (max-width: 575px) {
     .tuf-check-group { flex-direction: column; }
 }
-
-/* ── Become a Tax Preparer section ─────────────────────── */
-#become-preparer {
-    background: linear-gradient(135deg, #0f1e38 0%, #1e3b60 60%, #15304f 100%);
-    padding: 5rem 0;
-    position: relative;
-    overflow: hidden;
-}
-#become-preparer::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
-}
-.btp-card {
-    background: #fff;
-    border-radius: 1.25rem;
-    box-shadow: 0 24px 60px rgba(0,0,0,.22);
-    padding: 3rem 2.5rem;
-    position: relative;
-}
-.btp-header-badge {
-    display: inline-flex; align-items: center; gap: .5rem;
-    background: rgba(245,158,11,.12); color: #d97706;
-    font-size: .8rem; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; padding: .35rem 1rem;
-    border-radius: 6.25rem; margin-bottom: 1rem;
-}
-.btp-title {
-    font-size: 2rem; font-weight: 800; color: #0f172a;
-    line-height: 1.25; margin-bottom: .75rem;
-}
-.btp-subtitle {
-    color: #64748b; font-size: .9375rem; line-height: 1.75;
-    margin-bottom: 2rem; border-left: 3px solid #f59e0b;
-    padding-left: .875rem;
-}
-.btp-label {
-    font-size: .8125rem; font-weight: 600; color: #374151;
-    margin-bottom: .375rem; display: block; letter-spacing: .02em;
-}
-.btp-label .btp-req { color: #ef4444; margin-left: 2px; }
-.btp-input {
-    border: 1.5px solid #e2e8f0; border-radius: .625rem;
-    padding: .75rem 1rem; font-size: .9375rem; color: #0f172a;
-    transition: border-color .2s, box-shadow .2s; width: 100%;
-    background: #f8fafc;
-}
-.btp-input:focus {
-    outline: none; border-color: #1e3b60;
-    box-shadow: 0 0 0 3px rgba(30,59,96,.12);
-    background: #fff;
-}
-.btp-input.is-invalid { border-color: #ef4444 !important; }
-.btp-input.is-valid   { border-color: #22c55e !important; }
-.btp-error { color: #ef4444; font-size: .8rem; margin-top: .3rem; min-height: .9rem; }
-.btp-upload-zone {
-    border: 2px dashed #cbd5e1; border-radius: .875rem;
-    background: #f8fafc; padding: 2rem 1.5rem;
-    text-align: center; cursor: pointer;
-    transition: border-color .2s, background .2s;
-}
-.btp-upload-zone:hover, .btp-upload-zone.drag-over {
-    border-color: #1e3b60; background: #eef2f8;
-}
-.btp-upload-icon { font-size: 2rem; color: #1e3b60; margin-bottom: .5rem; display: block; }
-.btp-upload-text { margin: 0; color: #475569; font-size: .9rem; }
-.btp-upload-text strong { color: #1e3b60; }
-.btp-upload-subtext { margin: .2rem 0 0; color: #94a3b8; font-size: .8rem; }
-.btp-file-item {
-    display: flex; align-items: center; justify-content: space-between;
-    background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: .5rem;
-    padding: .6rem .875rem; margin-top: .5rem; font-size: .875rem;
-}
-.btp-file-item-name { color: #334155; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.btp-file-remove {
-    background: none; border: none; color: #ef4444; cursor: pointer;
-    padding: .1rem .35rem; border-radius: .25rem; transition: background .2s; flex-shrink: 0;
-}
-.btp-file-remove:hover { background: #fee2e2; }
-.btp-submit-btn {
-    background: linear-gradient(135deg, #1e3b60, #2d5a9e);
-    border: none; color: #fff; font-weight: 700; font-size: 1rem;
-    padding: .875rem 2.5rem; border-radius: 6.25rem; width: 100%;
-    letter-spacing: .03em; box-shadow: 0 6px 24px rgba(30,59,96,.35);
-    transition: transform .15s, box-shadow .2s;
-    display: flex; align-items: center; justify-content: center; gap: .5rem;
-}
-.btp-submit-btn:hover {
-    transform: translateY(-2px); box-shadow: 0 10px 32px rgba(30,59,96,.45); color: #fff;
-}
-.btp-submit-btn:active { transform: none; }
-.btp-success {
-    display: none; text-align: center; padding: 3rem 1rem;
-}
-.btp-success-icon { font-size: 4rem; color: #22c55e; margin-bottom: 1rem; }
-.btp-success-title { font-weight: 800; color: #0f172a; font-size: 1.5rem; margin-bottom: .75rem; }
-.btp-success-msg { color: #64748b; font-size: 1rem; line-height: 1.75; }
-.btp-side-info { color: rgba(255,255,255,.85); }
-.btp-side-info h3 { color: #fff; font-weight: 800; font-size: 1.75rem; margin-bottom: 1rem; }
-.btp-side-info p { line-height: 1.8; margin-bottom: 1.5rem; font-size: .9375rem; }
-.btp-perk {
-    display: flex; align-items: flex-start; gap: .875rem;
-    margin-bottom: 1.25rem;
-}
-.btp-perk-icon {
-    width: 2.25rem; height: 2.25rem; border-radius: 50%;
-    background: rgba(245,158,11,.18); color: #f59e0b;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .9rem; flex-shrink: 0; margin-top: .1rem;
-}
-.btp-perk-text strong { display: block; color: #fff; font-weight: 600; margin-bottom: .1rem; }
-.btp-perk-text span { font-size: .875rem; color: rgba(255,255,255,.65); }
-@media (max-width: 767px) {
-    .btp-card { padding: 2rem 1.25rem; }
-    .btp-title { font-size: 1.6rem; }
-    .btp-side-info { margin-bottom: 2rem; color: rgba(255,255,255,.9); }
-}
 </style>
 
 </head>
@@ -384,8 +255,6 @@
                             <a class="nav-item nav-link active ts-scroll" href="#page-top">Home <span class="sr-only">(current)</span></a>
                             <!-- <a class="nav-item nav-link ts-scroll" href="#how-it-works">How It Works</a> -->
                             <a class="nav-item nav-link ts-scroll" href="#about-us">About Us</a>
-                            <a class="nav-item nav-link ts-scroll" href="#our-team">Our Team</a>
-                            <a class="nav-item nav-link ts-scroll" href="#become-preparer">Join Us</a>
                             <!-- Credit Repair nav (temporarily disabled)
                             <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#creditModal">Credit Repair</a>
                             -->
@@ -534,7 +403,7 @@
                                         <p>
                                             Clients can now book their appointments online at their convenience. Schedule a time that works best for you and we'll take care of the rest.
                                         </p>
-                                        <button onclick="window.open('https://calendar.app.google/SV43FVKgFsAA5g8V9','_blank')" class="btn btn-primary btn-sm mt-2" style="color:#fff!important;">
+                                        <button onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" class="btn btn-primary btn-sm mt-2" style="color:#fff!important;">
                                             <i class="fas fa-calendar-plus mr-2"></i>Book Now
                                         </button>
                                     </div>
@@ -588,7 +457,6 @@
                             <button type="button" class="close ml-4 mt-1" data-dismiss="modal" aria-label="Close" style="font-size:1.75rem;color:#64748b;opacity:1;"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body px-4 px-md-5 pt-4 pb-5">
-
                             <form id="taxUploadForm" novalidate autocomplete="off">
 
                                     <!-- Honeypot anti-spam -->
@@ -693,33 +561,11 @@
                                         <div class="tuf-error" id="dependents-error"></div>
                                     </div>
 
-                                    <!-- 7. Tax Year -->
-                                    <div class="tuf-field-group">
-                                        <label class="tuf-label">Which year are you submitting documents for? <span class="tuf-required">*</span></label>
-                                        <select class="form-control tuf-input" id="tuf_taxYear" name="taxYear">
-                                            <option value="">— Select a year —</option>
-                                            <option value="2025">2025</option>
-                                            <option value="2024">2024</option>
-                                            <option value="2023">2023</option>
-                                            <option value="2022">2022</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2019">2019</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2015">2015</option>
-                                            <option value="other">Other (enter below)</option>
-                                        </select>
-                                        <input type="text" class="form-control tuf-input mt-2" id="tuf_taxYearOther" placeholder="Enter year (e.g. 2014)" style="display:none;">
-                                        <div class="tuf-error" id="taxYear-error"></div>
-                                    </div>
-
                                     <!-- 8. File Upload -->
                                     <div class="tuf-field-group">
                                         <label class="tuf-label">Upload Your Files Here <span class="tuf-required">*</span></label>
                                         <div class="tuf-upload-zone" id="tuf_uploadZone" role="button" tabindex="0" aria-label="Upload files">
-                                            <input type="file" id="tuf_fileInput" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx" style="display:none;">
+                                            <input type="file" id="tuf_fileInput" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" style="display:none;">
                                             <i class="fas fa-cloud-upload-alt tuf-upload-icon"></i>
                                             <p class="tuf-upload-text"><strong>Click to upload</strong> or drag and drop files here</p>
                                             <p class="tuf-upload-subtext">JPG, PNG, PDF, DOC, DOCX</p>
@@ -734,11 +580,13 @@
 
                                     <!-- 9. Who's Assisting -->
                                     <div class="tuf-field-group">
-                                        <label class="tuf-label">Who's Assisting You? <span class="tuf-required">*</span></label>
-                                        <select class="form-control tuf-input" id="tuf_assistant" name="assistant" required>
+                                        <label class="tuf-label">Who's Assisting You? <span style="font-weight:400;color:#94a3b8;">(optional)</span></label>
+                                        <select class="form-control tuf-input" id="tuf_assistant" name="assistant">
                                             <option value="">Select an assistant</option>
                                             <option>Yassin</option>
-                                            <!-- <option>Muhidin</option> -->
+                                            <option>Muhidin</option>
+                                            <option>Asha</option>
+                                            <option>Khadija</option>
                                             <option>Javan</option>
                                             <option>Juma Muya</option>
                                             <option>Mohamed Muya</option>
@@ -746,7 +594,6 @@
                                             <option>Trey</option>
                                             <option>Abdisamad</option>
                                         </select>
-                                        <div class="tuf-error" id="assistant-error"></div>
                                     </div>
 
                                     <!-- 10. Referred By -->
@@ -795,11 +642,8 @@
                         <div class="modal-body text-center p-5">
                             <div class="tuf-success-icon mb-3"><i class="fas fa-check-circle"></i></div>
                             <h3 class="tuf-success-title" id="tufSuccessLabel">Thank You!</h3>
-                            <p class="tuf-success-text" id="tuf_successModalText">Your tax files have been submitted successfully.<br>We'll be in touch shortly.</p>
-                            <div class="d-flex justify-content-center gap-2 mt-3" style="gap:.75rem;">
-                                <button type="button" id="tuf_doneBtn" class="btn tuf-submit-btn" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Your information on the form will be erased">Done</button>
-                                <button type="button" id="tuf_anotherYearBtn" class="btn btn-outline-secondary" data-dismiss="modal" style="border-radius:.75rem;padding:.6rem 1.25rem;font-weight:600;">Submit another year</button>
-                            </div>
+                            <p class="tuf-success-text">Your tax files have been submitted successfully.<br>We'll be in touch shortly.</p>
+                            <button type="button" class="btn tuf-submit-btn mt-2" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -1273,136 +1117,6 @@
             <!--END PARTNERS ****************************************************************************************-->
 
             <!--ABOUT US ********************************************************************************************-->
-            <!--OUR TEAM ********************************************************************************************-->
-            <section id="our-team" class="ts-block py-5" style="background:#f8fafc;">
-                <div class="container">
-                    <div class="ts-title text-center mb-5">
-                        <p style="color:var(--amber);font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">The People Behind Evotax</p>
-                        <h2 style="color:#0f172a;">Meet Our Team</h2>
-                        <p style="color:#64748b;max-width:500px;margin:.5rem auto 0;font-size:1.0625rem;">Dedicated professionals committed to making your tax experience seamless and stress-free.</p>
-                    </div>
-                    <div class="row justify-content-center">
-
-                        <!-- Yassin -->
-                        <div class="col-sm-6 col-md-4 mb-4">
-                            <div style="background:#fff;border-radius:1.25rem;overflow:hidden;box-shadow:0 4px 24px rgba(30,59,96,.08);border:1.5px solid rgba(30,59,96,.1);text-align:center;padding-bottom:2rem;">
-                                <div style="width:100%;height:220px;background:#dde3ed;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-                                    <img src="assets/img/yassinProfile.png" alt="Yassin" style="width:100%;height:100%;object-fit:cover;object-position:top center;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                                    <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">
-                                        <i class="fas fa-user" style="font-size:5rem;color:#94a3b8;"></i>
-                                    </div>
-                                </div>
-                                <div style="padding:1.5rem 1.5rem 0;">
-                                    <span style="display:inline-block;background:rgba(245,158,11,.12);color:#b45309;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .75rem;border-radius:2rem;margin-bottom:.75rem;">Manager</span>
-                                    <h4 style="color:#0f172a;font-weight:700;margin-bottom:.5rem;">Yassin</h4>
-                                    <p style="color:#64748b;font-size:.9375rem;line-height:1.7;margin-bottom:1rem;">Founder and owner of Evotax with many years of experience in tax preparation. Yassin leads the team with deep knowledge of tax law and a passion for helping clients maximize their returns.</p>
-                                    <button type="button" class="btn btn-primary btn-sm px-4" data-toggle="modal" data-target="#quoteModal"><i class="fas fa-file-alt mr-2"></i>File with Me</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Mohamed Muya -->
-                        <div class="col-sm-6 col-md-4 mb-4">
-                            <div style="background:#fff;border-radius:1.25rem;overflow:hidden;box-shadow:0 4px 24px rgba(30,59,96,.08);border:1.5px solid rgba(30,59,96,.1);text-align:center;padding-bottom:2rem;">
-                                <div style="width:100%;height:220px;background:#dde3ed;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-                                    <img src="assets/img/MohameProfile.JPG" alt="Mohamed Muya" style="width:100%;height:100%;object-fit:cover;object-position:top center;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                                    <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">
-                                        <i class="fas fa-user" style="font-size:5rem;color:#94a3b8;"></i>
-                                    </div>
-                                </div>
-                                <div style="padding:1.5rem 1.5rem 0;">
-                                    <span style="display:inline-block;background:rgba(30,59,96,.1);color:#1e3b60;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .75rem;border-radius:2rem;margin-bottom:.75rem;">Tax Preparer</span>
-                                    <h4 style="color:#0f172a;font-weight:700;margin-bottom:.5rem;">Mohamed Muya</h4>
-                                    <p style="color:#64748b;font-size:.9375rem;line-height:1.7;margin-bottom:1rem;">A highly skilled contractor and trusted member of the Evotax team. Mohamed has assisted and guided countless clients through the tax process with precision, care, and professionalism.</p>
-                                    <button type="button" class="btn btn-navy btn-sm px-4" data-toggle="modal" data-target="#quoteModal"><i class="fas fa-file-alt mr-2"></i>File with Me</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Juma Muya -->
-                        <div class="col-sm-6 col-md-4 mb-4">
-                            <div style="background:#fff;border-radius:1.25rem;overflow:hidden;box-shadow:0 4px 24px rgba(30,59,96,.08);border:1.5px solid rgba(30,59,96,.1);text-align:center;padding-bottom:2rem;">
-                                <div style="width:100%;height:220px;background:#dde3ed;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-                                    <img src="assets/img/JumaProfile.JPEG" alt="Juma Muya" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                                    <div style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">
-                                        <i class="fas fa-user" style="font-size:5rem;color:#94a3b8;"></i>
-                                    </div>
-                                </div>
-                                <div style="padding:1.5rem 1.5rem 0;">
-                                    <span style="display:inline-block;background:rgba(30,59,96,.1);color:#1e3b60;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .75rem;border-radius:2rem;margin-bottom:.75rem;">Tax Preparer</span>
-                                    <h4 style="color:#0f172a;font-weight:700;margin-bottom:.5rem;">Juma Muya</h4>
-                                    <p style="color:#64748b;font-size:.9375rem;line-height:1.7;margin-bottom:1rem;">A highly skilled and technically sharp tax preparer with a meticulous eye for detail. Juma brings deep expertise in tax law and a data-driven approach to ensure every client gets the maximum benefit with precision and confidence.</p>
-                                    <button type="button" class="btn btn-navy btn-sm px-4" data-toggle="modal" data-target="#quoteModal"><i class="fas fa-file-alt mr-2"></i>File with Me</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-            <!--END OUR TEAM ****************************************************************************************-->
-
-            <!--SOCIAL PROOF *****************************************************************************************-->
-            <section id="social-proof" class="ts-block py-5" style="background:#fff;">
-                <div class="container">
-                    <div class="ts-title text-center mb-5">
-                        <p style="color:var(--amber);font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;">Trusted by Clients</p>
-                        <h2 style="color:#0f172a;">See What People Are Saying</h2>
-                        <p style="color:#64748b;max-width:480px;margin:.5rem auto 0;font-size:1.0625rem;">Real reviews from real clients across the web.</p>
-                    </div>
-                    <!-- Reddit mentions -->
-                    <div class="row justify-content-center" style="gap:1rem 0;">
-                        <div class="col-12 text-center mb-3">
-                            <div style="display:inline-flex;align-items:center;gap:.5rem;">
-                                <img src="assets/img/reddit.png" alt="Reddit" style="height:22px;object-fit:contain;">
-                                <span style="font-size:.8125rem;font-weight:700;color:#ff4500;letter-spacing:.04em;text-transform:uppercase;">Mentioned on Reddit</span>
-                            </div>
-                        </div>
-
-                        <!-- r/expats -->
-                        <div class="col-sm-6 col-md-4 mb-3">
-                            <a href="https://www.reddit.com/r/expats/comments/1mx4jhi/filing_taxes_as_an_expat_in_bali_my_story/"
-                               target="_blank" rel="noopener noreferrer"
-                               style="display:flex;flex-direction:column;gap:.6rem;text-decoration:none;padding:1.25rem 1.5rem;border-radius:1rem;border:1.5px solid rgba(255,69,0,.15);box-shadow:0 4px 20px rgba(255,69,0,.06);transition:transform .2s,box-shadow .2s;background:#fff;height:100%;"
-                               onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 10px 32px rgba(255,69,0,.14)'"
-                               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(255,69,0,.06)'">
-                                <span style="display:inline-block;font-size:.7rem;font-weight:700;color:#ff4500;background:rgba(255,69,0,.08);padding:.2rem .6rem;border-radius:2rem;width:fit-content;">r/expats</span>
-                                <span style="font-size:.9375rem;font-weight:600;color:#0f172a;line-height:1.4;">Filing taxes as an expat in Bali — my story</span>
-                                <span style="font-size:.8125rem;color:#94a3b8;margin-top:auto;">View thread →</span>
-                            </a>
-                        </div>
-
-                        <!-- r/nicefrance -->
-                        <div class="col-sm-6 col-md-4 mb-3">
-                            <a href="https://www.reddit.com/r/nicefrance/comments/1l0ukp8/comment/na1dejq/"
-                               target="_blank" rel="noopener noreferrer"
-                               style="display:flex;flex-direction:column;gap:.6rem;text-decoration:none;padding:1.25rem 1.5rem;border-radius:1rem;border:1.5px solid rgba(255,69,0,.15);box-shadow:0 4px 20px rgba(255,69,0,.06);transition:transform .2s,box-shadow .2s;background:#fff;height:100%;"
-                               onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 10px 32px rgba(255,69,0,.14)'"
-                               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(255,69,0,.06)'">
-                                <span style="display:inline-block;font-size:.7rem;font-weight:700;color:#ff4500;background:rgba(255,69,0,.08);padding:.2rem .6rem;border-radius:2rem;width:fit-content;">r/nicefrance</span>
-                                <span style="font-size:.9375rem;font-weight:600;color:#0f172a;line-height:1.4;">Evotax recommended by a remote worker in Southeast Asia</span>
-                                <span style="font-size:.8125rem;color:#94a3b8;margin-top:auto;">View comment →</span>
-                            </a>
-                        </div>
-
-                        <!-- r/germany -->
-                        <div class="col-sm-6 col-md-4 mb-3">
-                            <a href="https://www.reddit.com/r/germany/comments/1hvznni/comment/nklc0uc/"
-                               target="_blank" rel="noopener noreferrer"
-                               style="display:flex;flex-direction:column;gap:.6rem;text-decoration:none;padding:1.25rem 1.5rem;border-radius:1rem;border:1.5px solid rgba(255,69,0,.15);box-shadow:0 4px 20px rgba(255,69,0,.06);transition:transform .2s,box-shadow .2s;background:#fff;height:100%;"
-                               onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 10px 32px rgba(255,69,0,.14)'"
-                               onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(255,69,0,.06)'">
-                                <span style="display:inline-block;font-size:.7rem;font-weight:700;color:#ff4500;background:rgba(255,69,0,.08);padding:.2rem .6rem;border-radius:2rem;width:fit-content;">r/germany</span>
-                                <span style="font-size:.9375rem;font-weight:600;color:#0f172a;line-height:1.4;">Evotax mentioned in the Germany expat community</span>
-                                <span style="font-size:.8125rem;color:#94a3b8;margin-top:auto;">View comment →</span>
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-            <!--END SOCIAL PROOF **************************************************************************************-->
-
             <section id="about-us">
                 <div class="container">
                     <div class="row">
@@ -1949,123 +1663,6 @@
             </section> -->
             <!--END BUY NOW *****************************************************************************************-->
 
-            <!--*************************************************************************************************************-->
-            <!--************ BECOME A TAX PREPARER **************************************************************************-->
-            <!--*************************************************************************************************************-->
-            <section id="become-preparer" class="ts-block">
-                <div class="container">
-                    <div class="row align-items-center">
-
-                        <!-- Left: info panel -->
-                        <div class="col-lg-5 mb-5 mb-lg-0 btp-side-info" data-animate="ts-fadeInLeft">
-                            <span class="btp-header-badge"><i class="fas fa-star"></i> We're Hiring</span>
-                            <h3>Join the Evotax Team</h3>
-                            <p>We're looking for motivated individuals who want to build a career in tax preparation. Apply below and if approved, you'll receive all the necessary training to operate as a certified tax specialist.</p>
-                            <div class="btp-perk">
-                                <div class="btp-perk-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <div class="btp-perk-text">
-                                    <strong>Full Training Provided</strong>
-                                    <span>No prior experience required — we'll train you from the ground up.</span>
-                                </div>
-                            </div>
-                            <div class="btp-perk">
-                                <div class="btp-perk-icon"><i class="fas fa-users"></i></div>
-                                <div class="btp-perk-text">
-                                    <strong>Supportive Team</strong>
-                                    <span>Work alongside experienced professionals in a collaborative environment.</span>
-                                </div>
-                            </div>
-                            <div class="btp-perk">
-                                <div class="btp-perk-icon"><i class="fas fa-chart-line"></i></div>
-                                <div class="btp-perk-text">
-                                    <strong>Growth Opportunity</strong>
-                                    <span>Build your client base and grow your income as a tax specialist.</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right: application form -->
-                        <div class="col-lg-7" data-animate="ts-fadeInRight">
-                            <div class="btp-card">
-
-                                <!-- Success state -->
-                                <div class="btp-success" id="btp_success">
-                                    <div class="btp-success-icon"><i class="fas fa-check-circle"></i></div>
-                                    <div class="btp-success-title">Application Received!</div>
-                                    <p class="btp-success-msg">Thank you for applying to join the Evotax team. Your application is going to be reviewed and we'll get back to you shortly.</p>
-                                </div>
-
-                                <!-- Form -->
-                                <div id="btp_formWrap">
-                                    <span class="btp-header-badge"><i class="fas fa-file-alt"></i> Application Form</span>
-                                    <div class="btp-title">Become a Tax Preparer</div>
-                                    <p class="btp-subtitle">If approved, you'll receive all the necessary training to operate as a fully qualified tax specialist with Evotax.</p>
-
-                                    <form id="btpForm" novalidate autocomplete="off">
-
-                                        <!-- Full Name -->
-                                        <div class="form-group">
-                                            <label class="btp-label">Full Name <span class="btp-req">*</span></label>
-                                            <input type="text" class="btp-input form-control" id="btp_fullName" placeholder="Enter your full name" required>
-                                            <div class="btp-error" id="btp_nameErr"></div>
-                                        </div>
-
-                                        <!-- Email & Phone -->
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="btp-label">Email Address <span class="btp-req">*</span></label>
-                                                    <input type="email" class="btp-input form-control" id="btp_email" placeholder="you@example.com" required>
-                                                    <div class="btp-error" id="btp_emailErr"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="btp-label">Phone Number <span class="btp-req">*</span></label>
-                                                    <input type="tel" class="btp-input form-control" id="btp_phone" placeholder="+1 (555) 000-0000" required>
-                                                    <div class="btp-error" id="btp_phoneErr"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Social Media -->
-                                        <div class="form-group">
-                                            <label class="btp-label">Social Media Links <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
-                                            <input type="text" class="btp-input form-control" id="btp_social" placeholder="Instagram, LinkedIn, TikTok, Facebook — paste any links here">
-                                        </div>
-
-                                        <!-- Resume Upload -->
-                                        <div class="form-group">
-                                            <label class="btp-label">Upload Your Resume <span class="btp-req">*</span></label>
-                                            <div class="btp-upload-zone" id="btp_uploadZone" role="button" tabindex="0" aria-label="Upload resume">
-                                                <input type="file" id="btp_fileInput" accept=".pdf,.doc,.docx" style="display:none;">
-                                                <i class="fas fa-cloud-upload-alt btp-upload-icon"></i>
-                                                <p class="btp-upload-text"><strong>Click to upload</strong> or drag & drop</p>
-                                                <p class="btp-upload-subtext">PDF, DOC, DOCX — max 10 MB</p>
-                                            </div>
-                                            <div id="btp_fileItem"></div>
-                                            <div class="btp-error" id="btp_resumeErr"></div>
-                                        </div>
-
-                                        <!-- Submit -->
-                                        <button type="submit" class="btp-submit-btn mt-2" id="btp_submitBtn">
-                                            <i class="fas fa-paper-plane"></i> Submit Application
-                                        </button>
-
-                                    </form>
-                                </div>
-                                <!--end btp_formWrap-->
-
-                            </div>
-                            <!--end btp-card-->
-                        </div>
-                        <!--end col-->
-
-                    </div>
-                </div>
-            </section>
-            <!--END BECOME A TAX PREPARER-->
-
         </main>
         <!--end #content-->
 
@@ -2083,7 +1680,7 @@
                                 <address>
                                     <figure>
                                         <div class="font-weight-bold">Email:</div>
-                                        <a>team@evotax.us</a>
+                                        <a>yassin@evotax.us</a>
                                     </figure>
                                     <figure>
                                         <div s >Phone:</div>
@@ -2093,20 +1690,19 @@
                                     >
                                         Instagram:</div>
 
-                              <a href="https://www.instagram.com/evotax.yassin/">@evotax.yassin</a> 
+                              <a href="https://www.instagram.com/evotax.usa/">@evotax.usa</a> 
                                 </address>
                                 <!--end address-->
                             </div>
                             <!--end col-md-4-->
                             <div class="col-md-8">
                                 <h3>Contact Form</h3>
-                                <form id="form-contact" class="clearfix ts-form ts-inputs__transparent" novalidate>
+                                <form id="form-contact" method="post" class="clearfix ts-form ts-form-email ts-inputs__transparent" data-php-path="assets/php/email.php">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="form-contact-name">Your Name *</label>
-                                                <input type="text" class="form-control" id="form-contact-name" name="name" placeholder="Your Name">
-                                                <span class="fc-error" id="fc-error-name" style="display:none;color:#ef4444;font-size:.8125rem;margin-top:.3rem;">Please enter your name.</span>
+                                                <input type="text" class="form-control" id="form-contact-name" name="name" placeholder="Your Name" required>
                                             </div>
                                             <!--end form-group -->
                                         </div>
@@ -2114,8 +1710,7 @@
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group">
                                                 <label for="form-contact-email">Your Email *</label>
-                                                <input type="email" class="form-control" id="form-contact-email" name="email" placeholder="Your Email">
-                                                <span class="fc-error" id="fc-error-email" style="display:none;color:#ef4444;font-size:.8125rem;margin-top:.3rem;">Please enter a valid email address.</span>
+                                                <input type="email" class="form-control" id="form-contact-email" name="email" placeholder="Your Email" required>
                                             </div>
                                             <!--end form-group -->
                                         </div>
@@ -2126,8 +1721,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="form-contact-message">Your Message *</label>
-                                                <textarea class="form-control" id="form-contact-message" rows="5" name="message" placeholder="Your Message"></textarea>
-                                                <span class="fc-error" id="fc-error-message" style="display:none;color:#ef4444;font-size:.8125rem;margin-top:.3rem;">Please enter your message.</span>
+                                                <textarea class="form-control" id="form-contact-message" rows="5" name="message" placeholder="Your Message" required></textarea>
                                             </div>
                                             <!--end form-group -->
                                         </div>
@@ -2311,13 +1905,15 @@ $(document).on('click', '.tuf-file-remove', function() {
 });
 
 /* ── Signature pad ─────────────────────────────────────────── */
-var canvas, ctx, isDrawing = false, hasSig = false, sigReady = false;
+var canvas = document.getElementById('tuf_signatureCanvas');
+var ctx    = canvas.getContext('2d');
+var isDrawing = false;
+var hasSig    = false;
 
 function resizeCanvas() {
     var ratio = window.devicePixelRatio || 1;
     var w = canvas.offsetWidth;
     var h = canvas.offsetHeight;
-    if (!w || !h) return;
     canvas.width  = w * ratio;
     canvas.height = h * ratio;
     ctx.scale(ratio, ratio);
@@ -2325,67 +1921,31 @@ function resizeCanvas() {
     ctx.lineWidth   = 2;
     ctx.lineCap     = 'round';
     ctx.lineJoin    = 'round';
+    hasSig = false;
 }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 function getPos(e) {
     var r = canvas.getBoundingClientRect();
-    if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    if (e.touches) {
+        return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    }
     return { x: e.clientX - r.left, y: e.clientY - r.top };
 }
 
-/* Tax year — show custom input when "Other" is selected */
-$('#tuf_taxYear').on('change', function() {
-    if ($(this).val() === 'other') {
-        $('#tuf_taxYearOther').show().focus();
-    } else {
-        $('#tuf_taxYearOther').hide().val('');
-    }
-});
-
-$('#quoteModal').on('shown.bs.modal', function() {
-    canvas = document.getElementById('tuf_signatureCanvas');
-    ctx    = canvas.getContext('2d');
-    isDrawing = false;
-    hasSig    = false;
-    resizeCanvas();
-    if (!sigReady) {
-        canvas.addEventListener('mousedown',  function(e) { isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); });
-        canvas.addEventListener('mousemove',  function(e) { if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
-        canvas.addEventListener('mouseup',    function()  { isDrawing = false; });
-        canvas.addEventListener('mouseleave', function()  { isDrawing = false; });
-        canvas.addEventListener('touchstart', function(e) { e.preventDefault(); isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
-        canvas.addEventListener('touchmove',  function(e) { e.preventDefault(); if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
-        canvas.addEventListener('touchend',   function()  { isDrawing = false; });
-        sigReady = true;
-    }
-});
-
-window.addEventListener('resize', function() { if (canvas && $('#quoteModal').hasClass('show')) resizeCanvas(); });
+canvas.addEventListener('mousedown',  function(e) { isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); });
+canvas.addEventListener('mousemove',  function(e) { if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+canvas.addEventListener('mouseup',    function()  { isDrawing = false; });
+canvas.addEventListener('mouseleave', function()  { isDrawing = false; });
+canvas.addEventListener('touchstart', function(e) { e.preventDefault(); isDrawing = true; hasSig = true; ctx.beginPath(); var p = getPos(e); ctx.moveTo(p.x, p.y); }, { passive: false });
+canvas.addEventListener('touchmove',  function(e) { e.preventDefault(); if (!isDrawing) return; var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke(); }, { passive: false });
+canvas.addEventListener('touchend',   function()  { isDrawing = false; });
 
 $('#tuf_clearSig').on('click', function() {
-    if (!ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     hasSig = false;
     $('#signature-error').text('');
-});
-
-$('[data-toggle="tooltip"]').tooltip();
-
-/* ── "Done" → full reset so the form starts fresh next time ── */
-$('#tuf_doneBtn').on('click', function() {
-    $('#tuf_successModal').one('hidden.bs.modal', function() {
-        $('#taxUploadForm')[0].reset();
-        $('#tuf_taxYearOther').hide().val('');
-        $('#taxUploadForm .tuf-input').removeClass('is-valid is-invalid');
-        $('#taxUploadForm .tuf-error').text('');
-    });
-});
-
-/* ── "Submit another year" reopens the form after the thank-you popup closes ── */
-$('#tuf_anotherYearBtn').on('click', function() {
-    $('#tuf_successModal').one('hidden.bs.modal', function() {
-        $('#quoteModal').modal('show');
-    });
 });
 
 /* ── Validation helpers ────────────────────────────────────── */
@@ -2462,22 +2022,6 @@ $('#taxUploadForm').on('submit', async function(e) {
     var $dep = $('#tuf_dependents');
     valid = ($dep.val() ? clearError($dep,'dependents-error') : setError($dep,'dependents-error','Please select number of dependents.')) && valid;
 
-    /* Assistant */
-    var $ast = $('#tuf_assistant');
-    valid = ($ast.val() ? clearError($ast,'assistant-error') : setError($ast,'assistant-error','Please select who is assisting you.')) && valid;
-
-    /* Tax Year */
-    var taxYearSel = $('#tuf_taxYear').val();
-    var taxYearVal = taxYearSel === 'other' ? $('#tuf_taxYearOther').val().trim() : taxYearSel;
-    if (!taxYearVal) {
-        $('#taxYear-error').text('Please select or enter the tax year.');
-        $('#tuf_taxYear').addClass('is-invalid');
-        valid = false;
-    } else {
-        $('#taxYear-error').text('');
-        $('#tuf_taxYear').removeClass('is-invalid').addClass('is-valid');
-    }
-
     /* Files */
     if (uploadedFiles.length === 0) {
         $('#files-error').text('Please upload at least one file.');
@@ -2497,11 +2041,10 @@ $('#taxUploadForm').on('submit', async function(e) {
     }
 
     if (!valid) {
+        /* Scroll to first error */
         var $firstErr = $('#taxUploadForm .is-invalid, #taxUploadForm .tuf-error:not(:empty)').first();
         if ($firstErr.length) {
-            var $modalBody = $('#quoteModal .modal-body');
-            var scrollTo = $firstErr.offset().top - $modalBody.offset().top + $modalBody.scrollTop() - 20;
-            $modalBody.animate({ scrollTop: scrollTo }, 400);
+            $('html,body').animate({ scrollTop: $firstErr.offset().top - 120 }, 400);
         }
         return;
     }
@@ -2524,7 +2067,6 @@ $('#taxUploadForm').on('submit', async function(e) {
         },
         dependents:        $('#tuf_dependents').val(),
         qualifyingChildren:$('#tuf_qualifyingChildren').val().trim(),
-        taxYear:           taxYearVal,
         assistant:         $('#tuf_assistant').val(),
         referredBy:        $('#tuf_referredBy').val().trim(),
         message:           $('#tuf_message').val().trim(),
@@ -2552,7 +2094,6 @@ $('#taxUploadForm').on('submit', async function(e) {
             country:             payload.address.country,
             dependents:          payload.dependents,
             qualifying_children: payload.qualifyingChildren,
-            tax_year:            payload.taxYear,
             assistant:           payload.assistant,
             referred_by:         payload.referredBy,
             message:             payload.message,
@@ -2561,42 +2102,15 @@ $('#taxUploadForm').on('submit', async function(e) {
         });
         if (result.error) throw new Error(result.error.message);
 
-        fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-tax-submission', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name:       payload.firstName + ' ' + payload.lastName,
-                email:      payload.email,
-                phone:      payload.phone,
-                tax_year:   payload.taxYear,
-                assistant:  payload.assistant,
-                files:      payload.files
-            })
-        }).catch(function() {});
-
-        /* Reset only year + files + signature — keep personal info for next submission */
-        $('#tuf_taxYear').val('').removeClass('is-valid is-invalid');
-        $('#tuf_taxYearOther').hide().val('');
-        $('#taxYear-error').text('');
+        $('#taxUploadForm')[0].reset();
         uploadedFiles = [];
         renderFileList();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         hasSig = false;
+        $('#taxUploadForm .tuf-input').removeClass('is-valid is-invalid');
         $('#tuf_uploadZone').css('border-color','');
-        $('#files-error').text('');
-        $('#signature-error').text('');
-        /* Update popup text with the submitted year, then close quote modal first to avoid stacking */
-        var $msgEl = $('#tuf_successModalText').empty();
-        if (payload.taxYear) {
-            $msgEl.append('Your documents for ').append($('<strong>').text(payload.taxYear)).append(' have been received successfully.');
-        } else {
-            $msgEl.text('Your documents have been received successfully.');
-        }
-        $msgEl.append($('<br>')).append("We'll be in touch shortly.");
-        $('#quoteModal').one('hidden.bs.modal', function() {
-            $('#tuf_successModal').modal('show');
-        });
-        $('#quoteModal').modal('hide');
+        $('#tuf_successModal .tuf-success-text').html('Your tax files have been submitted successfully.<br>We\'ll be in touch shortly.');
+        $('#tuf_successModal').modal('show');
     } catch(err) {
         alert('Submission failed: ' + err.message);
     }
@@ -2956,173 +2470,26 @@ $('#fundingForm').on('submit', async function(e) {
     $fnBtn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Funding Request');
 });
 
-/* ════════════════════════════════════════════════════════════
-   BECOME A TAX PREPARER FORM
-   ════════════════════════════════════════════════════════════ */
-var btpResumeFile = null;
-
-function btpSetErr(id, msg) { $('#' + id).text(msg); }
-function btpClearErr(id)    { $('#' + id).text(''); }
-
-$('#btp_uploadZone').on('click', function() {
-    document.getElementById('btp_fileInput').click();
-}).on('keydown', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') document.getElementById('btp_fileInput').click();
-});
-
-$('#btp_fileInput').on('change', function() {
-    if (this.files && this.files[0]) btpSetResume(this.files[0]);
-    this.value = '';
-});
-
-var $btpZone = document.getElementById('btp_uploadZone');
-$btpZone.addEventListener('dragenter', function(e) { e.preventDefault(); $(this).addClass('drag-over'); });
-$btpZone.addEventListener('dragover',  function(e) { e.preventDefault(); $(this).addClass('drag-over'); });
-$btpZone.addEventListener('dragleave', function(e) { e.preventDefault(); $(this).removeClass('drag-over'); });
-$btpZone.addEventListener('drop', function(e) {
-    e.preventDefault();
-    $(this).removeClass('drag-over');
-    if (e.dataTransfer.files[0]) btpSetResume(e.dataTransfer.files[0]);
-});
-
-function btpSetResume(file) {
-    btpResumeFile = file;
-    btpClearErr('btp_resumeErr');
-    $('#btp_fileItem').html(
-        '<div class="btp-file-item mt-2">' +
-        '<span class="btp-file-item-name"><i class="fas fa-file-alt mr-2" style="color:#1e3b60;"></i>' + $('<span>').text(file.name).html() + '</span>' +
-        '<button type="button" class="btp-file-remove" id="btp_removeFile" title="Remove"><i class="fas fa-times"></i></button>' +
-        '</div>'
-    );
-}
-
-$(document).on('click', '#btp_removeFile', function() {
-    btpResumeFile = null;
-    $('#btp_fileItem').empty();
-});
-
-$('#btpForm').on('submit', async function(e) {
-    e.preventDefault();
-    var valid = true;
-
-    var name = $('#btp_fullName').val().trim();
-    if (!name) { btpSetErr('btp_nameErr', 'Full name is required.'); $('#btp_fullName').addClass('is-invalid'); valid = false; }
-    else        { btpClearErr('btp_nameErr'); $('#btp_fullName').removeClass('is-invalid').addClass('is-valid'); }
-
-    var email = $('#btp_email').val().trim();
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailOk) { btpSetErr('btp_emailErr', 'Please enter a valid email address.'); $('#btp_email').addClass('is-invalid'); valid = false; }
-    else          { btpClearErr('btp_emailErr'); $('#btp_email').removeClass('is-invalid').addClass('is-valid'); }
-
-    var phone = $('#btp_phone').val().trim();
-    if (!phone) { btpSetErr('btp_phoneErr', 'Phone number is required.'); $('#btp_phone').addClass('is-invalid'); valid = false; }
-    else        { btpClearErr('btp_phoneErr'); $('#btp_phone').removeClass('is-invalid').addClass('is-valid'); }
-
-    if (!btpResumeFile) { btpSetErr('btp_resumeErr', 'Please upload your resume.'); valid = false; }
-    else                { btpClearErr('btp_resumeErr'); }
-
-    if (!valid) return;
-
-    var $btn = $('#btp_submitBtn');
-    $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i> Submitting…');
-
-    try {
-        var resumeUrl = null, resumeName = btpResumeFile.name;
-        var safeName = btpResumeFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-        var path = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '/' + safeName;
-        var up = await _sb.storage.from('preparer-resumes').upload(path, btpResumeFile, { contentType: btpResumeFile.type, upsert: false });
-        if (up.error) throw new Error('Resume upload failed: ' + up.error.message);
-        resumeUrl = _sb.storage.from('preparer-resumes').getPublicUrl(path).data.publicUrl;
-
-        var result = await _sb.from('preparer_applications').insert({
-            full_name:    name,
-            email:        email,
-            phone:        phone,
-            social_media: $('#btp_social').val().trim() || null,
-            resume_url:   resumeUrl,
-            resume_name:  resumeName
-        });
-        if (result.error) throw new Error(result.error.message);
-
-        await fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-job-application', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                full_name:    name,
-                email:        email,
-                phone:        phone,
-                social_media: $('#btp_social').val().trim() || null,
-                resume_url:   resumeUrl,
-                resume_name:  resumeName
-            })
-        }).catch(function() {});
-
-        $('#btp_formWrap').hide();
-        $('#btp_success').show();
-    } catch(err) {
-        alert('Submission failed: ' + err.message);
-        $btn.prop('disabled', false).html('<i class="fas fa-paper-plane mr-2"></i> Submit Application');
-    }
-});
-
-/* ────────────────────────────────────────────────────────────
-   FOOTER CONTACT FORM → Supabase
-   ──────────────────────────────────────────────────────────── */
-$('#form-contact').on('submit', async function(e) {
-    e.preventDefault();
-    var $btn    = $('#form-contact-submit');
-    var $status = $('.form-contact-status');
-    var name    = $('#form-contact-name').val().trim();
-    var email   = $('#form-contact-email').val().trim();
-    var message = $('#form-contact-message').val().trim();
-    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-
-    // clear previous errors
-    $('.fc-error').hide();
-    $('#form-contact-name, #form-contact-email, #form-contact-message').css('border-color', '');
-
-    var valid = true;
-    if (!name)    { $('#fc-error-name').show();    $('#form-contact-name').css('border-color','#ef4444');    valid = false; }
-    if (!emailOk) { $('#fc-error-email').show();   $('#form-contact-email').css('border-color','#ef4444');   valid = false; }
-    if (!message) { $('#fc-error-message').show();  $('#form-contact-message').css('border-color','#ef4444'); valid = false; }
-    if (!valid) return;
-
-    $btn.prop('disabled', true).text('Sending…');
-    $status.text('');
-
-    try {
-        var res = await _sb.from('contact_messages').insert({ name: name, email: email, message: message });
-        if (res.error) throw new Error(res.error.message);
-        fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-contact-form', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name, email: email, message: message })
-        }).catch(function() {});
-        $('#form-contact')[0].reset();
-        $status.html('<span style="color:#22c55e;font-weight:600;">✓ Message sent! We\'ll get back to you shortly.</span>');
-    } catch(err) {
-        $status.html('<span style="color:#ef4444;">Failed to send: ' + err.message + '</span>');
-    }
-    $btn.prop('disabled', false).text('Send a Message');
-});
-
 })(jQuery);
-
 </script>
 
-<!-- Floating buttons -->
-<a id="joinUsFloatBtn" href="#become-preparer" style="position:fixed;bottom:5.25rem;right:1.5rem;z-index:9997;background:#1e3b60;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.1rem;font-size:.875rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(30,59,96,.4);cursor:pointer;display:flex;align-items:center;gap:.45rem;text-decoration:none;white-space:nowrap;transition:box-shadow .2s,transform .15s;">
-    <i class="fas fa-briefcase" style="font-size:.9rem;flex-shrink:0;"></i>
-    <span style="color:#fff;">We're Hiring</span>
-</a>
+<!-- Zoho Bookings floating button + modal -->
+<div id="zohoBookingModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:1rem;width:min(860px,96vw);height:min(680px,92vh);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.25);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;border-bottom:1px solid #e2e8f0;">
+            <span style="font-weight:700;font-size:1rem;color:#0f172a;"><i class="fas fa-calendar-check mr-2" style="color:#ed912f;"></i>Book an Appointment</span>
+            <button onclick="document.getElementById('zohoBookingModal').style.display='none';document.getElementById('zohoFrame').src=document.getElementById('zohoFrame').src;" style="background:none;border:none;font-size:1.5rem;color:#64748b;cursor:pointer;line-height:1;">&times;</button>
+        </div>
+        <iframe id="zohoFrame" src="" style="flex:1;border:none;width:100%;" allowfullscreen></iframe>
+    </div>
+</div>
 
-<button id="zohoFloatBtn" onclick="window.open('https://calendar.app.google/SV43FVKgFsAA5g8V9','_blank')" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9998;background:#ed912f;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.35rem;font-size:.9375rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(237,145,47,.45);cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s;">
+<button id="zohoFloatBtn" onclick="document.getElementById('zohoFrame').src='https://evotax.zohobookings.com/portal-embed#/evotax';document.getElementById('zohoBookingModal').style.display='flex';" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9998;background:#ed912f;color:#fff;border:none;border-radius:6.25rem;padding:.65rem 1.35rem;font-size:.9375rem;font-weight:600;font-family:'Inter',sans-serif;box-shadow:0 4px 20px rgba(237,145,47,.45);cursor:pointer;display:flex;align-items:center;gap:.5rem;transition:transform .15s,box-shadow .15s;">
     <i class="fas fa-calendar-plus"></i>
     <span style="color:#fff;">Book Now</span>
 </button>
 <style>
 #zohoFloatBtn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(237,145,47,.5); }
-#joinUsFloatBtn:hover { box-shadow:0 8px 28px rgba(30,59,96,.55); transform:translateY(-2px); }
 </style>
 
 </body>
