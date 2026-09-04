@@ -357,76 +357,6 @@
     .btp-side-info { margin-bottom: 2rem; color: rgba(255,255,255,.9); }
 }
 
-/* ── Closure Notice Section ──────────────────────────────── */
-#closure-notice {
-    background: linear-gradient(135deg, #0f1e38 0%, #1a3256 60%, #0f1e38 100%);
-    padding: 4.5rem 0;
-    position: relative;
-    overflow: hidden;
-}
-#closure-notice::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    pointer-events: none;
-}
-.cn-badge {
-    display: inline-flex; align-items: center; gap: .45rem;
-    background: rgba(245,158,11,.18); color: #f59e0b;
-    font-size: .75rem; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; padding: .35rem 1rem;
-    border-radius: 6.25rem; margin-bottom: 1.25rem;
-}
-.cn-title {
-    font-size: 1.85rem; font-weight: 800; color: #fff;
-    line-height: 1.3; margin-bottom: 1rem;
-}
-.cn-subtitle {
-    color: rgba(255,255,255,.75); font-size: 1rem;
-    line-height: 1.8; margin-bottom: 0;
-}
-.cn-point {
-    display: flex; align-items: flex-start; gap: .875rem;
-    margin-bottom: 1rem;
-}
-.cn-point-icon {
-    width: 2rem; height: 2rem; border-radius: 50%;
-    background: rgba(245,158,11,.18); color: #f59e0b;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .8rem; flex-shrink: 0; margin-top: .1rem;
-}
-.cn-point-text { color: rgba(255,255,255,.82); font-size: .9375rem; line-height: 1.7; }
-.cn-point-text strong { color: #fff; }
-@media (max-width: 767px) {
-    .cn-title { font-size: 1.45rem; }
-    #closure-notice { padding: 3rem 0; }
-}
-
-/* ── Closure Notice Popup ────────────────────────────────── */
-#closureNoticeModal .cn-popup-header {
-    background: linear-gradient(135deg, #0f1e38 0%, #1e3b60 100%);
-    padding: 2rem 2rem 1.5rem; text-align: center;
-}
-#closureNoticeModal .cn-popup-icon {
-    width: 3.75rem; height: 3.75rem; border-radius: 50%;
-    background: rgba(245,158,11,.2); color: #f59e0b;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.6rem; margin: 0 auto 1rem;
-}
-#closureNoticeModal .cn-popup-title {
-    color: #fff; font-weight: 800; font-size: 1.3rem; margin: 0;
-}
-#closureNoticeModal .cn-popup-body { padding: 1.75rem 2rem 2rem; }
-#closureNoticeModal .cn-popup-close-btn {
-    background: #f59e0b; border: none; color: #fff;
-    font-weight: 700; font-size: .9375rem; padding: .75rem 2.5rem;
-    border-radius: 6.25rem; width: 100%; margin-top: 1.25rem;
-    box-shadow: 0 4px 16px rgba(245,158,11,.35);
-    transition: background .2s, transform .15s; cursor: pointer;
-}
-#closureNoticeModal .cn-popup-close-btn:hover {
-    background: #d97706; transform: translateY(-1px);
-}
 </style>
 
 </head>
@@ -619,39 +549,125 @@
             </section>
             <!--END HOW IT WORKS ************************************************************************************-->
 
-            <hr>
-
-            <!--CLOSURE NOTICE ************************************************************************************-->
-            <section id="closure-notice">
+            <!--*************************************************************************************************************-->
+            <!--************ BECOME A TAX PREPARER **************************************************************************-->
+            <!--*************************************************************************************************************-->
+            <section id="become-preparer" class="ts-block">
                 <div class="container">
                     <div class="row align-items-center">
-                        <div class="col-lg-7 mb-4 mb-lg-0">
-                            <span class="cn-badge"><i class="fas fa-info-circle mr-1"></i> Service Update</span>
-                            <h2 class="cn-title">Temporary Service Pause<br>July 5 – September 5, 2026</h2>
-                            <p class="cn-subtitle">
-                                Our mission is to provide you with the best service possible. To achieve that, Evotax will be undergoing a full system renovation and will temporarily pause operations from <strong style="color:#fff;">July 5th through September 5th, 2026</strong>. Full operations resume on <strong style="color:#fff;">September 6th, 2026</strong>.
-                            </p>
-                        </div>
-                        <div class="col-lg-5">
-                            <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:1.25rem;padding:2rem;">
-                                <div class="cn-point">
-                                    <div class="cn-point-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                                    <div class="cn-point-text"><strong>Document uploads are still open.</strong> You can submit your tax documents now and we will process them starting September 6th.</div>
+
+                        <!-- Left: info panel -->
+                        <div class="col-lg-5 mb-5 mb-lg-0 btp-side-info" data-animate="ts-fadeInLeft">
+                            <span class="btp-header-badge"><i class="fas fa-star"></i> We're Hiring</span>
+                            <h3>Join the Evotax Team</h3>
+                            <p>We're looking for motivated individuals who want to build a career in tax preparation. Apply below and if approved, you'll receive all the necessary training to operate as a certified tax specialist.</p>
+                            <div class="btp-perk">
+                                <div class="btp-perk-icon"><i class="fas fa-graduation-cap"></i></div>
+                                <div class="btp-perk-text">
+                                    <strong>Full Training Provided</strong>
+                                    <span>No prior experience required — we'll train you from the ground up.</span>
                                 </div>
-                                <div class="cn-point">
-                                    <div class="cn-point-icon"><i class="fas fa-calendar-check"></i></div>
-                                    <div class="cn-point-text"><strong>Assistance begins September 6th.</strong> Our team will reach out to all clients who submitted during the pause as soon as we resume.</div>
+                            </div>
+                            <div class="btp-perk">
+                                <div class="btp-perk-icon"><i class="fas fa-users"></i></div>
+                                <div class="btp-perk-text">
+                                    <strong>Supportive Team</strong>
+                                    <span>Work alongside experienced professionals in a collaborative environment.</span>
                                 </div>
-                                <div class="cn-point mb-0">
-                                    <div class="cn-point-icon"><i class="fas fa-heart"></i></div>
-                                    <div class="cn-point-text"><strong>Thank you for your patience.</strong> We appreciate your trust and look forward to serving you better than ever.</div>
+                            </div>
+                            <div class="btp-perk">
+                                <div class="btp-perk-icon"><i class="fas fa-chart-line"></i></div>
+                                <div class="btp-perk-text">
+                                    <strong>Growth Opportunity</strong>
+                                    <span>Build your client base and grow your income as a tax specialist.</span>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Right: application form -->
+                        <div class="col-lg-7" data-animate="ts-fadeInRight">
+                            <div class="btp-card">
+
+                                <!-- Success state -->
+                                <div class="btp-success" id="btp_success">
+                                    <div class="btp-success-icon"><i class="fas fa-check-circle"></i></div>
+                                    <div class="btp-success-title">Application Received!</div>
+                                    <p class="btp-success-msg">Thank you for applying to join the Evotax team. Your application is going to be reviewed and we'll get back to you shortly.</p>
+                                </div>
+
+                                <!-- Form -->
+                                <div id="btp_formWrap">
+                                    <span class="btp-header-badge"><i class="fas fa-file-alt"></i> Application Form</span>
+                                    <div class="btp-title">Become a Tax Preparer</div>
+                                    <p class="btp-subtitle">If approved, you'll receive all the necessary training to operate as a fully qualified tax specialist with Evotax.</p>
+
+                                    <form id="btpForm" novalidate autocomplete="off">
+
+                                        <!-- Full Name -->
+                                        <div class="form-group">
+                                            <label class="btp-label">Full Name <span class="btp-req">*</span></label>
+                                            <input type="text" class="btp-input form-control" id="btp_fullName" placeholder="Enter your full name" required>
+                                            <div class="btp-error" id="btp_nameErr"></div>
+                                        </div>
+
+                                        <!-- Email & Phone -->
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="btp-label">Email Address <span class="btp-req">*</span></label>
+                                                    <input type="email" class="btp-input form-control" id="btp_email" placeholder="you@example.com" required>
+                                                    <div class="btp-error" id="btp_emailErr"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label class="btp-label">Phone Number <span class="btp-req">*</span></label>
+                                                    <input type="tel" class="btp-input form-control" id="btp_phone" placeholder="+1 (555) 000-0000" required>
+                                                    <div class="btp-error" id="btp_phoneErr"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Social Media -->
+                                        <div class="form-group">
+                                            <label class="btp-label">Social Media Links <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
+                                            <input type="text" class="btp-input form-control" id="btp_social" placeholder="Instagram, LinkedIn, TikTok, Facebook — paste any links here">
+                                        </div>
+
+                                        <!-- Resume Upload -->
+                                        <div class="form-group">
+                                            <label class="btp-label">Upload Your Resume <span class="btp-req">*</span></label>
+                                            <div class="btp-upload-zone" id="btp_uploadZone" role="button" tabindex="0" aria-label="Upload resume">
+                                                <input type="file" id="btp_fileInput" accept=".pdf,.doc,.docx" style="display:none;">
+                                                <i class="fas fa-cloud-upload-alt btp-upload-icon"></i>
+                                                <p class="btp-upload-text"><strong>Click to upload</strong> or drag & drop</p>
+                                                <p class="btp-upload-subtext">PDF, DOC, DOCX — max 10 MB</p>
+                                            </div>
+                                            <div id="btp_fileItem"></div>
+                                            <div class="btp-error" id="btp_resumeErr"></div>
+                                        </div>
+
+                                        <!-- Submit -->
+                                        <button type="submit" class="btp-submit-btn mt-2" id="btp_submitBtn">
+                                            <i class="fas fa-paper-plane"></i> Submit Application
+                                        </button>
+
+                                    </form>
+                                </div>
+                                <!--end btp_formWrap-->
+
+                            </div>
+                            <!--end btp-card-->
+                        </div>
+                        <!--end col-->
+
                     </div>
                 </div>
             </section>
-            <!--END CLOSURE NOTICE ************************************************************************************-->
+            <!--END BECOME A TAX PREPARER-->
+
+
+            <hr>
 
             <!--TAX UPLOAD FORM ************************************************************************************-->
             <section id="tax-form" class="ts-block py-5">
@@ -908,37 +924,6 @@
                 </div>
             </div>
             <!--END TAX UPLOAD FORM *********************************************************************************-->
-
-            <!-- CLOSURE NOTICE POPUP ====================================================================================-->
-            <div class="modal fade" id="closureNoticeModal" tabindex="-1" role="dialog" aria-labelledby="closureNoticeLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:480px;">
-                    <div class="modal-content" style="border-radius:1.25rem;border:none;box-shadow:0 24px 60px rgba(0,0,0,.22);overflow:hidden;">
-                        <div class="cn-popup-header">
-                            <div class="cn-popup-icon"><i class="fas fa-info-circle"></i></div>
-                            <h4 class="cn-popup-title" id="closureNoticeLabel">Important Notice</h4>
-                            <p style="color:rgba(255,255,255,.6);font-size:.85rem;margin:.4rem 0 0;">From the Evotax Team</p>
-                        </div>
-                        <div class="cn-popup-body">
-                            <p style="font-size:.9375rem;color:#334155;line-height:1.75;margin-bottom:1rem;">
-                                <strong>Evotax will be temporarily closed from <span style="color:#1e3b60;">July 5th to September 5th, 2026</span></strong> as we undergo a full system renovation. Full operations resume on <strong>September 6th, 2026</strong>.
-                            </p>
-                            <p style="font-size:.9375rem;color:#334155;line-height:1.75;margin-bottom:1.25rem;">
-                                Our mission is to provide you with the best service possible — and this pause is part of making that happen.
-                            </p>
-                            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:.75rem;padding:1rem 1.25rem;display:flex;gap:.75rem;align-items:flex-start;">
-                                <i class="fas fa-check-circle mt-1" style="color:#16a34a;flex-shrink:0;"></i>
-                                <p style="margin:0;font-size:.9rem;color:#166534;line-height:1.65;">
-                                    <strong>You can still upload your tax documents now.</strong> Our team will provide assistance starting <strong>September 6th</strong> and will reach out to you once we resume.
-                                </p>
-                            </div>
-                            <button type="button" class="cn-popup-close-btn" data-dismiss="modal">
-                                I Understand — Got It
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END CLOSURE NOTICE POPUP ================================================================================-->
 
             <!--OTHER SERVICES ************************************************************************************-->
             <!-- Other Services section (temporarily disabled — Funding & Credit Repair)
@@ -2083,123 +2068,6 @@
             </section> -->
             <!--END BUY NOW *****************************************************************************************-->
 
-            <!--*************************************************************************************************************-->
-            <!--************ BECOME A TAX PREPARER **************************************************************************-->
-            <!--*************************************************************************************************************-->
-            <section id="become-preparer" class="ts-block">
-                <div class="container">
-                    <div class="row align-items-center">
-
-                        <!-- Left: info panel -->
-                        <div class="col-lg-5 mb-5 mb-lg-0 btp-side-info" data-animate="ts-fadeInLeft">
-                            <span class="btp-header-badge"><i class="fas fa-star"></i> We're Hiring</span>
-                            <h3>Join the Evotax Team</h3>
-                            <p>We're looking for motivated individuals who want to build a career in tax preparation. Apply below and if approved, you'll receive all the necessary training to operate as a certified tax specialist.</p>
-                            <div class="btp-perk">
-                                <div class="btp-perk-icon"><i class="fas fa-graduation-cap"></i></div>
-                                <div class="btp-perk-text">
-                                    <strong>Full Training Provided</strong>
-                                    <span>No prior experience required — we'll train you from the ground up.</span>
-                                </div>
-                            </div>
-                            <div class="btp-perk">
-                                <div class="btp-perk-icon"><i class="fas fa-users"></i></div>
-                                <div class="btp-perk-text">
-                                    <strong>Supportive Team</strong>
-                                    <span>Work alongside experienced professionals in a collaborative environment.</span>
-                                </div>
-                            </div>
-                            <div class="btp-perk">
-                                <div class="btp-perk-icon"><i class="fas fa-chart-line"></i></div>
-                                <div class="btp-perk-text">
-                                    <strong>Growth Opportunity</strong>
-                                    <span>Build your client base and grow your income as a tax specialist.</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right: application form -->
-                        <div class="col-lg-7" data-animate="ts-fadeInRight">
-                            <div class="btp-card">
-
-                                <!-- Success state -->
-                                <div class="btp-success" id="btp_success">
-                                    <div class="btp-success-icon"><i class="fas fa-check-circle"></i></div>
-                                    <div class="btp-success-title">Application Received!</div>
-                                    <p class="btp-success-msg">Thank you for applying to join the Evotax team. Your application is going to be reviewed and we'll get back to you shortly.</p>
-                                </div>
-
-                                <!-- Form -->
-                                <div id="btp_formWrap">
-                                    <span class="btp-header-badge"><i class="fas fa-file-alt"></i> Application Form</span>
-                                    <div class="btp-title">Become a Tax Preparer</div>
-                                    <p class="btp-subtitle">If approved, you'll receive all the necessary training to operate as a fully qualified tax specialist with Evotax.</p>
-
-                                    <form id="btpForm" novalidate autocomplete="off">
-
-                                        <!-- Full Name -->
-                                        <div class="form-group">
-                                            <label class="btp-label">Full Name <span class="btp-req">*</span></label>
-                                            <input type="text" class="btp-input form-control" id="btp_fullName" placeholder="Enter your full name" required>
-                                            <div class="btp-error" id="btp_nameErr"></div>
-                                        </div>
-
-                                        <!-- Email & Phone -->
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="btp-label">Email Address <span class="btp-req">*</span></label>
-                                                    <input type="email" class="btp-input form-control" id="btp_email" placeholder="you@example.com" required>
-                                                    <div class="btp-error" id="btp_emailErr"></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="btp-label">Phone Number <span class="btp-req">*</span></label>
-                                                    <input type="tel" class="btp-input form-control" id="btp_phone" placeholder="+1 (555) 000-0000" required>
-                                                    <div class="btp-error" id="btp_phoneErr"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Social Media -->
-                                        <div class="form-group">
-                                            <label class="btp-label">Social Media Links <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
-                                            <input type="text" class="btp-input form-control" id="btp_social" placeholder="Instagram, LinkedIn, TikTok, Facebook — paste any links here">
-                                        </div>
-
-                                        <!-- Resume Upload -->
-                                        <div class="form-group">
-                                            <label class="btp-label">Upload Your Resume <span class="btp-req">*</span></label>
-                                            <div class="btp-upload-zone" id="btp_uploadZone" role="button" tabindex="0" aria-label="Upload resume">
-                                                <input type="file" id="btp_fileInput" accept=".pdf,.doc,.docx" style="display:none;">
-                                                <i class="fas fa-cloud-upload-alt btp-upload-icon"></i>
-                                                <p class="btp-upload-text"><strong>Click to upload</strong> or drag & drop</p>
-                                                <p class="btp-upload-subtext">PDF, DOC, DOCX — max 10 MB</p>
-                                            </div>
-                                            <div id="btp_fileItem"></div>
-                                            <div class="btp-error" id="btp_resumeErr"></div>
-                                        </div>
-
-                                        <!-- Submit -->
-                                        <button type="submit" class="btp-submit-btn mt-2" id="btp_submitBtn">
-                                            <i class="fas fa-paper-plane"></i> Submit Application
-                                        </button>
-
-                                    </form>
-                                </div>
-                                <!--end btp_formWrap-->
-
-                            </div>
-                            <!--end btp-card-->
-                        </div>
-                        <!--end col-->
-
-                    </div>
-                </div>
-            </section>
-            <!--END BECOME A TAX PREPARER-->
-
         </main>
         <!--end #content-->
 
@@ -3239,16 +3107,6 @@ $('#form-contact').on('submit', async function(e) {
     }
     $btn.prop('disabled', false).text('Send a Message');
 });
-
-/* ── Show closure notice popup once per session ────────── */
-if (!sessionStorage.getItem('closureNoticeSeen')) {
-    setTimeout(function() {
-        $('#closureNoticeModal').modal('show');
-    }, 800);
-    $('#closureNoticeModal').on('hide.bs.modal', function() {
-        sessionStorage.setItem('closureNoticeSeen', '1');
-    });
-}
 
 })(jQuery);
 
