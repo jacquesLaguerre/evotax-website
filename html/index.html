@@ -2186,6 +2186,15 @@ var _sb = supabase.createClient(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzYmRvZHptcWR2eGpiZHNubmhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4ODMzMzIsImV4cCI6MjA5MjQ1OTMzMn0.IZ5kqZYUyiytuxHbm8-XddCi3nFKgNlSte5CcBTmJog'
 );
 
+/* Fire-and-forget email notification via the Supabase Edge Function
+   (send-form-email), which relays through Resend. Replaces the old n8n
+   webhooks. `type` is one of: 'job-application' | 'tax-submission' | 'contact' */
+function notifyByEmail(type, data) {
+    return _sb.functions.invoke('send-form-email', {
+        body: Object.assign({ type: type }, data)
+    }).catch(function() {});
+}
+
 (function($) {
 'use strict';
 
@@ -2563,18 +2572,14 @@ $('#taxUploadForm').on('submit', async function(e) {
         });
         if (result.error) throw new Error(result.error.message);
 
-        fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-tax-submission', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name:       payload.firstName + ' ' + payload.lastName,
-                email:      payload.email,
-                phone:      payload.phone,
-                tax_year:   payload.taxYear,
-                assistant:  payload.assistant,
-                files:      payload.files
-            })
-        }).catch(function() {});
+        notifyByEmail('tax-submission', {
+            name:       payload.firstName + ' ' + payload.lastName,
+            email:      payload.email,
+            phone:      payload.phone,
+            tax_year:   payload.taxYear,
+            assistant:  payload.assistant,
+            files:      payload.files
+        });
 
         /* Reset only year + files + signature — keep personal info for next submission */
         $('#tuf_taxYear').val('').removeClass('is-valid is-invalid');
@@ -3046,18 +3051,14 @@ $('#btpForm').on('submit', async function(e) {
         });
         if (result.error) throw new Error(result.error.message);
 
-        await fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-job-application', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                full_name:    name,
-                email:        email,
-                phone:        phone,
-                social_media: $('#btp_social').val().trim() || null,
-                resume_url:   resumeUrl,
-                resume_name:  resumeName
-            })
-        }).catch(function() {});
+        await notifyByEmail('job-application', {
+            full_name:    name,
+            email:        email,
+            phone:        phone,
+            social_media: $('#btp_social').val().trim() || null,
+            resume_url:   resumeUrl,
+            resume_name:  resumeName
+        });
 
         $('#btp_formWrap').hide();
         $('#btp_success').show();
@@ -3095,11 +3096,7 @@ $('#form-contact').on('submit', async function(e) {
     try {
         var res = await _sb.from('contact_messages').insert({ name: name, email: email, message: message });
         if (res.error) throw new Error(res.error.message);
-        fetch('https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-contact-form', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name: name, email: email, message: message })
-        }).catch(function() {});
+        notifyByEmail('contact', { name: name, email: email, message: message });
         $('#form-contact')[0].reset();
         $status.html('<span style="color:#22c55e;font-weight:600;">✓ Message sent! We\'ll get back to you shortly.</span>');
     } catch(err) {
