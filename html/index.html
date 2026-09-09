@@ -2208,15 +2208,24 @@ function genId() {
         return v.toString(16);
     });
 }
-function saveLead(sessionId, formType, fields) {
+/* Note: Supabase's query builder is a "thenable", not a real Promise — it
+   only implements .then(), not .catch(). Chaining .catch() on it directly
+   throws a TypeError before the request ever fires. Always await it inside
+   a try/catch instead (matching the pattern used elsewhere in this file for
+   tax_submissions/contact_messages). */
+async function saveLead(sessionId, formType, fields) {
     if (!fields.name || !(fields.phone || fields.email)) return; // not enough yet
-    return _sb.from('leads').upsert(
-        Object.assign({ session_id: sessionId, form_type: formType }, fields),
-        { onConflict: 'session_id' }
-    ).catch(function() {});
+    try {
+        await _sb.from('leads').upsert(
+            Object.assign({ session_id: sessionId, form_type: formType }, fields),
+            { onConflict: 'session_id' }
+        );
+    } catch (e) {}
 }
-function markLeadSubmitted(sessionId) {
-    return _sb.from('leads').update({ status: 'submitted' }).eq('session_id', sessionId).catch(function() {});
+async function markLeadSubmitted(sessionId) {
+    try {
+        await _sb.from('leads').update({ status: 'submitted' }).eq('session_id', sessionId);
+    } catch (e) {}
 }
 
 (function($) {
