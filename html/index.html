@@ -2198,9 +2198,9 @@ function notifyByEmail(type, data) {
 /* ── Lead capture (partial form saves) ───────────────────────────────
    Saves the minimum identifying info (name + phone, or name + email) to
    the `leads` table as someone fills out a form, so an abandoned form
-   still leaves something to follow up on. Each form gets its own
-   session id per page load; repeated calls upsert into the same row as
-   more fields get confirmed, instead of creating a new row each time. */
+   still leaves something to follow up on. Each form gets its own session
+   id per page load; the row is inserted once and then updated in place as
+   more fields get confirmed, so an abandoned form leaves one row, not many. */
 function genId() {
     if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
     return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -2208,23 +2208,32 @@ function genId() {
         return v.toString(16);
     });
 }
-/* Note: Supabase's query builder is a "thenable", not a real Promise — it
-   only implements .then(), not .catch(). Chaining .catch() on it directly
-   throws a TypeError before the request ever fires. Always await it inside
-   a try/catch instead (matching the pattern used elsewhere in this file for
-   tax_submissions/contact_messages). */
+/* Notes:
+   1. Supabase's query builder is a "thenable", not a real Promise — it only
+      implements .then(), not .catch(). Chaining .catch() on it throws a
+      TypeError before the request fires. Always await it in a try/catch.
+   2. These go through SECURITY DEFINER RPCs (capture_lead /
+      mark_lead_submitted) rather than writing the `leads` table directly.
+      The anon key has no SELECT policy on `leads` (so the public key can't
+      be used to harvest visitors' name/phone/email), and without SELECT a
+      client-side UPDATE or .upsert() can't match any row / is rejected by
+      RLS. The RPCs do the insert-or-update server-side, touching only the
+      caller's own session_id row and returning nothing. */
 async function saveLead(sessionId, formType, fields) {
     if (!fields.name || !(fields.phone || fields.email)) return; // not enough yet
     try {
-        await _sb.from('leads').upsert(
-            Object.assign({ session_id: sessionId, form_type: formType }, fields),
-            { onConflict: 'session_id' }
-        );
+        await _sb.rpc('capture_lead', {
+            p_session_id: sessionId,
+            p_form_type:  formType,
+            p_name:       fields.name  || null,
+            p_email:      fields.email || null,
+            p_phone:      fields.phone || null
+        });
     } catch (e) {}
 }
 async function markLeadSubmitted(sessionId) {
     try {
-        await _sb.from('leads').update({ status: 'submitted' }).eq('session_id', sessionId);
+        await _sb.rpc('mark_lead_submitted', { p_session_id: sessionId });
     } catch (e) {}
 }
 
