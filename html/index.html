@@ -2195,6 +2195,30 @@ function notifyByEmail(type, data) {
     }).catch(function() {});
 }
 
+/* ── Lead capture (partial form saves) ───────────────────────────────
+   Saves the minimum identifying info (name + phone, or name + email) to
+   the `leads` table as someone fills out a form, so an abandoned form
+   still leaves something to follow up on. Each form gets its own
+   session id per page load; repeated calls upsert into the same row as
+   more fields get confirmed, instead of creating a new row each time. */
+function genId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+function saveLead(sessionId, formType, fields) {
+    if (!fields.name || !(fields.phone || fields.email)) return; // not enough yet
+    return _sb.from('leads').upsert(
+        Object.assign({ session_id: sessionId, form_type: formType }, fields),
+        { onConflict: 'session_id' }
+    ).catch(function() {});
+}
+function markLeadSubmitted(sessionId) {
+    return _sb.from('leads').update({ status: 'submitted' }).eq('session_id', sessionId).catch(function() {});
+}
+
 (function($) {
 'use strict';
 
@@ -2228,6 +2252,18 @@ $country.append('<option value="" disabled>Select Country</option>');
 $.each(COUNTRIES, function(i, c) {
     $country.append('<option value="' + c + '"' + (c === 'United States' ? ' selected' : '') + '>' + c + '</option>');
 });
+
+/* ── Lead capture: save name + phone as soon as both are filled ──── */
+var tufLeadSessionId = genId();
+function tufCaptureLead() {
+    var name  = ($('#tuf_firstName').val().trim() + ' ' + $('#tuf_lastName').val().trim()).trim();
+    var area  = $('#tuf_areaCode').val().trim();
+    var num   = $('#tuf_phoneNumber').val().trim();
+    var phone = (area || num) ? ($('#tuf_countryCode').val().trim() + ' (' + area + ') ' + num).trim() : '';
+    var email = $('#tuf_email').val().trim();
+    saveLead(tufLeadSessionId, 'tax-submission', { name: name, phone: phone || null, email: email || null });
+}
+$('#tuf_firstName, #tuf_lastName, #tuf_areaCode, #tuf_phoneNumber, #tuf_email').on('blur', tufCaptureLead);
 
 /* ── File upload ───────────────────────────────────────────── */
 var uploadedFiles = [];
@@ -2580,6 +2616,8 @@ $('#taxUploadForm').on('submit', async function(e) {
             assistant:  payload.assistant,
             files:      payload.files
         });
+        markLeadSubmitted(tufLeadSessionId);
+        tufLeadSessionId = genId(); // fresh lead session in case they submit another year
 
         /* Reset only year + files + signature — keep personal info for next submission */
         $('#tuf_taxYear').val('').removeClass('is-valid is-invalid');
@@ -3071,6 +3109,16 @@ $('#btpForm').on('submit', async function(e) {
 /* ────────────────────────────────────────────────────────────
    FOOTER CONTACT FORM → Supabase
    ──────────────────────────────────────────────────────────── */
+
+/* ── Lead capture: save name + email as soon as both are filled ──── */
+var contactLeadSessionId = genId();
+function contactCaptureLead() {
+    var name  = $('#form-contact-name').val().trim();
+    var email = $('#form-contact-email').val().trim();
+    saveLead(contactLeadSessionId, 'contact', { name: name, email: email || null });
+}
+$('#form-contact-name, #form-contact-email').on('blur', contactCaptureLead);
+
 $('#form-contact').on('submit', async function(e) {
     e.preventDefault();
     var $btn    = $('#form-contact-submit');
@@ -3097,6 +3145,8 @@ $('#form-contact').on('submit', async function(e) {
         var res = await _sb.from('contact_messages').insert({ name: name, email: email, message: message });
         if (res.error) throw new Error(res.error.message);
         notifyByEmail('contact', { name: name, email: email, message: message });
+        markLeadSubmitted(contactLeadSessionId);
+        contactLeadSessionId = genId(); // fresh lead session for a possible next message
         $('#form-contact')[0].reset();
         $status.html('<span style="color:#22c55e;font-weight:600;">✓ Message sent! We\'ll get back to you shortly.</span>');
     } catch(err) {
