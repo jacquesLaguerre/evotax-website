@@ -16,15 +16,15 @@
     background: #1e3b60; padding: 18px 20px; display: flex; align-items: center; justify-content: center;
   }
   .sc-topbar img { height: 36px; }
-  .sc-wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 80px; }
+  .sc-wrap { max-width: 760px; margin: 0 auto; padding: 28px 18px 80px; }
   .sc-card {
     background: #fff; border-radius: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
     padding: 32px 28px; margin-bottom: 20px;
   }
   .sc-state { text-align: center; padding: 60px 20px; color: #64748b; font-size: 15px; }
   .sc-state.error { color: #b91c1c; }
-  h1 { font-size: 22px; font-weight: 800; color: #1e3b60; margin: 0 0 4px; letter-spacing: -0.3px; }
-  .sc-sub { color: #64748b; font-size: 13.5px; margin: 0 0 22px; }
+  h1 { font-size: 21px; font-weight: 800; color: #1e3b60; margin: 0 0 4px; letter-spacing: -0.3px; text-align: center; text-transform: uppercase; }
+  .sc-sub { color: #64748b; font-size: 13.5px; margin: 0 0 22px; text-align: center; }
   h2 { font-size: 13px; font-weight: 700; color: #1e3b60; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 14px; }
   .sc-field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
   .sc-field { display: flex; flex-direction: column; gap: 5px; }
@@ -36,17 +36,35 @@
   }
   .sc-field input:focus { border-color: #1e3b60; }
   .sc-field input.sc-invalid { border-color: #dc2626; }
-  .sc-body p { font-size: 14.5px; color: #1e293b; margin: 0 0 14px; }
-  .sc-body ol { padding-left: 20px; margin: 0 0 18px; }
-  .sc-body li { font-size: 14.5px; color: #1e293b; margin-bottom: 12px; }
-  .sc-comp-box {
-    background: #fff7e6; border: 1.5px solid #ed912f; border-radius: 10px; padding: 18px 20px; margin: 10px 0 18px;
+
+  /* ── Contract body, styled to read like the source document ── */
+  .sc-doc { font-size: 13.5px; color: #1e293b; }
+  .sc-doc p { margin: 0 0 14px; text-align: justify; }
+  .sc-doc > ol { padding-left: 22px; margin: 0 0 4px; counter-reset: item; }
+  .sc-doc > ol > li { margin-bottom: 16px; text-align: justify; }
+  .sc-doc ol[type="a"] { padding-left: 22px; margin: 10px 0; }
+  .sc-doc ol[type="a"] > li { margin-bottom: 12px; text-align: justify; }
+  .sc-doc ol[type="i"] { padding-left: 22px; margin: 10px 0; }
+  .sc-doc ol[type="i"] > li { margin-bottom: 12px; text-align: justify; }
+  .sc-doc ol[type="A"] { padding-left: 22px; margin: 0 0 14px; }
+  .sc-doc ol[type="A"] > li { margin-bottom: 10px; text-align: justify; }
+  .sc-doc .sc-term { font-weight: 700; text-decoration: underline; }
+  .sc-recitals-title, .sc-doc .sc-centered { text-align: center; font-weight: 700; margin: 24px 0 14px; }
+  .sc-blank {
+    display: inline-block; min-width: 90px; border-bottom: 1.5px solid #94a3b8; padding: 0 3px;
+    font-weight: 600; color: #94a3b8; text-align: center;
   }
-  .sc-comp-box .sc-comp-title { font-weight: 700; color: #9a5b0f; font-size: 13.5px; margin-bottom: 10px; }
+  .sc-blank.filled { border-bottom-color: #1e3b60; color: #1e3b60; }
+
+  .sc-comp-box {
+    background: #fff7e6; border: 1.5px solid #ed912f; border-radius: 10px; padding: 18px 20px; margin: 10px 0 16px;
+  }
+  .sc-comp-box .sc-comp-title { font-weight: 700; color: #9a5b0f; font-size: 13px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
   .sc-comp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
   .sc-comp-table td { padding: 7px 4px; }
   .sc-comp-table tr + tr td { border-top: 1px solid rgba(237,145,47,0.3); }
   .sc-comp-table td:last-child { text-align: right; font-weight: 800; color: #9a5b0f; font-size: 15px; white-space: nowrap; }
+
   .sc-sig-wrap { margin-top: 6px; }
   .sc-sig-canvas-outer {
     border: 1.5px dashed #cbd5e1; border-radius: 10px; background: #fafbfc; height: 160px; position: relative; touch-action: none;
@@ -61,12 +79,17 @@
     font-family: inherit; font-size: 12px; font-weight: 600; color: #64748b; background: none;
     border: 1px solid #cbd5e1; border-radius: 6px; padding: 5px 12px; cursor: pointer;
   }
-  .sc-company-sig { display: flex; align-items: center; gap: 14px; margin-top: 18px; padding-top: 18px; border-top: 1px solid #e2e8f0; }
-  .sc-company-sig .sc-name { font-family: 'Brush Script MT', cursive; font-size: 28px; color: #1e3b60; }
-  .sc-company-sig .sc-meta { font-size: 12px; color: #64748b; line-height: 1.4; }
-  .sc-company-sig .sc-meta strong { display: block; color: #1e293b; font-size: 13px; }
+
+  .sc-sig-block { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 22px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+  .sc-sig-block .sc-sig-col h3 { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px; }
+  .sc-sig-block .sc-printed-name { font-family: 'Brush Script MT', cursive; font-size: 24px; color: #1e3b60; border-bottom: 1px solid #334155; padding-bottom: 4px; min-height: 34px; }
+  .sc-sig-block .sc-meta { font-size: 12px; color: #64748b; margin-top: 6px; }
+  @media (max-width: 560px) {
+    .sc-sig-block { grid-template-columns: 1fr; }
+  }
+
   .sc-error-msg { font-size: 12.5px; color: #dc2626; margin-top: 6px; min-height: 16px; }
-  .sc-submit-row { text-align: center; margin-top: 6px; }
+  .sc-submit-row { text-align: center; margin-top: 10px; }
   .sc-submit-btn {
     font-family: inherit; font-size: 15px; font-weight: 700; color: #fff; background: #1e3b60;
     border: none; border-radius: 9px; padding: 13px 36px; cursor: pointer; transition: background .15s;
@@ -94,13 +117,11 @@
 
     <div id="sc-signed-view" class="sc-card" style="display:none;">
       <span class="sc-signed-badge">✓ Signed</span>
-      <h1>Thank you, <span id="sc-signed-name"></span>.</h1>
-      <p class="sc-sub">Your Independent Contractor Agreement with Evotax was signed on <span id="sc-signed-date"></span>. No further action is needed — Evotax has been notified.</p>
+      <h1 style="text-align:left; text-transform:none;">Thank you, <span id="sc-signed-name"></span>.</h1>
+      <p class="sc-sub" style="text-align:left;">Your Employment and Non-Compete Agreement with Evotax was signed on <span id="sc-signed-date"></span>. No further action is needed — Evotax has been notified.</p>
     </div>
 
     <form id="sc-form" class="sc-card" style="display:none;">
-      <h1>Independent Contractor Agreement</h1>
-      <p class="sc-sub">Tax Preparer — Evotax</p>
 
       <h2>Your Information</h2>
       <div class="sc-field-grid">
@@ -108,27 +129,44 @@
           <label for="sc_name">Full Legal Name *</label>
           <input id="sc_name" type="text" autocomplete="name" required>
         </div>
-        <div class="sc-field full">
-          <label for="sc_address">Address *</label>
-          <input id="sc_address" type="text" autocomplete="street-address" required>
+        <div class="sc-field">
+          <label for="sc_state">State of Residence *</label>
+          <input id="sc_state" type="text" placeholder="e.g. Florida" autocomplete="address-level1" required>
         </div>
         <div class="sc-field">
-          <label for="sc_phone">Phone *</label>
-          <input id="sc_phone" type="tel" autocomplete="tel" required>
-        </div>
-        <div class="sc-field">
-          <label for="sc_date">Date *</label>
+          <label for="sc_date">Effective Date *</label>
           <input id="sc_date" type="date" required>
         </div>
+        <div class="sc-field full">
+          <label for="sc_address">Home Address *</label>
+          <input id="sc_address" type="text" autocomplete="street-address" required>
+        </div>
       </div>
+      <p style="font-size:11.5px; color:#94a3b8; margin: 0 0 24px;">As you fill these in, they'll appear in the underlined blanks throughout the agreement below.</p>
 
-      <div class="sc-body" style="margin-top: 24px;">
-        <h2>Agreement</h2>
-        <p>This Agreement is entered into between <strong>Evotax</strong> ("Company") and the Contractor named above, effective as of the date signed below.</p>
+      <h1>Employment and Non-Compete Agreement</h1>
+
+      <div class="sc-doc">
+        <p>This Agreement is entered into effective as of the <span class="sc-blank" data-field="date" data-placeholder="Effective Date">Effective Date</span> ("Effective Date"), between EVOTAX, a Missouri sole proprietorship company, whose current address is 7359 Lindell Blvd, St. Louis, MO 63130 (the "Company") and <span class="sc-blank" data-field="name" data-placeholder="Employee Name">Employee Name</span>, a <span class="sc-blank" data-field="state" data-placeholder="State">State</span> resident, whose address is <span class="sc-blank" data-field="address" data-placeholder="Address">Address</span> ("the Employee").</p>
+
+        <div class="sc-centered">RECITALS</div>
+        <ol type="A">
+          <li>The Company is engaged in the income tax preparation business and maintains business premises at the above-mentioned current address.</li>
+          <li>The Employee is willing to be employed by the Company, and the Company is willing to employ the Employee, on the following terms, covenants, and conditions.</li>
+        </ol>
+        <p>In consideration of the mutual covenants and promises of the parties, Company and Employee covenant and agree as follows:</p>
+
         <ol>
-          <li><strong>Services.</strong> Contractor will provide professional tax preparation services to clients referred by or associated with Evotax, acting at all times as an independent contractor — not as an employee, partner, or agent of Evotax.</li>
+          <li><span class="sc-term">Employee.</span> Subject to the terms and conditions of this Agreement, the Company hereby engages the Employee to perform the services set forth herein, and the Employee hereby accepts such employment and the terms thereof.</li>
+
+          <li><span class="sc-term">Duties.</span> Company employs, engages, and hires Employee as <strong>Tax Preparer</strong>, and Employee accepts and agrees to such hiring, employment, and employment. Subject to the supervision and pursuant to the orders, advice, and directions of Company, Employee will prepare and process income tax returns, check income tax returns prepared by other Associates, greet customers, answer telephones, complete general office activities, and daily administrative duties, as well as, Employee will perform such other duties as are customarily performed by one holding such position in similar businesses or enterprises as that engaged in by Company, and will also render such other and unrelated services and duties as may be assigned to Employee from time to time by Company.</li>
+
+          <li><span class="sc-term">Legal Compliance.</span> The Employee agrees to comply with all general regulations and instructions from time to time issued by the Company, including those governing hours and conditions of work, and to obey all lawful orders given by the Company, its President, or other authorized person or persons; to conduct themselves at all times in such a manner as not to bring discredit on the Employee or the Company; and to abide by all laws and ordinances of the United States, specifically, but limited to the regulations promulgated by the Internal Revenue Service ("IRS") and United States Department of Treasury, the State of Missouri and the county and municipality in which the Employee is working.</li>
+
+          <li><span class="sc-term">Term.</span> The Employee understands and acknowledges that this position is seasonal; however, the Employee shall be employed for every season until this Agreement is terminated. The employment of the Employee under this Agreement will be permanent, and the Employee will hold the position described so long as Employee, in the Company's opinion, is efficient, conscientious, and productive. If the Employee is not efficient, conscientious, and productive, the Company, at any time in its absolute discretion, may terminate the Employee on the giving of notice to such effect in accordance with the termination provision present on this Agreement.</li>
+
           <li>
-            <strong>Compensation.</strong> Contractor is paid by commission, based on the total number of clients served, according to the schedule below.
+            <span class="sc-term">Compensation.</span> The Employee shall be compensated as a tax preparer for the above-mentioned duties solely on a commission basis, bi-weekly based on the payroll schedule, after Company receives compensation from IRS and bank (TPG) for preparing the clients' taxes, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a commission as a percentage of preparation fee charge per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment. The preparation fee does not include any mark up for Protection Plus Audit Protection, any additional Add-On Fees, or Franchise Network Fee; which are all factored into the total fee charged, but can be identified and separated in the bill breakdown. The commission of preparation fee shall be based on the following calculation:
             <div class="sc-comp-box">
               <div class="sc-comp-title">Commission Schedule</div>
               <table class="sc-comp-table">
@@ -137,15 +175,103 @@
                 <tr><td>After 100 clients</td><td>40% commission</td></tr>
               </table>
             </div>
+            calculated for all clients made at end of season or whenever each client gets funded by IRS.
           </li>
-          <li><strong>Independent Contractor Status.</strong> Contractor is solely responsible for their own taxes, licenses, and business expenses. Nothing in this Agreement creates an employer-employee relationship.</li>
-          <li><strong>Confidentiality.</strong> Contractor will keep all client information confidential and secure at all times, during and after this engagement.</li>
-          <li><strong>Term &amp; Termination.</strong> This Agreement remains in effect until either party ends it with written notice to the other.</li>
+
+          <li><span class="sc-term">Time Requirements.</span> The Employee shall devote, during the term of this Agreement, such of his/her time, energy, and skill as is necessary in the performance of his/her duties hereunder and shall periodically, or at any time, upon the request of the Employee, submit data as to the time requirements of work performed and to be performed by him for the Company in connection with this Agreement.</li>
+
+          <li>
+            <span class="sc-term">Confidentiality.</span>
+            <ol type="a">
+              <li><span class="sc-term">"Confidential Information".</span> For purposes of this Agreement, Confidential Information shall mean: financial information, business plans, strategic and development plans, statistical data, business records, customer and client lists, files and/or listings, including, but not limited to, any Client names, social security numbers, federal employment identification numbers, addresses, contact information and financial information, pricing information, terms of contracts, policies, procedures, ideas, inventions, software, copyrightable material, patents, designs, product plans or specifications, and all other information or any other confidential or proprietary information of any nature, relating to the Company or any business in which the Company is engaged or holds an interest, whether or not owned by the Company, or the methods, processes or manner of the creation and sale of tax preparation services which may be disclosed by Company to Employee or to which Employee may be provided access by Company.</li>
+              <li><span class="sc-term">Nondisclosure Obligations.</span> Employee, with respect to Confidential Information received from Company, promises, and agrees to receive and hold the Confidential Information in confidence. Without limiting the generality of the foregoing, Employee further agrees: (A) to protect and safeguard that Confidential Information against unauthorized use, publication or disclosure; (B) not to use any of that Confidential Information except within the scope of Employee's duties; (C) not to, directly or indirectly, in any way, reveal, report, publish, disclose, transfer or otherwise use any of the Confidential Information except as specifically authorized in writing by Company; (D) not to use any Confidential Information to compete or obtain advantage over Company; (E) to restrict access to the Confidential Information to anyone without written consent of Company; and (F) to comply with any other reasonable security measures requested in by Company.</li>
+              <li><span class="sc-term">Exceptions.</span> The confidentiality obligations hereunder shall not apply to Confidential Information which: (A) is, or later becomes, public knowledge other than by breach of the provisions of this Agreement; (B) is in the possession of the Employee with the full right to disclose prior to its receipt from Company, as evidenced by written records; (C) is independently received by Employee from a third party who is not in breach of this Agreement and who is not under an obligation described in this Agreement; (D) is necessary to be disclosed pursuant to any binding order of a court or governmental agency having competent jurisdiction; (E) is necessarily disclosed in any action to enforce this Agreement or in defense of any lawsuit arising out of this Agreement; or (F) as required to be disclosed by any law.</li>
+              <li><span class="sc-term">Return of Confidential Information.</span> Employee agrees, upon termination of this Agreement or upon the written request of Company, whichever is earlier, to promptly deliver to Company all records, notes, and other written, printed, or tangible materials and all other information stored in computers, computer disks or any other media in the possession of Employee, embodying or pertaining to the Confidential Information together with all copies thereof held by Employee. Employee shall thereupon erase and delete all such Confidential Information from its computer equipment and software.</li>
+              <li><span class="sc-term">No Right to Confidential Information.</span> Employee hereby agrees and acknowledges that no license, either express or implied, is hereby granted to Employee by Company to use any of the Confidential Information. Employees further agree that all inventions, improvements, copyrightable works, and designs relating to Employee's duties and directly resulting from or relating to the Confidential Information and the right to market, use, license and franchise the Confidential Information or the ideas, concepts, methods or practices embodied therein shall be the exclusive property of Company, and Employee has no right or title thereto.</li>
+              <li><span class="sc-term">Losses.</span> Employee agrees to indemnify Company against all losses, damages, claims, or expenses incurred or suffered by that Company as a result of Employee's breach of this Agreement.</li>
+              <li><span class="sc-term">Remedies.</span> Employee understands and acknowledges that any disclosure or misappropriation of any of the Confidential Information in violation of this Agreement may cause Company irreparable harm, the amount of which may be difficult to ascertain and, therefore, agrees that Company shall have the right to apply to, and obtain from, a court of competent jurisdiction temporary and permanent injunctive relief or order restraining any such further disclosure or misappropriation. Such rights of the Company shall be in addition to all other available remedies available to Company at law or in equity. Employee shall be liable for any breach of this Agreement.</li>
+            </ol>
+          </li>
+
+          <li>
+            <span class="sc-term">Confidentiality. Intellectual Work Product.</span> Employee acknowledges that any and all writings, documents, inventions, discoveries, processes, methods, designs, compositions of matter, formulations, computer programs or instructions (whether in source code, object code, or any other form), algorithms, formulae, plans, customer lists, memoranda, tests, research, designs, specifications, models, data, diagrams, flow charts, techniques and/or any other form of intellectual property (whether reduced to written form or otherwise) that Employee makes, conceives, discovers, or develops, either solely or jointly with any other person, at any time during the term of his/her employment under this Agreement whether during working hours or at the Company's facility or at any other time or location, whether patentable or not, and whether upon the request or suggestion of the Company or otherwise, that relate to or are useful in any way in connection with the scope of Employee's duties (collectively, the "Intellectual Work Product") shall be the sole and exclusive property of the Company. Employees hereby agree to the following:
+            <ol type="a">
+              <li><span class="sc-term">Disclosure.</span> Employee shall promptly and fully disclose all the Intellectual Work Product to the Company, and he/she shall have no claim for additional compensation for the Intellectual Work Product.</li>
+              <li><span class="sc-term">Work Made for Hire.</span> Employee acknowledges that all Intellectual Work Product that is copyrightable shall be considered a work made for hire under United States Copyright Law. To the extent that any copyrightable Intellectual Work Product may not be considered a work made for hire under the applicable provisions of the copyright law, or to the extent that, notwithstanding the foregoing provisions, the Employee may retain an interest in any Intellectual Work Product, the Employee hereby irrevocably assigns and transfers to the Company any and all right, title, or interest that the Employee may have in the Intellectual Work Product under copyright, patent, trade secret, trademark and other law protecting proprietary or intellectual property rights, in perpetuity or for the longest period otherwise permitted by law, without the necessity of further consideration. The Company shall be entitled to obtain and hold in its own name all registrations of copyrights, patents, trade secrets, trademarks and other proprietary or intellectual property rights with respect thereto.</li>
+              <li><span class="sc-term">Assistance.</span> The Employee agrees that, at the sole request of the Company, either before or after the termination of the Employee's employment under this Agreement, the Employee shall assist the Company in acquiring and maintaining registrations under copyright, patent, trade secret, trademark and other laws protecting proprietary or intellectual property rights in, and confirming its title to, any and all Intellectual Work Product. The Employee's assistance shall include signing all applications for copyrights, patents and other proprietary or intellectual property rights and other documents, cooperating in legal proceedings and taking any other steps considered desirable by the Company. Employees agree to execute any and all documents necessary to effectuate Company's ownership of the Intellectual Work Product, including but not limited to assignment documents.</li>
+            </ol>
+          </li>
+
+          <li>
+            <span class="sc-term">Conflicts of Interest.</span> The Employee represents that he/she is free to enter into this Agreement, and that this employment does not violate the terms of any agreement between the Employee and any third party. During the term of this Agreement, the Employee shall devote as much of his/her productive time, energy, efforts, and abilities to the performance of his/her duties hereunder as is necessary to perform the required duties in a timely and productive manner. The Employee and the Company hereby acknowledge and agree that the Company has legitimate business interests in the preservation of its goodwill and its customer and supplier relations. In furtherance of the foregoing, the parties hereto have agreed to recognize and protect these interests by entering the following covenants:
+            <ol type="a">
+              <li><span class="sc-term">Non-competition.</span> The Employee hereby agrees and promises that, during the time of the Employee's employment with the Company pursuant to this Agreement, and for an additional period of Two (2) years after the date of termination, cancellation, or expiration of such employment, the Employee shall not, anywhere within the territory of the United States of America, and specifically nowhere within Ten (10) miles of a current office location or a location that the Company is planning to open an office, have any involvement, direct or indirect, financial or otherwise, whether as an investor, employee, director, officer, partner, shareholder (other than as a holder of less than two percent (2%) of the outstanding shares of a publicly-held company), or consultant in any business or entity which is engaged, directly or indirectly, in any activities relating to the business of the Company. Employees understand and agrees that the business of the Company, includes, but is not limited to, tax preparation, marketing and sales, and tax services advertising.</li>
+              <li><span class="sc-term">List of Locations.</span>
+                <ol type="i"><li>7359 Lindell Blvd, St. Louis, MO 63130</li></ol>
+              </li>
+              <li><span class="sc-term">No-hire Provision.</span> At no time during the Employee's employment under this Agreement and for an additional period of Two (2) years following the expiration, cancellation, or termination of the Employee's employment under this Agreement, the Employee shall not, directly or indirectly, solicit, hire, or encourage any employee of the Company to leave the Company's employment to work for the Employee or for any other firm, person, or business, of whatever character, corporate or otherwise.</li>
+              <li><span class="sc-term">No Solicitation.</span> At no time during the Employee's employment under this Agreement and for an additional period of two (2) years following the expiration, cancellation or termination of the Employee's employment under this Agreement, the Employee shall not, directly or indirectly, in any capacity, contact, contract, sell to, or otherwise solicit business of the type, or similar in type, to the Company's business, from any of the Company's: (a) clients, customers and suppliers, as they existed at any time during the two (2) year period immediately preceding the termination, cancellation or expiration of the Employee's employment with the Company; and (b) prospective clients, customers and suppliers, with respect to whom there is a likelihood that the Employee had, or might have had, direct dealings or contacts during the period of his/her employment with the Company. For purposes of this Section, it shall be conclusively presumed that it was likely that the Employee had, or might have had, direct dealings or contacts with such of the Company's prospective clients, customers, or suppliers, who, within two (2) years following the termination, cancellation, or expiration of the Employee's employment with the Company, entered with the Company into a contract within the Company's sphere of business.</li>
+              <li><span class="sc-term">No Planning Activities.</span> Prior to and during the time of the Employee's employment under this Agreement, the Employee shall not undertake the planning or organizing of any business activity, of whatever character, corporate or otherwise, that would involve a business identical or similar to the Company's business. Employee understands and agrees that the business of the Company includes, but is not limited to, tax preparation, marketing and sales, and tax services advertising.</li>
+              <li>
+                <span class="sc-term">Enforcement; Remedies; Claims; and Notice.</span>
+                <ol type="i">
+                  <li><span class="sc-term">Enforcement.</span> In the event of a breach by the Employee of his/her obligations under this Section of this Agreement, the Employee hereby agrees and acknowledges that the remedy at law for his/her breach of any provision of this Agreement is inadequate and that, in addition to any other remedies the Company may have, at law or in equity, the Company shall also be entitled to a preliminary restraining order, and other temporary and permanent injunctive relief, against the Employee, without the necessity of proving actual damages. The Company and the Employee hereby agree and acknowledge that the restrictive covenants under this Section of this Agreement are reasonable in their limitation and necessary for the protection of the legitimate business interests of the Company, and that the restraints imposed hereby are not unduly burdensome on the Employee. The parties further agree that if any such restrictive covenant is found to be invalid or unenforceable by a court of competent jurisdiction by reason of the size of the geographic area or the length of time or scope, it is the intention of the parties that such restrictive covenant be reformed by such court so that such geographic area, length of time, or scope be reduced to the extent required to cure such invalidity or unenforceability. The parties also agree that each provision of the restrictive covenants contained in this Section shall be construed as an agreement independent of any other provision of this Agreement, and that each such provision shall survive the termination, cancellation, and expiration of the Employee's employment hereunder for the period noted therein.</li>
+                  <li><span class="sc-term">Additional Remedies.</span> Without limiting the remedies described in this Section subparagraph (e)(i), in the event of any violation of any provision of this Section of this Agreement, in addition to any injunctive or equitable relief available, the Employee shall pay as liquidated damages, and not as a penalty, one-hundred percent (100%) of the profit derived by him or by any other person or entity whom the Employee assisted or aided, in violation of the Employee's obligations hereunder, during the period beginning with the date of violation of this Agreement and continuing through the date, which is two (2) years following the date of violation of this Agreement. The parties hereby agree and acknowledge that the sum set forth in this Section subparagraph (e)(ii) has been determined by the parties hereto to constitute a fair and reasonable estimate of the damage to the Company, and that such sum of liquidated damages for any violation of this Agreement is hereby set by the parties because of the difficulties and inconvenience in attempting to establish the precise damages and losses arising as a result of such violation.</li>
+                  <li><span class="sc-term">Employee's Claims.</span> The existence of any claim or cause of action that the Employee may have against the Company, whether predicated on the Employee's employment with Company, this Agreement, or otherwise, shall not constitute a defense to the enforcement by the Company of any such restrictive covenants.</li>
+                  <li><span class="sc-term">Notice of Agreement.</span> The Employee hereby agrees that the restrictions contained in this Section shall apply not only to the Employee, but also to any firm, person, business, or entity of whatever character, corporate or otherwise, by whom the Employee may be engaged or employed, or with whom he/she may become associated in any capacity, and that prior to accepting any employment or employment by, or association with, any firm, person, business, or entity, which conducts activities identical or similar to the Company's business, the Employee will notify any such firm, person, business, or entity of the existence and terms of this Agreement, and shall furnish such person or entity with a copy of this Agreement.</li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+
+          <li><span class="sc-term">Termination.</span> Either party may terminate the Employee's employment under this Agreement at any time by giving Ten (10) business days' written notice to the other party, in which event the Employee's employment shall end on the final day of such Ten (10) days period. If the Employee's employment is terminated by the Company for reasons, including "For Cause", as defined immediately below, full payment of hourly compensation, if any, shall be due to the Employee by the end of said Ten (10) days notice period; provided, however, that, the Employee shall only be entitled to compensation on a prorated basis through the end of the Ten (10) days notice period. Further, the Employee is not entitled to any compensation considered as a draw or any owed commissions at any time once this Agreement is terminated. Said commissions are only paid at the time that the Employee is still employed by the Company. In addition, if this Agreement is terminated, Employee shall not publicize, disseminate, insinuate, or otherwise communicate that the Company is in any way responsible for the content of the work or duties of Employee if incomplete, the cancellation or postponement of the work or for any other action a client of the Company might take as a result of this Agreement becoming null and void. The Company shall be able to recover both general and specific damages for, and shall be entitled to injunctive relief from any breach by Employee of the provision of the foregoing sentence. Furthermore, notwithstanding the foregoing, the Company shall also have the right to terminate the Employee's employment under this Agreement "For Cause" effective immediately by giving the Employee written notice of termination, in which event no compensation shall be due to the Employee except for the services performed by the Employee prior to such termination. For purposes of this Section, the term "For Cause" shall include the occurrence of any one or more of the following grounds for termination:
+            <ol type="a">
+              <li>In the event the Employee shall expressly fail or refuse to comply with any reasonable policies, standards and/or regulations of the Company, as such may be established from time to time;</li>
+              <li>In the event the Employee shall fail or refuse to render services that are required by this Agreement, unless such failure or refusal is solely the result of the Employee's physical or mental illness resulting in his/her inability to render such services to the Company;</li>
+              <li>In the event the Employee conducts himself in an unprofessional, immoral, incompetent, dishonest, or fraudulent manner that is detrimental to the Company;</li>
+              <li>In the event of the Employee's acts of drunkenness or drug addiction, or the Employee's commission of a felony;</li>
+              <li>In the event of the Employee's unauthorized use of the funds or property of the Company in a manner detrimental to the Company; or</li>
+              <li>In the event of the Employee's breach of any term of this Agreement, including, but not limited, the breach of confidentiality provisions contained herein.</li>
+            </ol>
+          </li>
+
+          <li><span class="sc-term">Choice of Law and Venue.</span> This Agreement shall be governed by, and construed in accordance with, the laws of the State of Missouri, without regard to its choice of law principles. In the event of litigation, the Company and the Employee hereby consent to trial in any court of competent jurisdiction situated in Orange County, Florida in any action arising out of this Agreement.</li>
+
+          <li>
+            <span class="sc-term">Notices.</span> All notices, requests, demands, and other communications required or permitted under this Agreement shall be in writing and shall be deemed to have been duly given, made and received when delivered (personally, by courier service such as Federal Express, or by messenger) or when deposited in the United States mails, registered or certified mail, postage pre-paid, return receipt requested, addressed as set forth below:
+            <p style="margin-top:14px;"><strong>If to the Employee:</strong> <span class="sc-blank" data-field="name" data-placeholder="Employee Name">Employee Name</span>, <span class="sc-blank" data-field="address" data-placeholder="Address">Address</span></p>
+            <p><strong>If to the Company:</strong> EVOTAX, 7359 Lindell Blvd, St. Louis, MO 63130</p>
+            <p>In addition, notice by mail shall be by airmail if posted outside of the continental United States. Any party may alter the address to which communications or copies are sent by giving notice of such change of address in conformity with the provisions of this Section for the giving of notice.</p>
+          </li>
+
+          <li><span class="sc-term">Entire Understanding.</span> This written Agreement contains the sole and entire agreement between the parties as to the matters contained herein, and supersedes any and all other agreements, whether oral or written, between them.</li>
+
+          <li><span class="sc-term">Assignment.</span> This Agreement is personal to Employee and shall not be assigned by Employee. Any such assignment shall be null and void.</li>
+
+          <li><span class="sc-term">Amendments.</span> Neither this Agreement nor any term hereof may be amended, changed, waived, discharged, or terminated other than by a written instrument signed by the party against whom enforcement of any such amendment, change, waiver, discharge, or termination is sought. The Employee's duties, term of employment, compensation and provisions for payment thereof may be amended or supplemented in writing from time to time by mutual consent of the parties.</li>
+
+          <li><span class="sc-term">Severability.</span> If any provision of this Agreement, or portion thereof, including, but not limited to, any section, sentence, clause, phrase, or word, or the application thereof in any circumstance is held invalid, the validity of the remainder of this Agreement shall not be affected thereby and shall be enforced to the greatest extent permitted by law. If such invalidity is caused by scope, length of time, or size of area, or any or all the foregoing, the otherwise invalid provision will be considered to be reduced to such scope, time, or area, which would cure such invalidity.</li>
+
+          <li><span class="sc-term">Attorneys' Fees and Costs.</span> In the event of any mediation, arbitration, injunctive relieve, trial, appellate, bankruptcy, or other proceeding, between the parties arising out of or relating to this Agreement, the prevailing party shall be entitled to recover from the non-prevailing party all costs incurred and reasonable attorneys' fees, including attorneys' fees and costs incurred in all investigations, mediations, arbitrations, injunctive relieve, trials, bankruptcies and appeals. The parties agree to reserve jurisdiction to the trial court for the purpose of making such award and such judgment shall accrue interest at the highest rate allowed by law. If any dispute arising out of or relating to this Agreement is submitted to arbitration, the arbitrator or arbitrators shall have the power and authority to, and the parties hereby direct that such arbitrator or arbitrators shall, determine entitlement to attorneys' fees and costs, and the amount of such attorneys' fees and costs, to be awarded to the prevailing party, accruing interest at the highest rate allowed by law.</li>
         </ol>
-        <p>By typing your name, filling in your information above, and signing below, you agree to the terms of this Agreement.</p>
+
+        <p><strong>IN WITNESS WHEREOF</strong> the undersigned have executed this Agreement as of the day and year first written above. The parties hereto agree that facsimile signatures shall be as effective as if originals.</p>
       </div>
 
-      <h2>Signature</h2>
+      <div class="sc-sig-block">
+        <div class="sc-sig-col">
+          <h3>Employee</h3>
+          <div class="sc-printed-name" id="sc_signedNamePreview"></div>
+          <div class="sc-meta">Typed name — signature below</div>
+        </div>
+        <div class="sc-sig-col">
+          <h3>Company</h3>
+          <div class="sc-printed-name">Yassin Abdella</div>
+          <div class="sc-meta">Yassin Abdella, President — Evotax</div>
+        </div>
+      </div>
+
+      <h2 style="margin-top:22px;">Signature</h2>
       <div class="sc-sig-wrap">
         <div class="sc-sig-canvas-outer">
           <canvas id="sc_sigCanvas"></canvas>
@@ -155,11 +281,6 @@
           <button type="button" id="sc_clearSig">Clear</button>
         </div>
         <div class="sc-error-msg" id="sc_sigError"></div>
-      </div>
-
-      <div class="sc-company-sig">
-        <div class="sc-name">Yassin Abdella</div>
-        <div class="sc-meta"><strong>Yassin Abdella</strong>On behalf of Evotax</div>
       </div>
 
       <div class="sc-submit-row" style="margin-top: 26px;">
@@ -200,6 +321,39 @@ function fmtDate(iso) {
     return isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
+function ordinal(n) {
+    var s = ['th', 'st', 'nd', 'rd'], v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+function fmtEffectiveDate(isoDateOnly) {
+    if (!isoDateOnly) return '';
+    var d = new Date(isoDateOnly + 'T00:00:00');
+    if (isNaN(d)) return '';
+    return ordinal(d.getDate()) + ' day of ' + d.toLocaleDateString('en-US', { month: 'long' }) + ', ' + d.getFullYear();
+}
+
+/* ── Live-fill the underlined blanks as the applicant types ──────── */
+function updateBlanks() {
+    var vals = {
+        name:    document.getElementById('sc_name').value.trim(),
+        state:   document.getElementById('sc_state').value.trim(),
+        address: document.getElementById('sc_address').value.trim(),
+        date:    fmtEffectiveDate(document.getElementById('sc_date').value),
+    };
+    document.querySelectorAll('.sc-blank').forEach(function(el) {
+        var field = el.getAttribute('data-field');
+        var val = vals[field];
+        if (val) {
+            el.textContent = val;
+            el.classList.add('filled');
+        } else {
+            el.textContent = el.getAttribute('data-placeholder');
+            el.classList.remove('filled');
+        }
+    });
+    document.getElementById('sc_signedNamePreview').textContent = vals.name || '';
+}
+
 if (!token) {
     showError('This link is missing its signing token. Please use the exact link you were sent.');
 } else {
@@ -220,6 +374,10 @@ if (!token) {
 
         $form.style.display = 'block';
         if (row.recipient_name) document.getElementById('sc_name').value = row.recipient_name;
+        updateBlanks();
+        ['sc_name', 'sc_state', 'sc_address', 'sc_date'].forEach(function(id) {
+            document.getElementById(id).addEventListener('input', updateBlanks);
+        });
         initSignaturePad();
     }).catch(function() {
         showError('Something went wrong loading your contract. Please refresh and try again.');
@@ -233,7 +391,6 @@ function resizeCanvas() {
     var ratio = window.devicePixelRatio || 1;
     var w = canvas.offsetWidth, h = canvas.offsetHeight;
     if (!w || !h) return;
-    var data = hasSig ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
     canvas.width  = w * ratio;
     canvas.height = h * ratio;
     ctx.scale(ratio, ratio);
@@ -293,8 +450,8 @@ $form.addEventListener('submit', function(e) {
 
     var fields = {
         name:    document.getElementById('sc_name'),
+        state:   document.getElementById('sc_state'),
         address: document.getElementById('sc_address'),
-        phone:   document.getElementById('sc_phone'),
         date:    document.getElementById('sc_date'),
     };
     var valid = true;
@@ -321,9 +478,10 @@ $form.addEventListener('submit', function(e) {
 
     var fieldValues = {
         full_name: fields.name.value.trim(),
+        state:     fields.state.value.trim(),
         address:   fields.address.value.trim(),
-        phone:     fields.phone.value.trim(),
         date:      fields.date.value,
+        date_formatted: fmtEffectiveDate(fields.date.value),
     };
     var signatureDataUrl = canvas.toDataURL('image/png');
 
