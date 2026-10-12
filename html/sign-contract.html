@@ -177,7 +177,19 @@
           <li>
             <span class="sc-term">Compensation.</span>
 
-            <div class="sc-comp-variant" data-comp="manager" style="display:none;">The Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Such Manager shall make a non-refundable deposit of <span class="sc-blank-set" id="sc_comp_manager_deposit">$0.00</span> to Company for the opportunity of additional compensation. Further, Manager shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_manager_flatfee2">$0.00</span> per client that is properly and personally e-filed, as well as accepted by the IRS, and the Company receives the funds for payment.
+            <div>The Employee shall be compensated as a tax preparer for the above-mentioned duties on a commission basis, bi-weekly based on the payroll schedule, after Company receives compensation from IRS and bank (TPG) for preparing the clients' taxes, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a commission as a percentage of preparation fee charge per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment. The preparation fee does not include any mark up for Protection Plus Audit Protection, any additional Add-On Fees, or Franchise Network Fee; which are all factored into the total fee charged, but can be identified and separated in the bill breakdown. The commission of preparation fee shall be based on the following calculation:
+              <div class="sc-comp-box">
+                <div class="sc-comp-title">Commission Schedule</div>
+                <table class="sc-comp-table">
+                  <tr><td>First 50 clients</td><td>30% commission</td></tr>
+                  <tr><td>Next 50 clients (51–100)</td><td>35% commission</td></tr>
+                  <tr><td>After 100 clients (101+)</td><td>40% commission</td></tr>
+                </table>
+              </div>
+              calculated for all clients made at end of season or whenever each client gets funded by IRS.
+            </div>
+
+            <div class="sc-comp-variant" data-comp="manager" style="display:none;">In addition, the Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Such Manager shall make a non-refundable deposit of <span class="sc-blank-set" id="sc_comp_manager_deposit">$0.00</span> to Company for the opportunity of additional compensation. Further, Manager shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_manager_flatfee2">$0.00</span> per client that is properly and personally e-filed, as well as accepted by the IRS, and the Company receives the funds for payment.
               <div class="sc-comp-box">
                 <div class="sc-comp-title">Compensation Summary</div>
                 <table class="sc-comp-table">
@@ -188,7 +200,7 @@
               </div>
             </div>
 
-            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">The Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_flatfee_flatfee2">$0.00</span> per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment.
+            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">In addition, the Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_flatfee_flatfee2">$0.00</span> per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment.
               <div class="sc-comp-box">
                 <div class="sc-comp-title">Compensation Summary</div>
                 <table class="sc-comp-table">
@@ -196,18 +208,6 @@
                   <tr><td>Flat-Fee Commission / Client</td><td id="sc_comp_flatfee_flatfee_box">$0.00</td></tr>
                 </table>
               </div>
-            </div>
-
-            <div class="sc-comp-variant" data-comp="percentage" style="display:none;">The Employee shall be compensated as a tax preparer for the above-mentioned duties solely on a commission basis, bi-weekly based on the payroll schedule, after Company receives compensation from IRS and bank (TPG) for preparing the clients' taxes, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a commission as a percentage of preparation fee charge per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment. The preparation fee does not include any mark up for Protection Plus Audit Protection, any additional Add-On Fees, or Franchise Network Fee; which are all factored into the total fee charged, but can be identified and separated in the bill breakdown. The commission of preparation fee shall be based on the following calculation:
-              <div class="sc-comp-box">
-                <div class="sc-comp-title">Commission Schedule</div>
-                <table class="sc-comp-table">
-                  <tr><td>First 50 clients</td><td>30% commission</td></tr>
-                  <tr><td>Next 50 clients (51–100)</td><td>35% commission</td></tr>
-                  <tr><td>After 100 clients (101+)</td><td>40% commission</td></tr>
-                </table>
-              </div>
-              calculated for all clients made at end of season or whenever each client gets funded by IRS.
             </div>
           </li>
 
@@ -391,6 +391,9 @@ function applyCompensation(row) {
     var type = row.compensation_type || 'percentage';
     document.getElementById('sc_dutyRole').textContent = type === 'manager' ? 'Manager' : 'Tax Preparer';
 
+    // The percentage commission schedule is a fixed baseline clause now, always
+    // shown (it's no longer one of these toggled .sc-comp-variant blocks).
+    // Manager/Flat-Fee, when chosen, show their own paragraph in addition to it.
     document.querySelectorAll('.sc-comp-variant').forEach(function(el) {
         el.style.display = el.getAttribute('data-comp') === type ? 'block' : 'none';
     });
