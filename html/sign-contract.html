@@ -105,6 +105,13 @@
     .sc-field-grid { grid-template-columns: 1fr; }
     .sc-card { padding: 24px 18px; }
   }
+  @media print {
+    body { background: #fff; }
+    .sc-topbar, .sc-no-print, .sc-footer-note { display: none !important; }
+    .sc-wrap { max-width: none; padding: 0; }
+    .sc-card { box-shadow: none; border: none; padding: 0; margin: 0; }
+    .sc-signed-badge { background: #fff !important; color: #16a34a !important; border: 1.5px solid #16a34a; }
+  }
 </style>
 </head>
 <body>
@@ -115,34 +122,35 @@
     <div id="sc-loading" class="sc-state">Loading your contract…</div>
     <div id="sc-error" class="sc-state error" style="display:none;"></div>
 
-    <div id="sc-signed-view" class="sc-card" style="display:none;">
-      <span class="sc-signed-badge">✓ Signed</span>
-      <h1 style="text-align:left; text-transform:none;">Thank you, <span id="sc-signed-name"></span>.</h1>
-      <p class="sc-sub" style="text-align:left;">Your Employment and Non-Compete Agreement with Evotax was signed on <span id="sc-signed-date"></span>. No further action is needed — Evotax has been notified.</p>
-    </div>
-
     <form id="sc-form" class="sc-card" style="display:none;">
 
-      <h2>Your Information</h2>
-      <div class="sc-field-grid">
-        <div class="sc-field full">
-          <label for="sc_name">Full Legal Name *</label>
-          <input id="sc_name" type="text" autocomplete="name" required>
-        </div>
-        <div class="sc-field">
-          <label for="sc_state">State of Residence *</label>
-          <input id="sc_state" type="text" placeholder="e.g. Florida" autocomplete="address-level1" required>
-        </div>
-        <div class="sc-field">
-          <label for="sc_date">Effective Date *</label>
-          <input id="sc_date" type="date" required>
-        </div>
-        <div class="sc-field full">
-          <label for="sc_address">Home Address *</label>
-          <input id="sc_address" type="text" autocomplete="street-address" required>
-        </div>
+      <div id="sc_signedBanner" style="display:none; margin-bottom: 22px;">
+        <span class="sc-signed-badge">✓ Signed</span>
+        <div style="font-size:13px; color:#64748b;">Signed by <strong id="sc-signed-name" style="color:#1e293b;"></strong> on <span id="sc-signed-date"></span>. This is the agreement as signed — use the button below to print or save a copy.</div>
       </div>
-      <p style="font-size:11.5px; color:#94a3b8; margin: 0 0 24px;">As you fill these in, they'll appear in the underlined blanks throughout the agreement below.</p>
+
+      <div id="sc_infoFields">
+        <h2>Your Information</h2>
+        <div class="sc-field-grid">
+          <div class="sc-field full">
+            <label for="sc_name">Full Legal Name *</label>
+            <input id="sc_name" type="text" autocomplete="name" required>
+          </div>
+          <div class="sc-field">
+            <label for="sc_state">State of Residence *</label>
+            <input id="sc_state" type="text" placeholder="e.g. Florida" autocomplete="address-level1" required>
+          </div>
+          <div class="sc-field">
+            <label for="sc_date">Effective Date *</label>
+            <input id="sc_date" type="date" required>
+          </div>
+          <div class="sc-field full">
+            <label for="sc_address">Home Address *</label>
+            <input id="sc_address" type="text" autocomplete="street-address" required>
+          </div>
+        </div>
+        <p style="font-size:11.5px; color:#94a3b8; margin: 0 0 24px;">As you fill these in, they'll appear in the underlined blanks throughout the agreement below.</p>
+      </div>
 
       <h1>Employment and Non-Compete Agreement</h1>
 
@@ -272,7 +280,7 @@
       </div>
 
       <h2 style="margin-top:22px;">Signature</h2>
-      <div class="sc-sig-wrap">
+      <div class="sc-sig-wrap" id="sc_sigPadWrap">
         <div class="sc-sig-canvas-outer">
           <canvas id="sc_sigCanvas"></canvas>
           <div class="sc-sig-placeholder" id="sc_sigPlaceholder">Sign here</div>
@@ -282,10 +290,16 @@
         </div>
         <div class="sc-error-msg" id="sc_sigError"></div>
       </div>
+      <div class="sc-sig-image-wrap" id="sc_sigImageWrap" style="display:none;">
+        <img id="sc_sigImage" alt="Signature" style="display:block; max-width:260px; height:80px; object-fit:contain; border:1px solid #cbd5e1; border-radius:10px; padding:10px; background:#fff;">
+      </div>
 
-      <div class="sc-submit-row" style="margin-top: 26px;">
+      <div class="sc-submit-row sc-no-print" style="margin-top: 26px;" id="sc_submitRow">
         <button type="submit" class="sc-submit-btn" id="sc_submitBtn">Sign &amp; Submit Agreement</button>
         <div class="sc-error-msg" id="sc_formError"></div>
+      </div>
+      <div class="sc-submit-row sc-no-print" style="margin-top: 26px; display:none;" id="sc_printRow">
+        <button type="button" class="sc-submit-btn" id="sc_printBtn">Print / Save as PDF</button>
       </div>
     </form>
 
@@ -307,7 +321,6 @@ var token = qs.get('token');
 
 var $loading = document.getElementById('sc-loading');
 var $error   = document.getElementById('sc-error');
-var $signed  = document.getElementById('sc-signed-view');
 var $form    = document.getElementById('sc-form');
 
 function showError(msg) {
@@ -319,6 +332,25 @@ function showError(msg) {
 function fmtDate(iso) {
     var d = new Date(iso);
     return isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+/* Switch the page into its read-only "signed" state: banner, filled blanks
+   stay as plain text, the drawn signature as an image, and a Print button
+   in place of the signature pad + Submit. Used both right after a fresh
+   submission and whenever this link is reopened later. */
+function showSignedState(name, signedAtIso, signatureDataUrl) {
+    document.getElementById('sc-signed-name').textContent = name || '';
+    document.getElementById('sc-signed-date').textContent = fmtDate(signedAtIso);
+    document.getElementById('sc_signedBanner').style.display = 'block';
+    document.getElementById('sc_infoFields').style.display = 'none';
+    document.getElementById('sc_sigPadWrap').style.display = 'none';
+    document.getElementById('sc_submitRow').style.display = 'none';
+    if (signatureDataUrl) {
+        document.getElementById('sc_sigImage').src = signatureDataUrl;
+        document.getElementById('sc_sigImageWrap').style.display = 'block';
+    }
+    document.getElementById('sc_printRow').style.display = 'block';
+    document.getElementById('sc_printBtn').onclick = function() { window.print(); };
 }
 
 function ordinal(n) {
@@ -364,15 +396,18 @@ if (!token) {
         }
         var row = res.data[0];
         $loading.style.display = 'none';
+        $form.style.display = 'block';
 
         if (row.status === 'signed') {
-            document.getElementById('sc-signed-name').textContent = row.recipient_name || '';
-            document.getElementById('sc-signed-date').textContent = fmtDate(row.signed_at);
-            $signed.style.display = 'block';
+            document.getElementById('sc_name').value    = (row.field_values && row.field_values.full_name) || row.recipient_name || '';
+            document.getElementById('sc_state').value   = (row.field_values && row.field_values.state) || '';
+            document.getElementById('sc_address').value = (row.field_values && row.field_values.address) || '';
+            document.getElementById('sc_date').value    = (row.field_values && row.field_values.date) || '';
+            updateBlanks();
+            showSignedState(row.recipient_name, row.signed_at, row.signature_data_url);
             return;
         }
 
-        $form.style.display = 'block';
         if (row.recipient_name) document.getElementById('sc_name').value = row.recipient_name;
         updateBlanks();
         ['sc_name', 'sc_state', 'sc_address', 'sc_date'].forEach(function(id) {
@@ -496,10 +531,7 @@ $form.addEventListener('submit', function(e) {
             $btn.textContent = 'Sign & Submit Agreement';
             return;
         }
-        $form.style.display = 'none';
-        document.getElementById('sc-signed-name').textContent = fieldValues.full_name;
-        document.getElementById('sc-signed-date').textContent = fmtDate(new Date().toISOString());
-        $signed.style.display = 'block';
+        showSignedState(fieldValues.full_name, new Date().toISOString(), signatureDataUrl);
         window.scrollTo(0, 0);
     }).catch(function() {
         $formError.textContent = 'Something went wrong submitting your agreement. Please try again.';
