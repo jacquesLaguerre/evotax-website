@@ -177,9 +177,26 @@
           <li>
             <span class="sc-term">Compensation.</span>
 
-            <div class="sc-comp-variant" data-comp="manager" style="display:none;">The Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Such Manager shall make a non-refundable deposit of <span class="sc-blank-set" id="sc_comp_manager_deposit">$0.00</span> to Company for the opportunity of additional compensation. Further, Manager shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_manager_flatfee">$0.00</span> per client that is properly and personally e-filed, as well as accepted by the IRS, and the Company receives the funds for payment.</div>
+            <div class="sc-comp-variant" data-comp="manager" style="display:none;">The Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Such Manager shall make a non-refundable deposit of <span class="sc-blank-set" id="sc_comp_manager_deposit">$0.00</span> to Company for the opportunity of additional compensation. Further, Manager shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_manager_flatfee2">$0.00</span> per client that is properly and personally e-filed, as well as accepted by the IRS, and the Company receives the funds for payment.
+              <div class="sc-comp-box">
+                <div class="sc-comp-title">Compensation Summary</div>
+                <table class="sc-comp-table">
+                  <tr><td>Hourly Rate</td><td id="sc_comp_manager_hourly_box">$0.00</td></tr>
+                  <tr><td>Non-Refundable Deposit</td><td id="sc_comp_manager_deposit_box">$0.00</td></tr>
+                  <tr><td>Flat-Fee Commission / Client</td><td id="sc_comp_manager_flatfee_box">$0.00</td></tr>
+                </table>
+              </div>
+            </div>
 
-            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">The Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_flatfee_flatfee">$0.00</span> per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment.</div>
+            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">The Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_flatfee_flatfee2">$0.00</span> per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment.
+              <div class="sc-comp-box">
+                <div class="sc-comp-title">Compensation Summary</div>
+                <table class="sc-comp-table">
+                  <tr><td>Hourly Rate</td><td id="sc_comp_flatfee_hourly_box">$0.00</td></tr>
+                  <tr><td>Flat-Fee Commission / Client</td><td id="sc_comp_flatfee_flatfee_box">$0.00</td></tr>
+                </table>
+              </div>
+            </div>
 
             <div class="sc-comp-variant" data-comp="percentage" style="display:none;">The Employee shall be compensated as a tax preparer for the above-mentioned duties solely on a commission basis, bi-weekly based on the payroll schedule, after Company receives compensation from IRS and bank (TPG) for preparing the clients' taxes, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a commission as a percentage of preparation fee charge per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment. The preparation fee does not include any mark up for Protection Plus Audit Protection, any additional Add-On Fees, or Franchise Network Fee; which are all factored into the total fee charged, but can be identified and separated in the bill breakdown. The commission of preparation fee shall be based on the following calculation:
               <div class="sc-comp-box">
@@ -379,12 +396,19 @@ function applyCompensation(row) {
     });
 
     if (type === 'manager') {
-        document.getElementById('sc_comp_manager_hourly').textContent  = fmtMoney(row.comp_hourly_rate);
-        document.getElementById('sc_comp_manager_deposit').textContent = fmtMoney(row.comp_deposit);
-        document.getElementById('sc_comp_manager_flatfee').textContent = fmtMoney(row.comp_flat_fee);
+        var mh = fmtMoney(row.comp_hourly_rate), md = fmtMoney(row.comp_deposit), mf = fmtMoney(row.comp_flat_fee);
+        document.getElementById('sc_comp_manager_hourly').textContent      = mh;
+        document.getElementById('sc_comp_manager_deposit').textContent     = md;
+        document.getElementById('sc_comp_manager_flatfee2').textContent    = mf;
+        document.getElementById('sc_comp_manager_hourly_box').textContent  = mh;
+        document.getElementById('sc_comp_manager_deposit_box').textContent = md;
+        document.getElementById('sc_comp_manager_flatfee_box').textContent = mf;
     } else if (type === 'flat_fee') {
-        document.getElementById('sc_comp_flatfee_hourly').textContent  = fmtMoney(row.comp_hourly_rate);
-        document.getElementById('sc_comp_flatfee_flatfee').textContent = fmtMoney(row.comp_flat_fee);
+        var fh = fmtMoney(row.comp_hourly_rate), ff = fmtMoney(row.comp_flat_fee);
+        document.getElementById('sc_comp_flatfee_hourly').textContent      = fh;
+        document.getElementById('sc_comp_flatfee_flatfee2').textContent    = ff;
+        document.getElementById('sc_comp_flatfee_hourly_box').textContent  = fh;
+        document.getElementById('sc_comp_flatfee_flatfee_box').textContent = ff;
     }
 }
 
