@@ -914,7 +914,7 @@
                         <div class="modal-body text-center p-5">
                             <div class="tuf-success-icon mb-3"><i class="fas fa-check-circle"></i></div>
                             <h3 class="tuf-success-title" id="tufSuccessLabel">Thank You!</h3>
-                            <p class="tuf-success-text" id="tuf_successModalText">Your tax files have been submitted successfully.<br>You will receive assistance from as early as <strong>September 6th, 2026</strong>.</p>
+                            <p class="tuf-success-text" id="tuf_successModalText">Your tax files have been submitted successfully. Our team will be in touch shortly.</p>
                             <div class="d-flex justify-content-center gap-2 mt-3" style="gap:.75rem;">
                                 <button type="button" id="tuf_doneBtn" class="btn tuf-submit-btn" data-dismiss="modal" data-toggle="tooltip" data-placement="top" title="Your information on the form will be erased">Done</button>
                                 <button type="button" id="tuf_anotherYearBtn" class="btn btn-outline-secondary" data-dismiss="modal" style="border-radius:.75rem;padding:.6rem 1.25rem;font-weight:600;">Submit another year</button>
@@ -2655,7 +2655,7 @@ $('#taxUploadForm').on('submit', async function(e) {
         } else {
             $msgEl.text('Your documents have been received successfully.');
         }
-        $msgEl.append($('<br>')).append("You will receive assistance from as early as ").append($('<strong>').text('September 6th, 2026')).append('.');
+        $msgEl.append(' Our team will be in touch shortly.');
         $('#quoteModal').one('hidden.bs.modal', function() {
             $('#tuf_successModal').modal('show');
         });
