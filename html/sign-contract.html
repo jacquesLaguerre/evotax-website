@@ -189,23 +189,24 @@
               calculated for all clients made at end of season or whenever each client gets funded by IRS.
             </div>
 
-            <div class="sc-comp-variant" data-comp="manager" style="display:none;">In addition, the Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Such Manager shall make a non-refundable deposit of <span class="sc-blank-set" id="sc_comp_manager_deposit">$0.00</span> to Company for the opportunity of additional compensation. Further, Manager shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_manager_flatfee2">$0.00</span> per client that is properly and personally e-filed, as well as accepted by the IRS, and the Company receives the funds for payment.
+            <div class="sc-comp-variant" data-comp="manager" style="display:none;">In addition, the Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company.<span id="sc_comp_manager_monthly_sentence" style="display:none;"> Manager shall also receive <span class="sc-blank-set" id="sc_comp_manager_monthly">$0.00</span> per month.</span><span id="sc_comp_manager_biweekly_sentence" style="display:none;"> Manager shall also receive <span class="sc-blank-set" id="sc_comp_manager_biweekly">$0.00</span> on a bi-weekly basis.</span>
               <div class="sc-comp-box">
                 <div class="sc-comp-title">Compensation Summary</div>
                 <table class="sc-comp-table">
                   <tr><td>Hourly Rate</td><td id="sc_comp_manager_hourly_box">$0.00</td></tr>
-                  <tr><td>Non-Refundable Deposit</td><td id="sc_comp_manager_deposit_box">$0.00</td></tr>
-                  <tr><td>Flat-Fee Commission / Client</td><td id="sc_comp_manager_flatfee_box">$0.00</td></tr>
+                  <tr id="sc_comp_manager_monthly_row" style="display:none;"><td>Monthly Rate</td><td id="sc_comp_manager_monthly_box">$0.00</td></tr>
+                  <tr id="sc_comp_manager_biweekly_row" style="display:none;"><td>Bi-Weekly Rate</td><td id="sc_comp_manager_biweekly_box">$0.00</td></tr>
                 </table>
               </div>
             </div>
 
-            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">In addition, the Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_flatfee_flatfee2">$0.00</span> per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment.
+            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">In addition, the Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company.<span id="sc_comp_flatfee_monthly_sentence" style="display:none;"> Employee shall also receive <span class="sc-blank-set" id="sc_comp_flatfee_monthly">$0.00</span> per month.</span><span id="sc_comp_flatfee_biweekly_sentence" style="display:none;"> Employee shall also receive <span class="sc-blank-set" id="sc_comp_flatfee_biweekly">$0.00</span> on a bi-weekly basis.</span>
               <div class="sc-comp-box">
                 <div class="sc-comp-title">Compensation Summary</div>
                 <table class="sc-comp-table">
                   <tr><td>Hourly Rate</td><td id="sc_comp_flatfee_hourly_box">$0.00</td></tr>
-                  <tr><td>Flat-Fee Commission / Client</td><td id="sc_comp_flatfee_flatfee_box">$0.00</td></tr>
+                  <tr id="sc_comp_flatfee_monthly_row" style="display:none;"><td>Monthly Rate</td><td id="sc_comp_flatfee_monthly_box">$0.00</td></tr>
+                  <tr id="sc_comp_flatfee_biweekly_row" style="display:none;"><td>Bi-Weekly Rate</td><td id="sc_comp_flatfee_biweekly_box">$0.00</td></tr>
                 </table>
               </div>
             </div>
@@ -398,20 +399,31 @@ function applyCompensation(row) {
         el.style.display = el.getAttribute('data-comp') === type ? 'block' : 'none';
     });
 
+    // Monthly/bi-weekly are optional — each sentence and summary row only
+    // appears when the admin actually set a rate for it.
+    function applyOptionalRate(prefix, value) {
+        var has = value !== null && value !== undefined && value !== '';
+        document.getElementById('sc_comp_' + prefix + '_sentence').style.display = has ? 'inline' : 'none';
+        document.getElementById('sc_comp_' + prefix + '_row').style.display      = has ? 'table-row' : 'none';
+        if (has) {
+            var money = fmtMoney(value);
+            document.getElementById('sc_comp_' + prefix).textContent     = money;
+            document.getElementById('sc_comp_' + prefix + '_box').textContent = money;
+        }
+    }
+
     if (type === 'manager') {
-        var mh = fmtMoney(row.comp_hourly_rate), md = fmtMoney(row.comp_deposit), mf = fmtMoney(row.comp_flat_fee);
-        document.getElementById('sc_comp_manager_hourly').textContent      = mh;
-        document.getElementById('sc_comp_manager_deposit').textContent     = md;
-        document.getElementById('sc_comp_manager_flatfee2').textContent    = mf;
-        document.getElementById('sc_comp_manager_hourly_box').textContent  = mh;
-        document.getElementById('sc_comp_manager_deposit_box').textContent = md;
-        document.getElementById('sc_comp_manager_flatfee_box').textContent = mf;
+        var mh = fmtMoney(row.comp_hourly_rate);
+        document.getElementById('sc_comp_manager_hourly').textContent     = mh;
+        document.getElementById('sc_comp_manager_hourly_box').textContent = mh;
+        applyOptionalRate('manager_monthly',  row.comp_monthly_rate);
+        applyOptionalRate('manager_biweekly', row.comp_biweekly_rate);
     } else if (type === 'flat_fee') {
-        var fh = fmtMoney(row.comp_hourly_rate), ff = fmtMoney(row.comp_flat_fee);
-        document.getElementById('sc_comp_flatfee_hourly').textContent      = fh;
-        document.getElementById('sc_comp_flatfee_flatfee2').textContent    = ff;
-        document.getElementById('sc_comp_flatfee_hourly_box').textContent  = fh;
-        document.getElementById('sc_comp_flatfee_flatfee_box').textContent = ff;
+        var fh = fmtMoney(row.comp_hourly_rate);
+        document.getElementById('sc_comp_flatfee_hourly').textContent     = fh;
+        document.getElementById('sc_comp_flatfee_hourly_box').textContent = fh;
+        applyOptionalRate('flatfee_monthly',  row.comp_monthly_rate);
+        applyOptionalRate('flatfee_biweekly', row.comp_biweekly_rate);
     }
 }
 
