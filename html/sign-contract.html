@@ -55,6 +55,7 @@
     font-weight: 600; color: #94a3b8; text-align: center;
   }
   .sc-blank.filled { border-bottom-color: #1e3b60; color: #1e3b60; }
+  .sc-blank-set { font-weight: 700; color: #1e3b60; border-bottom: 1.5px solid #1e3b60; padding: 0 2px; }
 
   .sc-comp-box {
     background: #fff7e6; border: 1.5px solid #ed912f; border-radius: 10px; padding: 18px 20px; margin: 10px 0 16px;
@@ -167,23 +168,30 @@
         <ol>
           <li><span class="sc-term">Employee.</span> Subject to the terms and conditions of this Agreement, the Company hereby engages the Employee to perform the services set forth herein, and the Employee hereby accepts such employment and the terms thereof.</li>
 
-          <li><span class="sc-term">Duties.</span> Company employs, engages, and hires Employee as <strong>Tax Preparer</strong>, and Employee accepts and agrees to such hiring, employment, and employment. Subject to the supervision and pursuant to the orders, advice, and directions of Company, Employee will prepare and process income tax returns, check income tax returns prepared by other Associates, greet customers, answer telephones, complete general office activities, and daily administrative duties, as well as, Employee will perform such other duties as are customarily performed by one holding such position in similar businesses or enterprises as that engaged in by Company, and will also render such other and unrelated services and duties as may be assigned to Employee from time to time by Company.</li>
+          <li><span class="sc-term">Duties.</span> Company employs, engages, and hires Employee as <strong id="sc_dutyRole">Tax Preparer</strong>, and Employee accepts and agrees to such hiring, employment, and employment. Subject to the supervision and pursuant to the orders, advice, and directions of Company, Employee will prepare and process income tax returns, check income tax returns prepared by other Associates, greet customers, answer telephones, complete general office activities, and daily administrative duties, as well as, Employee will perform such other duties as are customarily performed by one holding such position in similar businesses or enterprises as that engaged in by Company, and will also render such other and unrelated services and duties as may be assigned to Employee from time to time by Company.</li>
 
           <li><span class="sc-term">Legal Compliance.</span> The Employee agrees to comply with all general regulations and instructions from time to time issued by the Company, including those governing hours and conditions of work, and to obey all lawful orders given by the Company, its President, or other authorized person or persons; to conduct themselves at all times in such a manner as not to bring discredit on the Employee or the Company; and to abide by all laws and ordinances of the United States, specifically, but limited to the regulations promulgated by the Internal Revenue Service ("IRS") and United States Department of Treasury, the State of Missouri and the county and municipality in which the Employee is working.</li>
 
           <li><span class="sc-term">Term.</span> The Employee understands and acknowledges that this position is seasonal; however, the Employee shall be employed for every season until this Agreement is terminated. The employment of the Employee under this Agreement will be permanent, and the Employee will hold the position described so long as Employee, in the Company's opinion, is efficient, conscientious, and productive. If the Employee is not efficient, conscientious, and productive, the Company, at any time in its absolute discretion, may terminate the Employee on the giving of notice to such effect in accordance with the termination provision present on this Agreement.</li>
 
           <li>
-            <span class="sc-term">Compensation.</span> The Employee shall be compensated as a tax preparer for the above-mentioned duties solely on a commission basis, bi-weekly based on the payroll schedule, after Company receives compensation from IRS and bank (TPG) for preparing the clients' taxes, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a commission as a percentage of preparation fee charge per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment. The preparation fee does not include any mark up for Protection Plus Audit Protection, any additional Add-On Fees, or Franchise Network Fee; which are all factored into the total fee charged, but can be identified and separated in the bill breakdown. The commission of preparation fee shall be based on the following calculation:
-            <div class="sc-comp-box">
-              <div class="sc-comp-title">Commission Schedule</div>
-              <table class="sc-comp-table">
-                <tr><td>First 50 clients</td><td>30% commission</td></tr>
-                <tr><td>Next 50 clients (51–100)</td><td>35% commission</td></tr>
-                <tr><td>After 100 clients (101+)</td><td>40% commission</td></tr>
-              </table>
+            <span class="sc-term">Compensation.</span>
+
+            <div class="sc-comp-variant" data-comp="manager" style="display:none;">The Employee shall be compensated as a Manager to also manage other Employees and for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_manager_hourly">$0.00</span> per hour, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Such Manager shall make a non-refundable deposit of <span class="sc-blank-set" id="sc_comp_manager_deposit">$0.00</span> to Company for the opportunity of additional compensation. Further, Manager shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_manager_flatfee">$0.00</span> per client that is properly and personally e-filed, as well as accepted by the IRS, and the Company receives the funds for payment.</div>
+
+            <div class="sc-comp-variant" data-comp="flat_fee" style="display:none;">The Employee shall be compensated as a Tax Preparer for the above described duties at the rate of <span class="sc-blank-set" id="sc_comp_flatfee_hourly">$0.00</span> per hour, paid bi-weekly based on the payroll schedule, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a flat-fee commission of <span class="sc-blank-set" id="sc_comp_flatfee_flatfee">$0.00</span> per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment.</div>
+
+            <div class="sc-comp-variant" data-comp="percentage" style="display:none;">The Employee shall be compensated as a tax preparer for the above-mentioned duties solely on a commission basis, bi-weekly based on the payroll schedule, after Company receives compensation from IRS and bank (TPG) for preparing the clients' taxes, subject to the terms and conditions as described in subsequent written communications or e-mails from the Company concerning particular duties that Employee is handling for the Company. Further, Employee shall receive a commission as a percentage of preparation fee charge per client that is properly and personally e-filed by Employee, as well as accepted by the IRS, and the Company receives the funds for payment. The preparation fee does not include any mark up for Protection Plus Audit Protection, any additional Add-On Fees, or Franchise Network Fee; which are all factored into the total fee charged, but can be identified and separated in the bill breakdown. The commission of preparation fee shall be based on the following calculation:
+              <div class="sc-comp-box">
+                <div class="sc-comp-title">Commission Schedule</div>
+                <table class="sc-comp-table">
+                  <tr><td>First 50 clients</td><td>30% commission</td></tr>
+                  <tr><td>Next 50 clients (51–100)</td><td>35% commission</td></tr>
+                  <tr><td>After 100 clients (101+)</td><td>40% commission</td></tr>
+                </table>
+              </div>
+              calculated for all clients made at end of season or whenever each client gets funded by IRS.
             </div>
-            calculated for all clients made at end of season or whenever each client gets funded by IRS.
           </li>
 
           <li><span class="sc-term">Time Requirements.</span> The Employee shall devote, during the term of this Agreement, such of his/her time, energy, and skill as is necessary in the performance of his/her duties hereunder and shall periodically, or at any time, upon the request of the Employee, submit data as to the time requirements of work performed and to be performed by him for the Company in connection with this Agreement.</li>
@@ -353,6 +361,33 @@ function showSignedState(name, signedAtIso, signatureDataUrl) {
     document.getElementById('sc_printBtn').onclick = function() { window.print(); };
 }
 
+function fmtMoney(n) {
+    if (n === null || n === undefined || n === '') return '$0.00';
+    return '$' + Number(n).toFixed(2);
+}
+
+/* Show only the compensation structure (and matching duty role) the admin
+   picked when this contract was sent — "manager" / "flat_fee" / "percentage".
+   Defaults to "percentage" if unset (shouldn't happen for new sends, but
+   keeps older rows from this feature's early days from rendering blank). */
+function applyCompensation(row) {
+    var type = row.compensation_type || 'percentage';
+    document.getElementById('sc_dutyRole').textContent = type === 'manager' ? 'Manager' : 'Tax Preparer';
+
+    document.querySelectorAll('.sc-comp-variant').forEach(function(el) {
+        el.style.display = el.getAttribute('data-comp') === type ? 'block' : 'none';
+    });
+
+    if (type === 'manager') {
+        document.getElementById('sc_comp_manager_hourly').textContent  = fmtMoney(row.comp_hourly_rate);
+        document.getElementById('sc_comp_manager_deposit').textContent = fmtMoney(row.comp_deposit);
+        document.getElementById('sc_comp_manager_flatfee').textContent = fmtMoney(row.comp_flat_fee);
+    } else if (type === 'flat_fee') {
+        document.getElementById('sc_comp_flatfee_hourly').textContent  = fmtMoney(row.comp_hourly_rate);
+        document.getElementById('sc_comp_flatfee_flatfee').textContent = fmtMoney(row.comp_flat_fee);
+    }
+}
+
 function ordinal(n) {
     var s = ['th', 'st', 'nd', 'rd'], v = n % 100;
     return n + (s[(v - 20) % 10] || s[v] || s[0]);
@@ -397,6 +432,7 @@ if (!token) {
         var row = res.data[0];
         $loading.style.display = 'none';
         $form.style.display = 'block';
+        applyCompensation(row);
 
         if (row.status === 'signed') {
             document.getElementById('sc_name').value    = (row.field_values && row.field_values.full_name) || row.recipient_name || '';
