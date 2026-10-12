@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Your Contract — Evotax</title>
+<link rel="icon" type="image/png" href="assets/img/evotax-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f2f3f7; color: #0f172a; line-height: 1.6;
+  }
+  .sc-topbar {
+    background: #1e3b60; padding: 18px 20px; display: flex; align-items: center; justify-content: center;
+  }
+  .sc-topbar img { height: 36px; }
+  .sc-wrap { max-width: 720px; margin: 0 auto; padding: 28px 18px 80px; }
+  .sc-card {
+    background: #fff; border-radius: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+    padding: 32px 28px; margin-bottom: 20px;
+  }
+  .sc-state { text-align: center; padding: 60px 20px; color: #64748b; font-size: 15px; }
+  .sc-state.error { color: #b91c1c; }
+  h1 { font-size: 22px; font-weight: 800; color: #1e3b60; margin: 0 0 4px; letter-spacing: -0.3px; }
+  .sc-sub { color: #64748b; font-size: 13.5px; margin: 0 0 22px; }
+  h2 { font-size: 13px; font-weight: 700; color: #1e3b60; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 14px; }
+  .sc-field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+  .sc-field { display: flex; flex-direction: column; gap: 5px; }
+  .sc-field.full { grid-column: 1 / -1; }
+  .sc-field label { font-size: 12px; font-weight: 600; color: #334155; }
+  .sc-field input {
+    font-family: inherit; font-size: 14px; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 7px;
+    outline: none; transition: border-color .15s;
+  }
+  .sc-field input:focus { border-color: #1e3b60; }
+  .sc-field input.sc-invalid { border-color: #dc2626; }
+  .sc-body p { font-size: 14.5px; color: #1e293b; margin: 0 0 14px; }
+  .sc-body ol { padding-left: 20px; margin: 0 0 18px; }
+  .sc-body li { font-size: 14.5px; color: #1e293b; margin-bottom: 12px; }
+  .sc-comp-box {
+    background: #fff7e6; border: 1.5px solid #ed912f; border-radius: 10px; padding: 18px 20px; margin: 10px 0 18px;
+  }
+  .sc-comp-box .sc-comp-title { font-weight: 700; color: #9a5b0f; font-size: 13.5px; margin-bottom: 10px; }
+  .sc-comp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .sc-comp-table td { padding: 7px 4px; }
+  .sc-comp-table tr + tr td { border-top: 1px solid rgba(237,145,47,0.3); }
+  .sc-comp-table td:last-child { text-align: right; font-weight: 800; color: #9a5b0f; font-size: 15px; white-space: nowrap; }
+  .sc-sig-wrap { margin-top: 6px; }
+  .sc-sig-canvas-outer {
+    border: 1.5px dashed #cbd5e1; border-radius: 10px; background: #fafbfc; height: 160px; position: relative; touch-action: none;
+  }
+  .sc-sig-canvas-outer canvas { width: 100%; height: 100%; display: block; cursor: crosshair; border-radius: 10px; }
+  .sc-sig-placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    color: #94a3b8; font-size: 13px; pointer-events: none;
+  }
+  .sc-sig-actions { display: flex; justify-content: flex-end; margin-top: 8px; }
+  .sc-sig-actions button {
+    font-family: inherit; font-size: 12px; font-weight: 600; color: #64748b; background: none;
+    border: 1px solid #cbd5e1; border-radius: 6px; padding: 5px 12px; cursor: pointer;
+  }
+  .sc-company-sig { display: flex; align-items: center; gap: 14px; margin-top: 18px; padding-top: 18px; border-top: 1px solid #e2e8f0; }
+  .sc-company-sig .sc-name { font-family: 'Brush Script MT', cursive; font-size: 28px; color: #1e3b60; }
+  .sc-company-sig .sc-meta { font-size: 12px; color: #64748b; line-height: 1.4; }
+  .sc-company-sig .sc-meta strong { display: block; color: #1e293b; font-size: 13px; }
+  .sc-error-msg { font-size: 12.5px; color: #dc2626; margin-top: 6px; min-height: 16px; }
+  .sc-submit-row { text-align: center; margin-top: 6px; }
+  .sc-submit-btn {
+    font-family: inherit; font-size: 15px; font-weight: 700; color: #fff; background: #1e3b60;
+    border: none; border-radius: 9px; padding: 13px 36px; cursor: pointer; transition: background .15s;
+  }
+  .sc-submit-btn:hover { background: #16304f; }
+  .sc-submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .sc-footer-note { text-align: center; font-size: 11.5px; color: #94a3b8; margin-top: 14px; }
+  .sc-signed-badge {
+    display: inline-flex; align-items: center; gap: 7px; background: #16a34a; color: #fff; font-size: 12px;
+    font-weight: 700; padding: 5px 12px; border-radius: 20px; margin-bottom: 16px;
+  }
+  @media (max-width: 480px) {
+    .sc-field-grid { grid-template-columns: 1fr; }
+    .sc-card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="sc-topbar"><img src="assets/img/evotax-logo.png" alt="Evotax"></div>
+
+  <div class="sc-wrap">
+    <div id="sc-loading" class="sc-state">Loading your contract…</div>
+    <div id="sc-error" class="sc-state error" style="display:none;"></div>
+
+    <div id="sc-signed-view" class="sc-card" style="display:none;">
+      <span class="sc-signed-badge">✓ Signed</span>
+      <h1>Thank you, <span id="sc-signed-name"></span>.</h1>
+      <p class="sc-sub">Your Independent Contractor Agreement with Evotax was signed on <span id="sc-signed-date"></span>. No further action is needed — Evotax has been notified.</p>
+    </div>
+
+    <form id="sc-form" class="sc-card" style="display:none;">
+      <h1>Independent Contractor Agreement</h1>
+      <p class="sc-sub">Tax Preparer — Evotax</p>
+
+      <h2>Your Information</h2>
+      <div class="sc-field-grid">
+        <div class="sc-field full">
+          <label for="sc_name">Full Legal Name *</label>
+          <input id="sc_name" type="text" autocomplete="name" required>
+        </div>
+        <div class="sc-field full">
+          <label for="sc_address">Address *</label>
+          <input id="sc_address" type="text" autocomplete="street-address" required>
+        </div>
+        <div class="sc-field">
+          <label for="sc_phone">Phone *</label>
+          <input id="sc_phone" type="tel" autocomplete="tel" required>
+        </div>
+        <div class="sc-field">
+          <label for="sc_date">Date *</label>
+          <input id="sc_date" type="date" required>
+        </div>
+      </div>
+
+      <div class="sc-body" style="margin-top: 24px;">
+        <h2>Agreement</h2>
+        <p>This Agreement is entered into between <strong>Evotax</strong> ("Company") and the Contractor named above, effective as of the date signed below.</p>
+        <ol>
+          <li><strong>Services.</strong> Contractor will provide professional tax preparation services to clients referred by or associated with Evotax, acting at all times as an independent contractor — not as an employee, partner, or agent of Evotax.</li>
+          <li>
+            <strong>Compensation.</strong> Contractor is paid by commission, based on the total number of clients served, according to the schedule below.
+            <div class="sc-comp-box">
+              <div class="sc-comp-title">Commission Schedule</div>
+              <table class="sc-comp-table">
+                <tr><td>First 50 clients</td><td>30% commission</td></tr>
+                <tr><td>Next 50 clients (51–100)</td><td>35% commission</td></tr>
+                <tr><td>After 100 clients</td><td>40% commission</td></tr>
+              </table>
+            </div>
+          </li>
+          <li><strong>Independent Contractor Status.</strong> Contractor is solely responsible for their own taxes, licenses, and business expenses. Nothing in this Agreement creates an employer-employee relationship.</li>
+          <li><strong>Confidentiality.</strong> Contractor will keep all client information confidential and secure at all times, during and after this engagement.</li>
+          <li><strong>Term &amp; Termination.</strong> This Agreement remains in effect until either party ends it with written notice to the other.</li>
+        </ol>
+        <p>By typing your name, filling in your information above, and signing below, you agree to the terms of this Agreement.</p>
+      </div>
+
+      <h2>Signature</h2>
+      <div class="sc-sig-wrap">
+        <div class="sc-sig-canvas-outer">
+          <canvas id="sc_sigCanvas"></canvas>
+          <div class="sc-sig-placeholder" id="sc_sigPlaceholder">Sign here</div>
+        </div>
+        <div class="sc-sig-actions">
+          <button type="button" id="sc_clearSig">Clear</button>
+        </div>
+        <div class="sc-error-msg" id="sc_sigError"></div>
+      </div>
+
+      <div class="sc-company-sig">
+        <div class="sc-name">Yassin Abdella</div>
+        <div class="sc-meta"><strong>Yassin Abdella</strong>On behalf of Evotax</div>
+      </div>
+
+      <div class="sc-submit-row" style="margin-top: 26px;">
+        <button type="submit" class="sc-submit-btn" id="sc_submitBtn">Sign &amp; Submit Agreement</button>
+        <div class="sc-error-msg" id="sc_formError"></div>
+      </div>
+    </form>
+
+    <p class="sc-footer-note">© <span id="sc-year"></span> Evotax. This page is a private link intended only for the recipient.</p>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+document.getElementById('sc-year').textContent = new Date().getFullYear();
+
+/* Supabase client — anon key is safe to expose in browser code */
+var _sb = supabase.createClient(
+    'https://asbdodzmqdvxjbdsnnhq.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFzYmRvZHptcWR2eGpiZHNubmhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4ODMzMzIsImV4cCI6MjA5MjQ1OTMzMn0.IZ5kqZYUyiytuxHbm8-XddCi3nFKgNlSte5CcBTmJog'
+);
+
+var qs = new URLSearchParams(window.location.search);
+var token = qs.get('token');
+
+var $loading = document.getElementById('sc-loading');
+var $error   = document.getElementById('sc-error');
+var $signed  = document.getElementById('sc-signed-view');
+var $form    = document.getElementById('sc-form');
+
+function showError(msg) {
+    $loading.style.display = 'none';
+    $error.textContent = msg;
+    $error.style.display = 'block';
+}
+
+function fmtDate(iso) {
+    var d = new Date(iso);
+    return isNaN(d) ? '' : d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
+if (!token) {
+    showError('This link is missing its signing token. Please use the exact link you were sent.');
+} else {
+    _sb.rpc('get_contract_signature', { p_token: token }).then(function(res) {
+        if (res.error || !res.data || res.data.length === 0) {
+            showError('We couldn’t find a contract for this link. It may be invalid — please check the link or contact Evotax.');
+            return;
+        }
+        var row = res.data[0];
+        $loading.style.display = 'none';
+
+        if (row.status === 'signed') {
+            document.getElementById('sc-signed-name').textContent = row.recipient_name || '';
+            document.getElementById('sc-signed-date').textContent = fmtDate(row.signed_at);
+            $signed.style.display = 'block';
+            return;
+        }
+
+        $form.style.display = 'block';
+        if (row.recipient_name) document.getElementById('sc_name').value = row.recipient_name;
+        initSignaturePad();
+    }).catch(function() {
+        showError('Something went wrong loading your contract. Please refresh and try again.');
+    });
+}
+
+/* ── Signature pad (same drawing logic as the tax submission form) ──── */
+var canvas, ctx, isDrawing = false, hasSig = false;
+
+function resizeCanvas() {
+    var ratio = window.devicePixelRatio || 1;
+    var w = canvas.offsetWidth, h = canvas.offsetHeight;
+    if (!w || !h) return;
+    var data = hasSig ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null;
+    canvas.width  = w * ratio;
+    canvas.height = h * ratio;
+    ctx.scale(ratio, ratio);
+    ctx.strokeStyle = '#0a1628';
+    ctx.lineWidth   = 2;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+}
+
+function getPos(e) {
+    var r = canvas.getBoundingClientRect();
+    if (e.touches && e.touches[0]) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+
+function initSignaturePad() {
+    canvas = document.getElementById('sc_sigCanvas');
+    ctx    = canvas.getContext('2d');
+    var $placeholder = document.getElementById('sc_sigPlaceholder');
+    resizeCanvas();
+
+    function start(e) {
+        if (e.touches) e.preventDefault();
+        isDrawing = true; hasSig = true;
+        $placeholder.style.display = 'none';
+        ctx.beginPath();
+        var p = getPos(e); ctx.moveTo(p.x, p.y);
+    }
+    function move(e) {
+        if (!isDrawing) return;
+        if (e.touches) e.preventDefault();
+        var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke();
+    }
+    function end() { isDrawing = false; }
+
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    canvas.addEventListener('mouseup', end);
+    canvas.addEventListener('mouseleave', end);
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', move, { passive: false });
+    canvas.addEventListener('touchend', end);
+
+    window.addEventListener('resize', resizeCanvas);
+
+    document.getElementById('sc_clearSig').addEventListener('click', function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasSig = false;
+        $placeholder.style.display = 'flex';
+        document.getElementById('sc_sigError').textContent = '';
+    });
+}
+
+/* ── Submit ──────────────────────────────────────────────────────── */
+$form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var fields = {
+        name:    document.getElementById('sc_name'),
+        address: document.getElementById('sc_address'),
+        phone:   document.getElementById('sc_phone'),
+        date:    document.getElementById('sc_date'),
+    };
+    var valid = true;
+    Object.keys(fields).forEach(function(k) {
+        var el = fields[k];
+        if (!el.value.trim()) { el.classList.add('sc-invalid'); valid = false; }
+        else { el.classList.remove('sc-invalid'); }
+    });
+
+    var $sigError = document.getElementById('sc_sigError');
+    if (!hasSig) { $sigError.textContent = 'Please sign above before submitting.'; valid = false; }
+    else { $sigError.textContent = ''; }
+
+    var $formError = document.getElementById('sc_formError');
+    if (!valid) {
+        $formError.textContent = 'Please fill in all required fields and sign.';
+        return;
+    }
+    $formError.textContent = '';
+
+    var $btn = document.getElementById('sc_submitBtn');
+    $btn.disabled = true;
+    $btn.textContent = 'Submitting…';
+
+    var fieldValues = {
+        full_name: fields.name.value.trim(),
+        address:   fields.address.value.trim(),
+        phone:     fields.phone.value.trim(),
+        date:      fields.date.value,
+    };
+    var signatureDataUrl = canvas.toDataURL('image/png');
+
+    _sb.rpc('submit_contract_signature', {
+        p_token: token,
+        p_field_values: fieldValues,
+        p_signature_data_url: signatureDataUrl,
+    }).then(function(res) {
+        if (res.error || res.data !== true) {
+            $formError.textContent = 'Could not submit — this link may have already been used. Please contact Evotax.';
+            $btn.disabled = false;
+            $btn.textContent = 'Sign & Submit Agreement';
+            return;
+        }
+        $form.style.display = 'none';
+        document.getElementById('sc-signed-name').textContent = fieldValues.full_name;
+        document.getElementById('sc-signed-date').textContent = fmtDate(new Date().toISOString());
+        $signed.style.display = 'block';
+        window.scrollTo(0, 0);
+    }).catch(function() {
+        $formError.textContent = 'Something went wrong submitting your agreement. Please try again.';
+        $btn.disabled = false;
+        $btn.textContent = 'Sign & Submit Agreement';
+    });
+});
+</script>
+</body>
+</html>
