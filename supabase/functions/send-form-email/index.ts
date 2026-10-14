@@ -33,8 +33,7 @@ const FROM_ADDRESS = "Evotax Notifications <notifications@evotaxadmin.com>";
 // All three form types notify the same inbox.
 const RECIPIENT = "yassin@evotax.us";
 
-// TODO: point this at the real evotax-admin login URL once known.
-const ADMIN_PANEL_URL = "https://evotax.us";
+const ADMIN_PANEL_URL = "https://evotaxadmin.com";
 
 const SITE_LINK = `<a href="https://evotax.us" style="color:#7eb6ff;text-decoration:underline;">evotax.us</a>`;
 const ADMIN_LINK = `<a href="${ADMIN_PANEL_URL}" style="color:#2563eb;text-decoration:none;font-weight:700;">EVOTAX Admin Panel</a>`;
