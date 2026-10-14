@@ -9,8 +9,9 @@
 //
 // Deploy:
 //   supabase functions deploy send-form-email
-// Secret (one time):
-//   supabase secrets set RESEND_API_KEY=re_xxxxxxxxxxxx
+// Secret (one time) — named evotax_email in this project's Supabase
+// secrets, not the more conventional RESEND_API_KEY:
+//   supabase secrets set evotax_email=re_xxxxxxxxxxxx
 //
 // Required in Resend before this will actually deliver mail: verify the
 // sending domain (evotaxadmin.com, or a subdomain like mail.evotaxadmin.com)
@@ -19,7 +20,12 @@
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+// Read lazily, inside the handler, rather than once at module load — so a
+// secret added/changed after the isolate warmed up is picked up on the next
+// request instead of needing a redeploy.
+function getResendKey(): string | undefined {
+  return Deno.env.get("evotax_email");
+}
 
 // Update this once the sending domain is verified in Resend.
 const FROM_ADDRESS = "Evotax Notifications <notifications@evotaxadmin.com>";
@@ -113,8 +119,10 @@ serve(async (req) => {
       headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
     });
   }
+
+  const RESEND_API_KEY = getResendKey();
   if (!RESEND_API_KEY) {
-    return new Response(JSON.stringify({ error: "RESEND_API_KEY is not configured" }), {
+    return new Response(JSON.stringify({ error: "evotax_email secret is not configured" }), {
       status: 500,
       headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
     });
