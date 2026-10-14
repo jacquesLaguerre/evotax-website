@@ -90,8 +90,16 @@ function wrapEmail(headerBg: string, title: string, subtitleHtml: string, rowsHt
 </div>`;
 }
 
+// Plain-text alternative, required alongside the HTML part — an HTML-only
+// email with no text version is itself a spam signal, on top of being the
+// right thing to send for text-only mail clients.
+function plainText(title: string, subtitle: string, pairs: [string, string][], footer: string): string {
+  const lines = pairs.map(([label, value]) => `${label}: ${value}`);
+  return [title, subtitle, "", ...lines, "", footer].join("\n");
+}
+
 // deno-lint-ignore no-explicit-any
-function buildEmail(type: string, data: any): { subject: string; html: string } | null {
+function buildEmail(type: string, data: any): { subject: string; html: string; text: string } | null {
   switch (type) {
     case "job-application": {
       const rows = [
@@ -116,6 +124,18 @@ function buildEmail(type: string, data: any): { subject: string; html: string } 
           rows,
           `Log in to the ${ADMIN_LINK} to review the full application.`
         ),
+        text: plainText(
+          "New Job Application",
+          "Someone just applied to become a tax preparer on evotax.us",
+          [
+            ["Name", data.full_name || ""],
+            ["Email", data.email || ""],
+            ["Phone", data.phone || ""],
+            ["Social Media", data.social_media || "Not provided"],
+            ["Resume", data.resume_url || "Not provided"],
+          ],
+          `Log in to the EVOTAX Admin Panel to review the full application: ${ADMIN_PANEL_URL}`
+        ),
       };
     }
 
@@ -138,6 +158,19 @@ function buildEmail(type: string, data: any): { subject: string; html: string } 
           rows,
           `Log in to the ${ADMIN_LINK} to review the full submission and uploaded documents.`
         ),
+        text: plainText(
+          "New Tax Submission",
+          "A client just submitted their tax documents on evotax.us",
+          [
+            ["Name", data.name || ""],
+            ["Email", data.email || ""],
+            ["Phone", data.phone || ""],
+            ["Filing Status", data.filing_status || "Not provided"],
+            ["Files Uploaded", `${fileCount} document(s)`],
+            ["Assigned To", data.assistant || "Not assigned"],
+          ],
+          `Log in to the EVOTAX Admin Panel to review the full submission and uploaded documents: ${ADMIN_PANEL_URL}`
+        ),
       };
     }
 
@@ -155,6 +188,16 @@ function buildEmail(type: string, data: any): { subject: string; html: string } 
           `Someone just submitted the contact form on ${SITE_LINK}`,
           rows,
           `Log in to the ${ADMIN_LINK} to review the full message.`
+        ),
+        text: plainText(
+          "New Contact Message",
+          "Someone just submitted the contact form on evotax.us",
+          [
+            ["Name", data.name || ""],
+            ["Email", data.email || ""],
+            ["Message", data.message || ""],
+          ],
+          `Log in to the EVOTAX Admin Panel to review the full message: ${ADMIN_PANEL_URL}`
         ),
       };
     }
@@ -214,6 +257,7 @@ serve(async (req) => {
         reply_to: replyTo,
         subject: email.subject,
         html: email.html,
+        text: email.text,
       }),
     });
 
