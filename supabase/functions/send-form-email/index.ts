@@ -2,10 +2,10 @@
 //
 // Replaces the old n8n webhooks (both the client-side fetch() calls, long
 // gone, and a leftover server-side DB trigger on tax_submissions that was
-// still quietly POSTing to n8n — see migration 0005). Called from the
-// site's client-side JS after a form's data is already saved to Supabase.
-// Sends a notification email via Resend to yassin@evotax.us, same as the
-// old n8n flow did, just via Resend instead of n8n.
+// still quietly POSTing to n8n — dropped in migration 0005). Called from
+// the site's client-side JS after a form's data is already saved to
+// Supabase. Sends a notification email via Resend to yassin@evotax.us.
+// The card-style template below matches the original n8n email design.
 //
 // Deploy:
 //   supabase functions deploy send-form-email
@@ -33,6 +33,12 @@ const FROM_ADDRESS = "Evotax Notifications <notifications@evotaxadmin.com>";
 // All three form types notify the same inbox.
 const RECIPIENT = "yassin@evotax.us";
 
+// TODO: point this at the real evotax-admin login URL once known.
+const ADMIN_PANEL_URL = "https://evotax.us";
+
+const SITE_LINK = `<a href="https://evotax.us" style="color:#7eb6ff;text-decoration:underline;">evotax.us</a>`;
+const ADMIN_LINK = `<a href="${ADMIN_PANEL_URL}" style="color:#2563eb;text-decoration:none;font-weight:700;">EVOTAX Admin Panel</a>`;
+
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -45,66 +51,114 @@ function esc(str: unknown): string {
   );
 }
 
-function row(label: string, value: unknown) {
-  return `<p style="margin:0 0 10px;"><strong>${esc(label)}:</strong> ${value}</p>`;
+function mailtoLink(email: string): string {
+  return `<a href="mailto:${esc(email)}" style="color:#2563eb;text-decoration:none;">${esc(email)}</a>`;
+}
+
+// One row of the label/value table. `last` drops the row's bottom divider.
+function row(label: string, valueHtml: string, last = false): string {
+  const border = last ? "" : "border-bottom:1px solid #e9ebef;";
+  return `<tr>
+    <td style="padding:14px 0;${border}font-size:15px;color:#6b7280;width:160px;vertical-align:top;white-space:nowrap;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">${esc(label)}</td>
+    <td style="padding:14px 0 14px 16px;${border}font-size:15px;color:#111827;vertical-align:top;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">${valueHtml}</td>
+  </tr>`;
+}
+
+// The card: dark header (title + subtitle), light body (the rows table),
+// white footer with a link to the admin panel.
+function wrapEmail(headerBg: string, title: string, subtitleHtml: string, rowsHtml: string, footerHtml: string): string {
+  return `<div style="background:#ffffff;padding:24px 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;border:1px solid #e5e7eb;border-radius:18px;overflow:hidden;border-collapse:separate;">
+    <tr>
+      <td style="background:${headerBg};padding:28px 32px;">
+        <div style="font-size:26px;font-weight:800;color:#ffffff;line-height:1.3;">${esc(title)}</div>
+        <div style="margin-top:8px;font-size:15px;color:rgba(255,255,255,.65);line-height:1.5;">${subtitleHtml}</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="background:#f8f9fb;padding:24px 32px 8px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+          ${rowsHtml}
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="background:#ffffff;padding:20px 32px 26px;border-top:1px solid #e5e7eb;text-align:center;">
+        <div style="font-size:14px;color:#6b7280;line-height:1.6;">${footerHtml}</div>
+      </td>
+    </tr>
+  </table>
+</div>`;
 }
 
 // deno-lint-ignore no-explicit-any
 function buildEmail(type: string, data: any): { subject: string; html: string } | null {
   switch (type) {
-    case "job-application":
+    case "job-application": {
+      const rows = [
+        row("Name", `<strong>${esc(data.full_name)}</strong>`),
+        row("Email", mailtoLink(data.email)),
+        row("Phone", esc(data.phone)),
+        row("Social Media", esc(data.social_media || "Not provided")),
+        row(
+          "Resume",
+          data.resume_url
+            ? `<a href="${esc(data.resume_url)}" style="color:#2563eb;text-decoration:none;font-weight:700;">${esc(data.resume_name || "Download")}</a>`
+            : "Not provided",
+          true
+        ),
+      ].join("\n");
       return {
-        subject: `New job application — ${data.full_name || "Unknown"}`,
-        html: [
-          "<h2>New Tax Preparer Application</h2>",
-          row("Name", esc(data.full_name)),
-          row("Email", esc(data.email)),
-          row("Phone", esc(data.phone)),
-          row("Social Media", esc(data.social_media || "—")),
-          row(
-            "Resume",
-            data.resume_url
-              ? `<a href="${esc(data.resume_url)}">${esc(data.resume_name || "Download")}</a>`
-              : "—"
-          ),
-        ].join("\n"),
-      };
-
-    case "tax-submission": {
-      const files = Array.isArray(data.files) && data.files.length
-        ? data.files
-            .map((f: any) => {
-              const url = typeof f === "string" ? f : f.url;
-              const name = typeof f === "string" ? f : (f.name || f.url);
-              return `<a href="${esc(url)}">${esc(name)}</a>`;
-            })
-            .join("<br>")
-        : "—";
-      return {
-        subject: `New tax document submission — ${data.name || "Unknown"}`,
-        html: [
-          "<h2>New Tax Submission</h2>",
-          row("Name", esc(data.name)),
-          row("Email", esc(data.email)),
-          row("Phone", esc(data.phone)),
-          row("Tax Year", esc(data.tax_year)),
-          row("Assistant", esc(data.assistant || "—")),
-          row("Files", files),
-        ].join("\n"),
+        subject: `New Job Application — ${data.full_name || "Unknown"}`,
+        html: wrapEmail(
+          "#1e3b60",
+          "New Job Application",
+          `Someone just applied to become a tax preparer on ${SITE_LINK}`,
+          rows,
+          `Log in to the ${ADMIN_LINK} to review the full application.`
+        ),
       };
     }
 
-    case "contact":
+    case "tax-submission": {
+      const fileCount = Array.isArray(data.files) ? data.files.length : 0;
+      const rows = [
+        row("Name", `<strong>${esc(data.name)}</strong>`),
+        row("Email", mailtoLink(data.email)),
+        row("Phone", esc(data.phone)),
+        row("Filing Status", esc(data.filing_status || "Not provided")),
+        row("Files Uploaded", `${fileCount} document(s)`),
+        row("Assigned To", esc(data.assistant || "Not assigned"), true),
+      ].join("\n");
       return {
-        subject: `New contact form message — ${data.name || "Unknown"}`,
-        html: [
-          "<h2>New Contact Message</h2>",
-          row("Name", esc(data.name)),
-          row("Email", esc(data.email)),
-          "<p><strong>Message:</strong></p>",
-          `<p>${esc(data.message).replace(/\n/g, "<br>")}</p>`,
-        ].join("\n"),
+        subject: `New Tax Submission — ${data.name || "Unknown"}`,
+        html: wrapEmail(
+          "#0e1e3d",
+          "New Tax Submission",
+          `A client just submitted their tax documents on ${SITE_LINK}`,
+          rows,
+          `Log in to the ${ADMIN_LINK} to review the full submission and uploaded documents.`
+        ),
       };
+    }
+
+    case "contact": {
+      const rows = [
+        row("Name", `<strong>${esc(data.name)}</strong>`),
+        row("Email", mailtoLink(data.email)),
+        row("Message", esc(data.message).replace(/\n/g, "<br>"), true),
+      ].join("\n");
+      return {
+        subject: `New Contact Message — ${data.name || "Unknown"}`,
+        html: wrapEmail(
+          "#1e3b60",
+          "New Contact Message",
+          `Someone just submitted the contact form on ${SITE_LINK}`,
+          rows,
+          `Log in to the ${ADMIN_LINK} to review the full message.`
+        ),
+      };
+    }
 
     default:
       return null;

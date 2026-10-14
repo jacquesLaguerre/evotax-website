@@ -2627,12 +2627,13 @@ $('#taxUploadForm').on('submit', async function(e) {
         if (result.error) throw new Error(result.error.message);
 
         notifyByEmail('tax-submission', {
-            name:       payload.firstName + ' ' + payload.lastName,
-            email:      payload.email,
-            phone:      payload.phone,
-            tax_year:   payload.taxYear,
-            assistant:  payload.assistant,
-            files:      payload.files
+            name:          payload.firstName + ' ' + payload.lastName,
+            email:         payload.email,
+            phone:         payload.phone,
+            filing_status: payload.filingStatus,
+            tax_year:      payload.taxYear,
+            assistant:     payload.assistant,
+            files:         payload.files
         });
         markLeadSubmitted(tufLeadSessionId);
         tufLeadSessionId = genId(); // fresh lead session in case they submit another year
