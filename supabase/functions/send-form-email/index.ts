@@ -13,10 +13,10 @@
 // secrets, not the more conventional RESEND_API_KEY:
 //   supabase secrets set evotax_email=re_xxxxxxxxxxxx
 //
-// Required in Resend before this will actually deliver mail: verify the
-// sending domain (evotaxadmin.com, or a subdomain like mail.evotaxadmin.com)
-// in the Resend dashboard — add the SPF/DKIM DNS records it gives you.
-// yassin@evotax.us is just the destination inbox and needs no setup itself.
+// Sends from notifications@evotax.us (verified in Resend) rather than
+// notifications@evotaxadmin.com - the first job application sent from the
+// brand-new evotaxadmin.com landed in spam despite DKIM being set up there,
+// so this switched to the site's own long-established domain instead.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
@@ -27,8 +27,7 @@ function getResendKey(): string | undefined {
   return Deno.env.get("evotax_email");
 }
 
-// Update this once the sending domain is verified in Resend.
-const FROM_ADDRESS = "Evotax Notifications <notifications@evotaxadmin.com>";
+const FROM_ADDRESS = "Evotax Notifications <notifications@evotax.us>";
 
 // All three form types notify the same inbox.
 const RECIPIENT = "yassin@evotax.us";
