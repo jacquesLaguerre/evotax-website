@@ -3,37 +3,50 @@
 Replaces the old n8n webhooks. The site's client-side JS calls this Supabase
 Edge Function (via `_sb.functions.invoke('send-form-email', ...)`) right
 after each form's data is saved to Supabase. This function sends the
-notification email through [Resend](https://resend.com) instead.
+notification email through [Resend](https://resend.com) instead — all three
+form types notify the same inbox, `yassin@evotax.us`.
 
-| Form | Supabase table | Notified inbox |
-|---|---|---|
-| Job application | `preparer_applications` | `jobapplication@evotaxadmin.com` |
-| Tax submission | `tax_submissions` | `taxsubmission@evotaxadmin.com` |
-| Contact form | `contact_messages` | `contact@evotaxadmin.com` |
+| Form | Supabase table |
+|---|---|
+| Job application | `preparer_applications` |
+| Tax submission | `tax_submissions` |
+| Contact form | `contact_messages` |
 
-## One-time setup
+**Deployed:** version 1 is live on the `asbdodzmqdvxjbdsnnhq` project.
 
-1. **Verify the sending domain in Resend.** In the Resend dashboard, add
-   `evotaxadmin.com` (or a subdomain like `mail.evotaxadmin.com`) and add the
-   SPF/DKIM DNS records it gives you to the domain's DNS. Sending will fail,
-   or land in spam, until this is verified.
-2. **Set up the three mailboxes.** Resend only *sends* mail — it doesn't
-   provide inboxes. `jobapplication@`, `taxsubmission@`, and
-   `contact@evotaxadmin.com` need to be real mailboxes somewhere (Google
-   Workspace, Zoho Mail, etc.) with MX records pointed at that provider, or
-   the notifications will have nowhere to land.
-3. **Set the Resend API key as a Supabase secret** (never put this in the
-   client-side site code):
+## Remaining one-time setup
+
+1. **Set the Resend API key as a Supabase secret** (never put this in the
+   client-side site code) — not done yet as of this writing, confirmed by
+   testing the deployed function (`{"error":"RESEND_API_KEY is not
+   configured"}`):
    ```
    supabase secrets set RESEND_API_KEY=re_xxxxxxxxxxxxxxxx --project-ref asbdodzmqdvxjbdsnnhq
    ```
-4. **Deploy the function:**
-   ```
-   supabase functions deploy send-form-email --project-ref asbdodzmqdvxjbdsnnhq
-   ```
-   (No CLI installed locally? You can also paste `index.ts` directly into
-   Supabase Dashboard → Edge Functions → Create a new function, and add the
-   `RESEND_API_KEY` secret under Edge Functions → Manage secrets.)
+   Or via Dashboard → Edge Functions → `send-form-email` → Secrets. No MCP
+   tool exists for setting Edge Function secrets, so this has to be done via
+   the CLI or Dashboard directly.
+2. **Verify the sending domain in Resend.** In the Resend dashboard, add
+   `evotaxadmin.com` (or a subdomain like `mail.evotaxadmin.com`) and add the
+   SPF/DKIM DNS records it gives you to the domain's DNS. Sending will fail,
+   or land in spam, until this is verified. `yassin@evotax.us` is just the
+   destination inbox — it needs no setup of its own.
+3. **Drop the leftover n8n trigger** (migration
+   `0005_drop_legacy_n8n_tax_trigger.sql`) — written but **not yet applied**
+   to the DB (the apply was declined when attempted). Until it's dropped,
+   every tax submission still POSTs to the old n8n webhook
+   (`https://jacqueslaguerre.app.n8n.cloud/webhook/evotax-tax-submission`)
+   *in addition to* this function, so tax submissions will double-notify
+   once the Resend secret above is set. Run the migration's SQL in the
+   Supabase SQL editor, or re-approve the migration apply.
+
+## Redeploying after a code change
+
+```
+supabase functions deploy send-form-email --project-ref asbdodzmqdvxjbdsnnhq
+```
+(No CLI installed locally? Paste `index.ts` directly into Supabase Dashboard
+→ Edge Functions → `send-form-email`.)
 
 ## Changing the sender address
 

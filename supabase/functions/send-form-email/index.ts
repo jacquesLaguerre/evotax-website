@@ -1,23 +1,21 @@
 // Supabase Edge Function: send-form-email
 //
-// Replaces the old n8n webhooks. Called from the site's client-side JS
-// after a form's data is already saved to Supabase. Sends a notification
-// email via Resend to a dedicated inbox per form type, instead of routing
-// everything through a personal email address.
+// Replaces the old n8n webhooks (both the client-side fetch() calls, long
+// gone, and a leftover server-side DB trigger on tax_submissions that was
+// still quietly POSTing to n8n — see migration 0005). Called from the
+// site's client-side JS after a form's data is already saved to Supabase.
+// Sends a notification email via Resend to yassin@evotax.us, same as the
+// old n8n flow did, just via Resend instead of n8n.
 //
 // Deploy:
 //   supabase functions deploy send-form-email
 // Secret (one time):
 //   supabase secrets set RESEND_API_KEY=re_xxxxxxxxxxxx
 //
-// Required in Resend before this will actually deliver mail:
-//   1. Verify the sending domain (evotaxadmin.com, or a subdomain like
-//      mail.evotaxadmin.com) in the Resend dashboard — add the SPF/DKIM
-//      DNS records it gives you.
-//   2. Make sure jobapplication@ / taxsubmission@ / contact@evotaxadmin.com
-//      are real mailboxes that receive mail (Resend only sends — you need
-//      separate email hosting, e.g. Google Workspace or Zoho Mail, with MX
-//      records on evotaxadmin.com for those addresses to actually exist).
+// Required in Resend before this will actually deliver mail: verify the
+// sending domain (evotaxadmin.com, or a subdomain like mail.evotaxadmin.com)
+// in the Resend dashboard — add the SPF/DKIM DNS records it gives you.
+// yassin@evotax.us is just the destination inbox and needs no setup itself.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
@@ -26,11 +24,8 @@ const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 // Update this once the sending domain is verified in Resend.
 const FROM_ADDRESS = "Evotax Notifications <notifications@evotaxadmin.com>";
 
-const RECIPIENTS: Record<string, string> = {
-  "job-application": "jobapplication@evotaxadmin.com",
-  "tax-submission": "taxsubmission@evotaxadmin.com",
-  "contact": "contact@evotaxadmin.com",
-};
+// All three form types notify the same inbox.
+const RECIPIENT = "yassin@evotax.us";
 
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
@@ -127,8 +122,7 @@ serve(async (req) => {
 
   try {
     const { type, ...data } = await req.json();
-    const to = RECIPIENTS[type];
-    if (!to) {
+    if (!["job-application", "tax-submission", "contact"].includes(type)) {
       return new Response(JSON.stringify({ error: `Unknown form type: ${type}` }), {
         status: 400,
         headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
@@ -155,7 +149,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: FROM_ADDRESS,
-        to: [to],
+        to: [RECIPIENT],
         reply_to: replyTo,
         subject: email.subject,
         html: email.html,
