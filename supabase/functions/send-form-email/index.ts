@@ -19,12 +19,41 @@
 // so this switched to the site's own long-established domain instead.
 
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 // Read lazily, inside the handler, rather than once at module load — so a
 // secret added/changed after the isolate warmed up is picked up on the next
 // request instead of needing a redeploy.
 function getResendKey(): string | undefined {
   return Deno.env.get("evotax_email");
+}
+
+// SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are auto-provided to every
+// Edge Function — no secret needs to be set for these. The service role
+// bypasses RLS, which is required here: preparer-resumes is a private
+// bucket (correctly — only authenticated admin/contractor sessions can
+// read it), so the plain public URL stored on the application record
+// 404s for anyone clicking it from an email. This mints a short-lived
+// signed URL instead, server-side, so the link in the email actually
+// works without weakening the bucket's RLS for everyone else.
+function getServiceClient() {
+  const url = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!url || !key) return null;
+  return createClient(url, key);
+}
+
+async function resolveResumeLink(resumePath: unknown, fallbackUrl: unknown): Promise<string | null> {
+  if (typeof resumePath === "string" && resumePath) {
+    const client = getServiceClient();
+    if (client) {
+      const { data, error } = await client.storage
+        .from("preparer-resumes")
+        .createSignedUrl(resumePath, 60 * 60 * 24 * 30); // 30 days
+      if (!error && data?.signedUrl) return data.signedUrl;
+    }
+  }
+  return typeof fallbackUrl === "string" && fallbackUrl ? fallbackUrl : null;
 }
 
 const FROM_ADDRESS = "Evotax Notifications <notifications@evotax.us>";
@@ -98,9 +127,10 @@ function plainText(title: string, subtitle: string, pairs: [string, string][], f
 }
 
 // deno-lint-ignore no-explicit-any
-function buildEmail(type: string, data: any): { subject: string; html: string; text: string } | null {
+async function buildEmail(type: string, data: any): Promise<{ subject: string; html: string; text: string } | null> {
   switch (type) {
     case "job-application": {
+      const resumeLink = await resolveResumeLink(data.resume_path, data.resume_url);
       const rows = [
         row("Name", `<strong>${esc(data.full_name)}</strong>`),
         row("Email", mailtoLink(data.email)),
@@ -108,8 +138,8 @@ function buildEmail(type: string, data: any): { subject: string; html: string; t
         row("Social Media", esc(data.social_media || "Not provided")),
         row(
           "Resume",
-          data.resume_url
-            ? `<a href="${esc(data.resume_url)}" style="color:#2563eb;text-decoration:none;font-weight:700;">${esc(data.resume_name || "Download")}</a>`
+          resumeLink
+            ? `<a href="${esc(resumeLink)}" style="color:#2563eb;text-decoration:none;font-weight:700;">${esc(data.resume_name || "Download")}</a>`
             : "Not provided",
           true
         ),
@@ -131,7 +161,7 @@ function buildEmail(type: string, data: any): { subject: string; html: string; t
             ["Email", data.email || ""],
             ["Phone", data.phone || ""],
             ["Social Media", data.social_media || "Not provided"],
-            ["Resume", data.resume_url || "Not provided"],
+            ["Resume", resumeLink || "Not provided"],
           ],
           `Log in to the EVOTAX Admin Panel to review the full application: ${ADMIN_PANEL_URL}`
         ),
@@ -232,7 +262,7 @@ serve(async (req) => {
       });
     }
 
-    const email = buildEmail(type, data);
+    const email = await buildEmail(type, data);
     if (!email) {
       return new Response(JSON.stringify({ error: "Could not build email" }), {
         status: 400,
